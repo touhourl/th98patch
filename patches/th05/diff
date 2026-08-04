@@ -1,0 +1,848 @@
+diff --git a/Tupfile.lua b/Tupfile.lua
+index 69025820..f3cf97ad 100644
+--- a/Tupfile.lua
++++ b/Tupfile.lua
+@@ -896,6 +896,7 @@ obj += {
+ 	"th05/op_main.cpp",
+ 	{ "th05.asm", extra_inputs = th05_sprites["piano_l"] },
+ 	"th05/cfg.cpp",
++	"th05/config/kaikcfg.cpp",
+ 	"th05/op_setup.cpp",
+ 	"th04/zunsoft.cpp",
+ 	"th05/op_title.cpp",
+@@ -1002,6 +1003,7 @@ obj += {
+ 	"th05/boss_4.cpp",
+ 	"th05/boss_6.cpp",
+ 	"th05/boss_x.cpp",
++	"th05/main/boss/phsk.cpp",
+ 	"th05/hud_num.asm",
+ 	"th05/boss.cpp",
+ 	"th05/main014.cpp",
+diff --git a/th04/hardware/input.inc b/th04/hardware/input.inc
+index 6745723b..9cd677e9 100644
+--- a/th04/hardware/input.inc
++++ b/th04/hardware/input.inc
+@@ -13,6 +13,7 @@ INPUT_DOWN_RIGHT = 800h
+ INPUT_CANCEL     = 1000h
+ INPUT_OK         = 2000h
+ INPUT_Q          = 4000h
++INPUT_INJECTED_SHIFT = 8000h
+ 
+ INPUT_MOVEMENT   = \
+ 	INPUT_UP or INPUT_DOWN or INPUT_LEFT or INPUT_RIGHT or \
+diff --git a/th04/hardware/input_s.asm b/th04/hardware/input_s.asm
+index 2a0baef9..65a9334f 100644
+--- a/th04/hardware/input_s.asm
++++ b/th04/hardware/input_s.asm
+@@ -34,8 +34,15 @@ endif
+ 
+ public @input_reset_sense$qv
+ @input_reset_sense$qv label proc
++if GAME eq 5
++	mov	ax, _key_det
++	and	ax, INPUT_INJECTED_SHIFT
++	mov	_key_det, ax
++	xor	ax, ax
++else
+ 	xor	ax, ax
+ 	mov	_key_det, ax
++endif
+ 	mov	js_stat, ax
+ 
+ public @input_sense$qv
+@@ -143,6 +154,12 @@ public @input_sense$qv
+ 	mov	ah, 2
+ 	int	18h
+ 	and	al, 1
++if GAME eq 5
++	test	_key_det.hi, high INPUT_INJECTED_SHIFT
++	jz	short @@store_shift?
++	or	al, 1
++@@store_shift?:
++endif
+ 	mov	_shiftkey, al
+ 	cmp	js_bexist, 0
+ 	jz	short @@ret
+diff --git a/th04/main/boss/boss.cpp b/th04/main/boss/boss.cpp
+index f414b00b..a700b4fe 100644
+--- a/th04/main/boss/boss.cpp
++++ b/th04/main/boss/boss.cpp
+@@ -203,6 +203,12 @@ void near boss_defeat_update(void)
+ #endif
+ {
+ #if (GAME == 5)
++	if(resident->end_phase == 0) {
++		resident->game_end_flag = 2;
++		frame_delay(30);
++		quit = Q_QUIT_TO_OP;
++		return;
++	}
+ 	if(boss.phase == PHASE_BOSS_EXPLODE_SMALL) {
+ 		if(boss.phase_frame == BDF_SMALL_1) {
+ 			boss.damage_this_frame = 0;
+@@ -343,9 +349,11 @@ void near boss_defeat_update(void)
+ 		resident->stage++;
+ #if (GAME == 4)
+ 		resident->stage_ascii++;
++#else
++		resident->game_end_flag = 2;
++		frame_delay(30);
++		quit = Q_QUIT_TO_OP;
+ #endif
+-		quit = Q_NEXT_STAGE;
+-		frame_delay(1);
+ 	}
+ #if (GAME == 4)
+ 	boss.phase_frame++;
+diff --git a/th04/main/dialog/shared.cpp b/th04/main/dialog/shared.cpp
+index da2c8268..bcbc5d35 100644
+--- a/th04/main/dialog/shared.cpp
++++ b/th04/main/dialog/shared.cpp
+@@ -32,6 +32,14 @@
+ #include "th04/main/dialog/dialog.hpp"
+ #include "th04/sprites/main_cdg.h"
+ #include "th04/snd/snd.h"
++#if (GAME == 5)
++#include "th04/formats/std.hpp"
++#include "th04/main/null.hpp"
++#endif
++#if (GAME == 5)
++	#include "th05/resident.hpp"
++	extern void pascal far boss_phase_skip_apply(void);
++#endif
+ 
+ // A silly TH05 micro-optimization. Could have been 8-bit variables then.
+ #if (GAME == 5)
+@@ -69,6 +79,8 @@ enum dialog_side_t {
+ 
+ extern dialog_side_t dialog_side;
+ 
++bool dialog_skip_render = false;
++
+ // Metrics
+ // -------
+ 
+@@ -140,6 +153,9 @@ void pascal near dialog_box_wipe(dialog_x_t left, dialog_y_t top);
+ void near dialog_box_fade_in_animate();
+ 
+ inline void dialog_text_put(shiftjis_t* const& text) {
++	if(dialog_skip_render) {
++		return;
++	}
+ 	// ZUN landmine: Since this function is supposed to be called with [text]
+ 	// containing one fullwidth Shift-JIS codepoint followed by a terminating
+ 	// \0, it would have been safer to just assume this format and use
+@@ -158,7 +174,8 @@ inline void dialog_text_put(shiftjis_t* const& text) {
+ }
+ 
+ #define dialog_delay(speedup_cycle) { \
+-	if(key_det == INPUT_NONE) { \
++	if(dialog_skip_render) { \
++	} else if(key_det == INPUT_NONE) { \
+ 		frame_delay(2); \
+ 	} else if(speedup_cycle & 1) { \
+ 		frame_delay(1); \
+@@ -166,6 +183,9 @@ inline void dialog_text_put(shiftjis_t* const& text) {
+ }
+ 
+ inline void dialog_pre(void) {
++	if(dialog_skip_render) {
++		return;
++	}
+ 	overlay_wipe();
+ 	palette_settone(100);
+ 	graph_accesspage(page_front);
+@@ -174,6 +194,9 @@ inline void dialog_pre(void) {
+ }
+ 
+ inline void dialog_post(void) {
++	if(dialog_skip_render) {
++		return;
++	}
+ 	graph_accesspage(page_back);
+ 	frame_delay(1);
+ }
+@@ -182,6 +205,9 @@ inline void dialog_post(void) {
+ // ---------------
+ 
+ template <class T> inline void dialog_op_gaiji(const T& c) {
++	if(dialog_skip_render) {
++		return;
++	}
+ 	gaiji_putca(
+ 		to_tram_x(dialog_cursor.x), to_tram_y(dialog_cursor.y), c, TX_WHITE
+ 	);
+@@ -242,7 +268,16 @@ bool near std_update_frames_then_animate_dialog_and_activate_boss_if_done(void)
+ #endif
+ 
+ 		dialog_animate();
+-
++		#if (GAME == 5)
++		if(resident->skip_to_boss_phase > 0) {
++			stage_vm = nullfunc_far;
++		}
++		if (resident->skip_to_boss_phase >= 2) {
++			boss_phase_skip_apply();
++		}
++		resident->skip_to_boss_phase = 0;
++		#endif
++		
+ 		std_update = std_update_done;
+ 		bg_render_not_bombing = boss_bg_render_func;
+ 		boss_update = boss_update_func;
+@@ -263,6 +307,9 @@ bool near std_update_frames_then_animate_dialog_and_activate_boss_if_done(void)
+ 
+ void pascal near dialog_box_put(uscreen_x_t left, uvram_y_t top, int tile)
+ {
++	if(dialog_skip_render) {
++		return;
++	}
+ 	#define rows_left	static_cast<pixel_t>(_DX)
+ 
+ 	// ZUN bloat: A near pointer would have been much simpler...
+@@ -367,6 +414,9 @@ void pascal near dialog_face_unput_8(uscreen_x_t left, uvram_y_t top)
+ #if (GAME == 5)
+ void pascal near dialog_box_wipe(dialog_x_t left, dialog_y_t top)
+ {
++	if(dialog_skip_render) {
++		return;
++	}
+ 	for(dialog_y_t y = top; y < (top + to_dialog_y(BOX_H)); y++) {
+ 		for(dialog_x_t x = left; x < (left + to_dialog_x(TEXT_W)); x++) {
+ 			text_putca(x, y, ' ', TX_WHITE);
+@@ -377,6 +427,9 @@ void pascal near dialog_box_wipe(dialog_x_t left, dialog_y_t top)
+ 
+ void near dialog_box_fade_in_animate(void)
+ {
++	if(dialog_skip_render) {
++		return;
++	}
+ 	vsync_Count1 = 0; // ZUN bloat: Automatically done in frame_delay().
+ 	for(int i = 0; i < BOX_TILE_COUNT; i++) {
+ 		dialog_box_put(BOX_BOSS_LEFT, BOX_BOSS_TOP, i);
+diff --git a/th04/main/midboss/midboss.cpp b/th04/main/midboss/midboss.cpp
+index 5f3e9faa..b7d43805 100644
+--- a/th04/main/midboss/midboss.cpp
++++ b/th04/main/midboss/midboss.cpp
+@@ -1,6 +1,9 @@
+ #include "th04/main/frames.h"
+ #include "th04/main/null.hpp"
+ #include "th04/main/midboss/midboss.hpp"
++#if (GAME == 5)
++#include "th05/resident.hpp"
++#endif
+ 
+ void midboss_reset(void)
+ {
+@@ -15,6 +18,12 @@ void midboss_reset(void)
+ 
+ void midboss_activate_if_stage_frame_is_midboss_start_frame(void)
+ {
++	#if (GAME == 5)
++	if (resident->skip_to_boss_phase > 0) {
++		return;
++	}
++	#endif
++	
+ 	if(midboss.frames_until == stage_frame) {
+ 		midboss_invalidate = midboss_invalidate_func;
+ 		midboss_render = midboss_render_func;
+diff --git a/th04/op/m_main.cpp b/th04/op/m_main.cpp
+index 933d6a40..96da88ea 100644
+--- a/th04/op/m_main.cpp
++++ b/th04/op/m_main.cpp
+@@ -1,6 +1,7 @@
+ #if (GAME == 5)
+ #include "th05/op/start.cpp"
+ #include "th05/shiftjis/fns.hpp"
++#include "th05/config/kaikcfg.hpp"
+ #else
+ #include "th03/shiftjis/fnshared.hpp"
+ #include "th04/op/start.cpp"
+@@ -514,6 +515,35 @@ int main_op(int, const char *[])
+ #endif
+ 
+ 	cfg_load();
++	#if (GAME == 5)
++	if (kaikii_cfg_load_and_apply(resident)) {
++		resident->end_sequence = ES_SCORE;
++		resident->demo_num = 0;
++		resident->credit_lives = resident->cfg_lives;
++		resident->credit_bombs = resident->cfg_bombs;
++		for(int digit = 0; digit < SCORE_DIGITS; digit++) {
++			resident->score_last.digits[digit] = 0;
++			resident->score_highest.digits[digit] = 0;
++			for(int stage = 0; stage < MAIN_STAGE_COUNT; stage++) {
++				resident->stage_score[stage].digits[digit] = 0;
++			}
++		}
++		main_cdg_load();
++		cleardata_load();
++		op_exit_into_main(true, true);
++		cfg_save_exit();
++		#if (GAME == 4)
++		gaiji_restore();
++		#endif
++		text_clear();
++		game_exit_to_dos();
++		return 0;
++	} else {
++		dos_puts2("KAIKII.CFG loading failed!");
++		getch();
++	}
++	#endif
++	
+ 	if(resident->rank == RANK_SHOW_SETUP_MENU) {
+ 		setup_menu();
+ 		resident->rank = RANK_NORMAL;
+diff --git a/th05.asm b/th05.asm
+index e14caf25..9667e662 100644
+--- a/th05.asm
++++ b/th05.asm
+@@ -2700,7 +2700,7 @@ loc_CA35:
+ 
+ loc_CA44:
+ 		les	bx, _resident
+-		cmp	es:[bx+resident_t.RESIDENT_unknown], 15
++		cmp	es:[bx+resident_t.cfg_power], 15
+ 		jb	short loc_CA53
+ 		mov	al, 8
+ 		pop	bp
+diff --git a/th05/config/kaikcfg.cpp b/th05/config/kaikcfg.cpp
+new file mode 100644
+index 00000000..d78335db
+--- /dev/null
++++ b/th05/config/kaikcfg.cpp
+@@ -0,0 +1,77 @@
++#include <string.h>
++#include "platform.h"
++#include "pc98.h"
++#include "th05/config/kaikcfg.hpp"
++#include "th05/resident.hpp"
++#include "libs/master.lib/master.hpp"
++
++#define CONFIG_FILENAME "KAIKII.CFG"
++
++static int parse_dec(const char* p)
++{
++	int value = 0;
++	while((*p >= '0') && (*p <= '9')) {
++		value = (value * 10) + (*p - '0');
++		p++;
++	}
++	return value;
++}
++
++int kaikii_cfg_load_and_apply(void far *resident_ptr)
++{
++	resident_t far *resident = (resident_t far *)resident_ptr;
++	int fd = file_ropen(CONFIG_FILENAME);
++	if (!fd) {
++		return 0;
++	}
++	char conf_buf[512] = {0};
++	file_read(conf_buf, sizeof(conf_buf)-1);
++	file_close();
++	char* ptr;
++	
++	if((ptr = strstr(conf_buf, "total_live="))) {
++		resident->cfg_lives = parse_dec(ptr + 11);
++	}
++	
++	if((ptr = strstr(conf_buf, "total_bomb="))) {
++		resident->cfg_bombs = parse_dec(ptr + 11);
++	}
++	
++	if((ptr = strstr(conf_buf, "skip_to="))) {
++		resident->stage = parse_dec(ptr + 8);
++	}
++	
++	if((ptr = strstr(conf_buf, "char="))) {
++		resident->playchar = parse_dec(ptr + 5);
++	}
++	
++	if((ptr = strstr(conf_buf, "rank="))) {
++		resident->rank = parse_dec(ptr + 5);
++	}
++	
++	if((ptr = strstr(conf_buf, "power="))) {
++		resident->cfg_power = parse_dec(ptr + 6);
++	}
++	
++	if((ptr = strstr(conf_buf, "skip_to_boss_phase="))) {
++		resident->skip_to_boss_phase = parse_dec(ptr + 19);
++	}
++
++	if((ptr = strstr(conf_buf, "end_phase="))) {
++		resident->end_phase = parse_dec(ptr + 10);
++	}
++
++	if(resident->skip_to_boss_phase < 0) {
++		resident->skip_to_boss_phase = 0;
++	}
++	if((resident->end_phase != 0) && (resident->end_phase <= resident->skip_to_boss_phase)) {
++		resident->end_phase = resident->skip_to_boss_phase + 1;
++		if(resident->end_phase > 12) {
++			resident->end_phase = 12;
++		}
++	}
++	resident->demo_num = 0;
++	
++	return 1;
++}
++
+diff --git a/th05/config/kaikcfg.hpp b/th05/config/kaikcfg.hpp
+new file mode 100644
+index 00000000..02bee63f
+--- /dev/null
++++ b/th05/config/kaikcfg.hpp
+@@ -0,0 +1,11 @@
++#pragma once
++struct kaikii_config_t {
++	int total_live;
++	int total_bomb;
++	int skip_to;
++	int skip_to_boss_phase;
++	int end_phase;
++	int char_id;
++	int rank;
++};
++int kaikii_cfg_load_and_apply(void far *resident_ptr);
+diff --git a/th05/formats/std.cpp b/th05/formats/std.cpp
+index 7dd7daef..4df99629 100644
+--- a/th05/formats/std.cpp
++++ b/th05/formats/std.cpp
+@@ -12,6 +12,7 @@
+ #include "th04/main/stage/stage.hpp"
+ #include "th04/main/tile/tile.hpp"
+ #include "th04/main/playfld.hpp"
++#include "th05/resident.hpp"
+ #include "libs/master.lib/master.hpp"
+ #include "platform/x86real/flags.hpp"
+ #include "x86real.h"
+@@ -74,7 +75,6 @@ void near std_load(void)
+ 	// then it will read the intended speed from [std_scroll_speed]. Assigning
+ 	// a fixed initialization constant like 0xFF would have been clearer.
+ 	scroll_speed.v = _AL;
+-
+ 	// Advance to enemy script section
+ 	_DI += (_AX + 1);
+ 	enemy_scripts_remaining = *reinterpret_cast<uint8_t far *>(MK_FP(_ES, _DI));
+diff --git a/th05/main/boss/boss.hpp b/th05/main/boss/boss.hpp
+index cf5036d7..4420ee20 100644
+--- a/th05/main/boss/boss.hpp
++++ b/th05/main/boss/boss.hpp
+@@ -1,3 +1,6 @@
++#ifndef TH05_MAIN_BOSS_BOSS_HPP
++#define TH05_MAIN_BOSS_BOSS_HPP
++
+ #include "th04/main/boss/boss.hpp"
+ #include "game/coords.hpp"
+ 
+@@ -50,3 +53,6 @@ bool pascal near boss_flystep_towards(subpixel_t target_x, subpixel_t target_y);
+ void pascal near boss2_explode_small(unsigned int type);
+ void near boss2_explode_big_circle(void);
+ /// ----------
++void pascal far boss_phase_skip_apply(void);
++
++#endif /* TH05_MAIN_BOSS_BOSS_HPP */
+diff --git a/th05/main/boss/phsk.cpp b/th05/main/boss/phsk.cpp
+new file mode 100644
+index 00000000..4cd22a9a
+--- /dev/null
++++ b/th05/main/boss/phsk.cpp
+@@ -0,0 +1,23 @@
++#pragma option -zCmain_01_TEXT -zPmain_01
++
++#include "th05/resident.hpp"
++#include "th04/main/boss/boss.hpp"
++#include "th04/main/bullet/clearzap.hpp"
++#include "th04/main/bullet/bullet.hpp"
++#include "th04/main/scroll.hpp"
++#include "libs/master.lib/master.hpp"
++#include "th05/main/bullet/laser.hpp"
++#define PHASE_BOSS_ENTRANCE_BB 1
++void pascal far boss_phase_skip_apply(void)
++{
++	int8_t skip_phase = resident->skip_to_boss_phase;
++	unsigned char target_phase;
++	unsigned int step;
++	unsigned int slot;
++
++	enum {
++		PHASE_SKIP_FAST_FORWARD_MAX = 4096,
++	};
++	if(skip_phase < 2) {
++		return;
++	}
++	target_phase = static_cast<unsigned char>(skip_phase);
++	if(target_phase > 12) {
++		target_phase = 12;
++	}
++
++	for(step = 0; (step < PHASE_SKIP_FAST_FORWARD_MAX) && (boss.phase < target_phase); step++) {
++		if(boss.phase > PHASE_BOSS_ENTRANCE_BB) {
++			boss.hp = boss.phase_end_hp;
++		}
++
++		boss_update_func();
++		for(slot = 0; slot < BULLET_COUNT; slot++) {
++			bullets[slot].flag = F_FREE;
++		}
++		bullet_clear_time = 0;
++		for(slot = 0; slot < LASER_COUNT; slot++) {
++			lasers[slot].flag = LF_FREE;
++		}
++	}
++}
+diff --git a/th05/main/dialog/dialog.cpp b/th05/main/dialog/dialog.cpp
+index b30b8e0e..d659fae2 100644
+--- a/th05/main/dialog/dialog.cpp
++++ b/th05/main/dialog/dialog.cpp
+@@ -170,22 +170,24 @@ void near dialog_run(void)
+ 
+ 			// Technically, this only needs to be done for the other box
+ 			// because the new one is immediately wiped below, but who cares.
+-			text_boxfilla(
+-				to_tram_x(to_dialog_x(TEXT_PLAYCHAR_LEFT)),
+-				to_tram_y(to_dialog_y(TEXT_PLAYCHAR_TOP)),
+-				to_tram_x(to_dialog_x(TEXT_PLAYCHAR_LEFT + TEXT_W)),
+-				to_tram_y(to_dialog_y(TEXT_PLAYCHAR_TOP + BOX_H)),
+-				TX_BLUE
+-			);
+-			text_boxfilla(
+-				to_tram_x(to_dialog_x(TEXT_BOSS_LEFT)),
+-				to_tram_y(to_dialog_y(TEXT_BOSS_TOP)),
+-				to_tram_x(to_dialog_x(TEXT_BOSS_LEFT + TEXT_W)),
+-				to_tram_y(to_dialog_y(TEXT_BOSS_TOP + BOX_H)),
+-				TX_BLUE
+-			);
+-
+-			dialog_box_wipe(dialog_cursor.x, dialog_cursor.y);
++			if(!dialog_skip_render) {
++				text_boxfilla(
++					to_tram_x(to_dialog_x(TEXT_PLAYCHAR_LEFT)),
++					to_tram_y(to_dialog_y(TEXT_PLAYCHAR_TOP)),
++					to_tram_x(to_dialog_x(TEXT_PLAYCHAR_LEFT + TEXT_W)),
++					to_tram_y(to_dialog_y(TEXT_PLAYCHAR_TOP + BOX_H)),
++					TX_BLUE
++				);
++				text_boxfilla(
++					to_tram_x(to_dialog_x(TEXT_BOSS_LEFT)),
++					to_tram_y(to_dialog_y(TEXT_BOSS_TOP)),
++					to_tram_x(to_dialog_x(TEXT_BOSS_LEFT + TEXT_W)),
++					to_tram_y(to_dialog_y(TEXT_BOSS_TOP + BOX_H)),
++					TX_BLUE
++				);
++
++				dialog_box_wipe(dialog_cursor.x, dialog_cursor.y);
++			}
+ 			speedup_cycle = 0;
+ 
+ 			// Box loop
+@@ -202,7 +204,9 @@ void near dialog_run(void)
+ 				c = *(dialog_p++);
+ 				// End of text box?
+ 				if(c == 0xFF) {
+-					input_wait_for_change(0);
++					if(!dialog_skip_render) {
++						input_wait_for_change(0);
++					}
+ 					break;
+ 				} else if(!dialog_op(c)) {
+ 					// Regular kanji
+@@ -280,6 +284,8 @@ void dialog_animate(void)
+ 		return;
+ 	}
+ 
++	dialog_skip_render = true;
++
+ 	cdg_free(CDG_BG_PLAYCHAR_BOMB); // "dialog_init()"
+ 	dialog_pre();
+ 	dialog_run();
+@@ -294,6 +301,9 @@ void pascal near dialog_face_load_unput_put_free_8(
+ 	screen_x_t left, vram_y_t top, int face_id
+ )
+ {
++	if(dialog_skip_render) {
++		return;
++	}
+ 	size_t size;
+ 	uint32_t offset;
+ 	char near *faceset_fn = faceset_boss_format;
+diff --git a/th05/main/stage/setup.cpp b/th05/main/stage/setup.cpp
+index 3eb539e1..c1db1e3a 100644
+--- a/th05/main/stage/setup.cpp
++++ b/th05/main/stage/setup.cpp
+@@ -8,6 +8,10 @@
+ #include "th04/main/boss/backdrop.hpp"
+ #include "th05/main/stage/stages.hpp"
+ #include "th05/sprites/main_pat.h"
++#include "th05/main/boss/boss.hpp"
++#include "th05/resident.hpp"
++#include "libs/master.lib/master.hpp"
++#include "th01/hardware/grcg.hpp"
+ 
+ void pascal near stage1_setup(void)
+ {
+@@ -197,7 +201,6 @@ void pascal near stagex_setup(void)
+ 	boss_fg_render_func = exalice_fg_render;
+ 	boss.sprite = 180;
+ 	boss_hitbox_radius.set(24, 24);
+-	// Yup, inconsistent, but also unused.
+ 	boss_backdrop_colorfill = shinki_stage_backdrop_colorfill;
+ 
+ 	super_entry_bfnt("st06.bmt");
+@@ -205,4 +208,5 @@ void pascal near stagex_setup(void)
+ 
+ 	stage_render = nullfunc_near;
+ 	stage_invalidate = nullfunc_near;
++
+ }
+diff --git a/th05/resident.hpp b/th05/resident.hpp
+index 9006f435..6007cfea 100644
+--- a/th05/resident.hpp
++++ b/th05/resident.hpp
+@@ -1,3 +1,6 @@
++#ifndef TH05_RESIDENT_HPP
++#define TH05_RESIDENT_HPP
++
+ #include "th04/score.h"
+ #include "th04/common.h"
+ 
+@@ -6,7 +9,7 @@ struct resident_t {
+ 	char id[sizeof(RES_ID)];
+ 	bool zunsoft_shown;
+ 	uint8_t shutdown_flags;
+-	char unknown;
++	uint8_t cfg_power;
+ 	unsigned char credit_lives;
+ 	unsigned char credit_bombs;
+ 	unsigned char cfg_lives;
+@@ -24,7 +27,7 @@ struct resident_t {
+ 	unsigned char miss_count;
+ 	unsigned char bombs_used;
+ 	unsigned char demo_stage;
+-	int8_t unused_2;
++	int8_t skip_to_boss_phase;
+ 	unsigned char demo_num;
+ 	score_lebcd_t score_last;
+ 	long rand;
+@@ -48,7 +51,9 @@ struct resident_t {
+ 
+ 	score_lebcd_t stage_score[MAIN_STAGE_COUNT];
+ 	const char near *pmd_fn; // relative to the data segment of `DEBLOAT.EXE`
+-	int16_t unused_3;
++	uint8_t game_end_flag;
++	uint8_t end_phase;
+ };
+ 
+ extern resident_t far *resident;
++#endif // TH05_RESIDENT_HPP
+\ No newline at end of file
+diff --git a/th05/shiftjis/fns.hpp b/th05/shiftjis/fns.hpp
+index 75d9cab5..0b72f616 100644
+--- a/th05/shiftjis/fns.hpp
++++ b/th05/shiftjis/fns.hpp
+@@ -2,7 +2,7 @@
+ 
+ // Packfile loaded during most of OP.EXE and MAINE.EXE, except for the Music
+ // Room
+-#define OP_AND_END_PF_FN	"���Y�k1.dat"
++#define OP_AND_END_PF_FN	"kaiki_1.dat"
+ 
+ #define BGM_EXTRA_BOSS_FN	"st06b"
+ 
+diff --git a/th05/th05.inc b/th05/th05.inc
+index 7dc8bcab..04e18c70 100644
+--- a/th05/th05.inc
++++ b/th05/th05.inc
+@@ -7,7 +7,7 @@ resident_t	struc
+ 	id	db 10 dup(?)
+ 	zunsoft_shown	db ?
+ 		db ?
+-	RESIDENT_unknown	db ?
++	cfg_power	db ?
+ 	credit_lives	db ?
+ 	credit_bombs	db ?
+ 	cfg_lives	db ?
+@@ -25,7 +25,7 @@ resident_t	struc
+ 	miss_count	db ?
+ 	bombs_used	db ?
+ 	demo_stage	db ?
+-		db ?
++	skip_to_boss_phase	db ?
+ 	demo_num	db  ?
+ 	score_last	db SCORE_DIGITS dup (?)
+ 	rand	dd ?
+@@ -41,7 +41,9 @@ resident_t	struc
+ 	frames	dd ?
+ 	score_highest	db SCORE_DIGITS dup (?)
+ 	stage_score	db MAIN_STAGE_COUNT dup(SCORE_DIGITS dup (?))
+-		dd	?
++	pmd_fn	dw ?
++	game_end_flag	db ?
++	end_phase	db ?
+ resident_t ends
+ 
+ ; Shot cycle bitflags
+diff --git a/th05_main.asm b/th05_main.asm
+index 587dcc8d..3068b729 100644
+--- a/th05_main.asm
++++ b/th05_main.asm
+@@ -76,6 +76,7 @@ include libs/master.lib/file_ropen.asm
+ include libs/master.lib/file_seek.asm
+ include libs/master.lib/dos_close.asm
+ include libs/master.lib/dos_ropen.asm
++include libs/master.lib/dos_puts2.asm
+ include libs/master.lib/grcg_boxfill.asm
+ include libs/master.lib/grcg_byteboxfill_x.asm
+ include libs/master.lib/grcg_circlefill.asm
+@@ -417,6 +418,18 @@ loc_AED7:
+ 		call	enemies_update
+ 		call	_midboss_update
+ 		call	_boss_update
++       
++		les	bx, _resident
++		mov	al, es:[bx+resident_t.end_phase]
++		or	al, al
++		jz	short @@end_phase_done
++		cmp	_boss_phase, al
++		jb	short @@end_phase_done
++		mov	es:[bx+resident_t.game_end_flag], 2
++		push	30
++		call	@frame_delay$qi
++		mov	_quit, Q_QUIT_TO_OP
++@@end_phase_done:
+ 		call	items_update
+ 		call	@gather_update$qv
+ 		call	_stage_render
+@@ -558,6 +571,7 @@ sub_B063	proc near
+ 		mov	es:[bx+resident_t.miss_count], 0
+ 		mov	es:[bx+resident_t.bombs_used], 0
+ 		mov	es:[bx+resident_t.end_sequence], ES_INGAME
++		mov	es:[bx+resident_t.game_end_flag], 0
+ 		mov	al, es:[bx+resident_t.playchar]
+ 		mov	_playchar, al
+ 		mov	al, es:[bx+resident_t.credit_bombs]
+@@ -576,6 +590,12 @@ loc_B09F:
+ 		cmp	si, SCORE_DIGITS
+ 		jl	short loc_B099
+ 		mov	_power, POWER_MIN
++		les	bx, _resident
++		mov	al, es:[bx+resident_t.cfg_power]
++		or	al, al
++		jz	short @@power_set
++		mov	_power, al
++@@power_set:
+ 		mov	_dream, 1
+ 		call	bb_txt_load
+ 		mov	al, _playchar
+@@ -740,10 +760,7 @@ sub_B237	proc near
+ 		les	bx, _resident
+ 		mov	al, es:[bx+resident_t.stage]
+ 		mov	_stage_id, al
+-		cmp	_stage_id, 0
+-		jz	short loc_B260
+-		cmp	_stage_id, 6
+-		jnz	short loc_B2DD
++		jmp	short loc_B260
+ 
+ loc_B260:
+ 		mov	word_20A84, 1
+@@ -793,7 +812,7 @@ loc_B2DD:
+ 		call	@overlay_wipe$qv
+ 		call	sub_B55A
+ 		nopcall	hud_put
+-		call	@eyecatch_animate$qv
++		; call	@eyecatch_animate$qv
+ 		call	@midboss_reset$qv
+ 		cmp	word_20A84, 0
+ 		jz	loc_B3CA
+@@ -975,13 +995,19 @@ loc_B4A6:
+ loc_B4A9:
+ 		call	@map_load$qv
+ 		call	@std_load$qv
++		les	bx, _resident
++		cmp	es:[bx+resident_t.skip_to_boss_phase], 0
++		jle	short @@no_boss_skip
++		mov	_scroll_speed, 0
++@@no_boss_skip:
+ 		call	@dialog_load$qv
+ 		call	tiles_fill_initial
+ 		graph_accesspage 0
+ 
+-loc_B4BB:
+-		cmp	vsync_Count2, 80h
+-		jb	short loc_B4BB
++		;
++		; loc_B4BB:
++		; 	cmp	vsync_Count2, 80h
++		; 	jb	short loc_B4BB
+ 		push	1
+ 		call	palette_black_out
+ 		mov	PaletteTone, 100
+@@ -1092,7 +1120,7 @@ sub_B609	proc near
+ 		mov	bp, sp
+ 		push	si
+ 		call	@bb_boss_free$qv
+-		call	@dialog_free$qv
++		; call	@dialog_free$qv
+ 		call	@std_free$qv
+ 		call	@map_free$qv
+ 		call	super_clean pascal, (180 shl 16) or 256
+@@ -3055,7 +3083,7 @@ loc_F71C:
+ 		call	bb_txt_free
+ 		call	cdg_free_all
+ 		call	@bb_boss_free$qv
+-		call	@dialog_free$qv
++		; call	@dialog_free$qv
+ 		call	bb_playchar_free
+ 		call	@std_free$qv
+ 		call	@map_free$qv
+@@ -3316,6 +3344,13 @@ sub_F976	proc near
+ var_2		= word ptr -2
+ 
+ 		enter	2, 0
++		les	bx, _resident
++		mov	es:[bx+resident_t.game_end_flag], 1
++		push	30
++		call	@frame_delay$qi
++		mov	al, Q_QUIT_TO_OP
++		leave
++		retn
+ 		mov	byte_2C99C, 20h	; ' '
+ 
+ loc_F97F:
+@@ -6275,8 +6310,6 @@ loc_121E7:
+ 		mov	word_2CE9E, si
+ 
+ loc_121F4:
+-		test	_key_det.lo, low INPUT_SHOT
+-		jz	short loc_12207
+ 		cmp	_shot_time, 0
+ 		jnz	short loc_12207
+ 		mov	_shot_time, SHOT_CYCLE_FRAMES
+@@ -19469,7 +19503,7 @@ off_20A86	dd aSt00
+ _bbname	dd aBb0_cdg_0	; ZUN symbol [MAGNet2010]
+ aVersion1_01	db 'version 1.01',0
+ _EYECATCH_FN	db 'eye.cdg',0
+-aKAIKIDAN2_DAT	db '���Y�k2.dat',0
++aKAIKIDAN2_DAT	db 'kaiki_2.dat',0
+ aMiko		db 'miko',0
+ ; char arg0[]
+ arg0		db 'op',0
+diff --git a/th05d/KAIKII.CFG b/th05d/KAIKII.CFG
+new file mode 100644
+index 00000000..9a83cc40
+--- /dev/null
++++ b/th05d/KAIKII.CFG
+@@ -0,0 +1,8 @@
++total_live=4
++total_bomb=2
++skip_to=1
++skip_to_boss_phase=6
++end_phase=0
++char=1
++rank=1
++power=128
