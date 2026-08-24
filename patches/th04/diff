@@ -1,0 +1,1450 @@
+diff --git a/Tupfile.lua b/Tupfile.lua
+index 69025820..5c03f573 100644
+--- a/Tupfile.lua
++++ b/Tupfile.lua
+@@ -744,6 +744,7 @@ obj += platform_objs.vblank
+ obj += tup.glob("th04/pc98/*.cpp")
+ obj += {
+ 	"th04/op_main.cpp",
++	"th04/config/genscfg.cpp",
+ 	"th04.asm",
+ 	"th04/cutscene.cpp",
+ 	"th04/op_setup.cpp",
+@@ -833,6 +834,7 @@ obj += {
+ 	"th04/bullet_u.cpp",
+ 	"th04/bullet_a.cpp",
+ 	"th04/boss.cpp",
++	"th04/main/boss/phsk.cpp",
+ 	"th04/boss_4r.cpp",
+ 	"th04/boss_x2.cpp",
+ 
+diff --git a/th04/config/genscfg.cpp b/th04/config/genscfg.cpp
+new file mode 100644
+index 00000000..e26a748e
+--- /dev/null
++++ b/th04/config/genscfg.cpp
+@@ -0,0 +1,75 @@
++#include <string.h>
++#include "platform.h"
++#include "pc98.h"
++#include "th04/config/genscfg.hpp"
++#include "th04/common.h"
++#include "th04/playchar.h"
++#include "th04/resident.hpp"
++#include "libs/master.lib/master.hpp"
++
++#define CONFIG_FILENAME "GENSOO.CFG"
++// The guard of values are intentionally not written; they are kept in rust
++// due to the language understanding, PC-98 vs modern hardware build and
++// concept of "less code more documentation". Making them would be a mess
++// and without any explaination, that's not what we want.
++static int parse_dec(const char *p)
++{
++	int value = 0;
++	while((*p >= '0') && (*p <= '9')) {
++		value = ((value * 10) + (*p - '0'));
++		p++;
++	}
++	return value;
++}
++
++int gensoo_cfg_load_and_apply(void far *resident_ptr)
++{
++	resident_t far *resident = (resident_t far *)resident_ptr;
++	int fd = file_ropen(CONFIG_FILENAME);
++	if(!fd) {
++		return 0;
++	}
++
++	char conf_buf[512] = { 0 };
++	file_read(conf_buf, (sizeof(conf_buf) - 1));
++	file_close();
++
++	char *ptr;
++	if((ptr = strstr(conf_buf, "total_live=")) != 0) {
++		resident->cfg_lives = parse_dec(ptr + 11);
++	}
++	if((ptr = strstr(conf_buf, "total_bomb=")) != 0) {
++		resident->cfg_bombs = parse_dec(ptr + 11);
++	}
++	if((ptr = strstr(conf_buf, "skip_to=")) != 0) {
++		int stage = parse_dec(ptr + 8);
++		if(stage > STAGE_EXTRA) {
++			stage = STAGE_EXTRA;
++		}
++		resident->stage = stage;
++		resident->stage_ascii = ('0' + stage);
++	}
++	if((ptr = strstr(conf_buf, "char=")) != 0) {
++		int variant = parse_dec(ptr + 5);
++		const int variant_count = (PLAYCHAR_COUNT * SHOTTYPE_COUNT);
++		if(variant >= variant_count) {
++			variant = (variant_count - 1);
++		}
++		resident->playchar_ascii = ('0' + (variant / SHOTTYPE_COUNT));
++		resident->shottype = (variant % SHOTTYPE_COUNT);
++	}
++	if((ptr = strstr(conf_buf, "rank=")) != 0) {
++		resident->rank = parse_dec(ptr + 5);
++	}
++	if((ptr = strstr(conf_buf, "power=")) != 0) {
++		resident->cfg_power = parse_dec(ptr + 6);
++	}
++	if((ptr = strstr(conf_buf, "skip_to_boss_phase=")) != 0) {
++		resident->skip_to_boss_phase = parse_dec(ptr + 19);
++	}
++	if((ptr = strstr(conf_buf, "end_phase=")) != 0) {
++		resident->end_phase = parse_dec(ptr + 10);
++	}
++	resident->demo_num = 0;
++	return 1;
++}
+diff --git a/th04/config/genscfg.hpp b/th04/config/genscfg.hpp
+new file mode 100644
+index 00000000..2b557976
+--- /dev/null
++++ b/th04/config/genscfg.hpp
+@@ -0,0 +1,5 @@
++#pragma once
++
++#include "platform.h"
++
++int gensoo_cfg_load_and_apply(void far *resident_ptr);
+diff --git a/th04/hardware/input.inc b/th04/hardware/input.inc
+index 6745723b..8add1683 100644
+--- a/th04/hardware/input.inc
++++ b/th04/hardware/input.inc
+@@ -13,6 +13,7 @@ INPUT_DOWN_RIGHT = 800h
+ INPUT_CANCEL     = 1000h
+ INPUT_OK         = 2000h
+ INPUT_Q          = 4000h
++INPUT_INJECTED_SHIFT = 8000h
+ 
+ INPUT_MOVEMENT   = \
+ 	INPUT_UP or INPUT_DOWN or INPUT_LEFT or INPUT_RIGHT or \
+diff --git a/th04/hardware/input_s.asm b/th04/hardware/input_s.asm
+index 2a0baef9..e39aae17 100644
+--- a/th04/hardware/input_s.asm
++++ b/th04/hardware/input_s.asm
+@@ -34,8 +34,15 @@ endif
+ 
+ public @input_reset_sense$qv
+ @input_reset_sense$qv label proc
++if GAME eq 4
++	mov	ax, _key_det
++	and	ax, INPUT_INJECTED_SHIFT
++	mov	_key_det, ax
++	xor	ax, ax
++else
+ 	xor	ax, ax
+ 	mov	_key_det, ax
++endif
+ 	mov	js_stat, ax
+ 
+ public @input_sense$qv
+@@ -143,6 +150,12 @@ public @input_sense$qv
+ 	mov	ah, 2
+ 	int	18h
+ 	and	al, 1
++if GAME eq 4
++	test	_key_det.hi, high INPUT_INJECTED_SHIFT
++	jz	short @@store_shift?
++	or	al, 1
++@@store_shift?:
++endif
+ 	mov	_shiftkey, al
+ 	cmp	js_bexist, 0
+ 	jz	short @@ret
+diff --git a/th04/main/boss/boss.cpp b/th04/main/boss/boss.cpp
+index f414b00b..f331249e 100644
+--- a/th04/main/boss/boss.cpp
++++ b/th04/main/boss/boss.cpp
+@@ -199,6 +199,29 @@ void pascal near boss_defeat_update(unsigned int bonus_units)
+ char st06bk_cdg[] = BOSS_BG_MUGETSU_FN;
+ char st06_bb[] = BOSS_BB_MUGETSU_FN;
+ 
++void pascal far gengetsu_start(void)
++{
++	boss_statebyte[0] = true;
++	boss_reset();
++	boss.pos.init(
++		(PLAYFIELD_W / 2), (playfield_fraction_y(6 / 23.0f))
++	);
++	bg_render_not_bombing = mugetsu_gengetsu_bg_render;
++	boss_update = gengetsu_update;
++	boss_update_func = gengetsu_update;
++	boss_fg_render = gengetsu_fg_render;
++	boss_fg_render_func = gengetsu_fg_render;
++	boss.sprite = PAT_GENGETSU_TIPPING;
++	boss_hitbox_radius.set((GENGETSU_W / 4), (GENGETSU_H / 2));
++	bgm_title_id = 15;
++	overlay1 = overlay_boss_bgm_update_and_render;
++	cdg_free(CDG_BG_BOSS);
++	bb_boss_free();
++	cdg_load_single_noalpha(CDG_BG_BOSS, BOSS_BG_GENGETSU_FN, 0);
++	bb_boss_load(BOSS_BB_GENGETSU_FN);
++	bombing_disabled = false;
++}
++
+ void near boss_defeat_update(void)
+ #endif
+ {
+@@ -245,6 +268,21 @@ void near boss_defeat_update(void)
+ 		}
+ 		return;
+ 	} // else if(boss.phase == PHASE_NONE) {
++#if (GAME == 4)
++	// A configured run ends after final boss explosion, before the
++	// dialog and statistics. Mugetsu is not final. Therefore this should be
++	// also applied to th05, respectly.
++	if(
++		(stage_id != STAGE_EXTRA) || boss_statebyte[0]
++	) {
++		resident->stage++;
++		resident->stage_ascii++;
++		resident->game_end_flag = GAME_END_SUCCESS;
++		frame_delay(30);
++		quit = Q_QUIT_TO_OP;
++		return;
++	}
++#endif
+ 	palette_settone_deferred(60);
+ 	if(boss.phase_frame == BDF_DIALOG) {
+ 		resident->graze += stage_graze;
+@@ -279,25 +317,7 @@ void near boss_defeat_update(void)
+ 				dialog_animate();
+ 
+ 				if(!gengetsu_started) {
+-					gengetsu_started = true;
+-					boss_reset();
+-					boss.pos.init(
+-						(PLAYFIELD_W / 2), (playfield_fraction_y(6 / 23.0f))
+-					);
+-					bg_render_not_bombing = mugetsu_gengetsu_bg_render;
+-					boss_update = gengetsu_update;
+-					boss_fg_render = gengetsu_fg_render;
+-					boss.sprite = PAT_GENGETSU_TIPPING;
+-					boss_hitbox_radius.set((GENGETSU_W / 4), (GENGETSU_H / 2));
+-					bgm_title_id = 15;
+-					overlay1 = overlay_boss_bgm_update_and_render;
+-					cdg_free(CDG_BG_BOSS);
+-					bb_boss_free();
+-					cdg_load_single_noalpha(
+-						CDG_BG_BOSS, BOSS_BG_GENGETSU_FN, 0
+-					);
+-					bb_boss_load(BOSS_BB_GENGETSU_FN);
+-					bombing_disabled = false;
++					gengetsu_start();
+ 				} else {
+ 					stage_allclear_bonus();
+ 					boss.phase_frame++;
+@@ -313,6 +333,18 @@ void near boss_defeat_update(void)
+ 			stage_allclear_bonus();
+ 		}
+ 	} else if(boss.phase_frame == BDF_FADEOUT) {
++#if (GAME == 4)
++		// before ever reaching BDF_NEXT_STAGE, they will call MAINE.EXE here.
++		// So we report success.
++		if((stage_id == (MAIN_STAGE_COUNT - 1)) || (stage_id == STAGE_EXTRA)) {
++			resident->stage++;
++			resident->stage_ascii++;
++			resident->game_end_flag = GAME_END_SUCCESS;
++			frame_delay(30);
++			quit = Q_QUIT_TO_OP;
++			return;
++		}
++#endif
+ #if (GAME == 5)
+ 		// ZUN quirk: TH04 doesn't do this. It's not a problem in stages 1 to 5
+ 		// because the remaining score delta will carry over into the next
+@@ -343,9 +375,13 @@ void near boss_defeat_update(void)
+ 		resident->stage++;
+ #if (GAME == 4)
+ 		resident->stage_ascii++;
+-#endif
++		resident->game_end_flag = GAME_END_SUCCESS;
++		frame_delay(30);
++		quit = Q_QUIT_TO_OP;
++#else
+ 		quit = Q_NEXT_STAGE;
+ 		frame_delay(1);
++#endif
+ 	}
+ #if (GAME == 4)
+ 	boss.phase_frame++;
+diff --git a/th04/main/boss/boss.hpp b/th04/main/boss/boss.hpp
+index 11444ea5..ab4e3131 100644
+--- a/th04/main/boss/boss.hpp
++++ b/th04/main/boss/boss.hpp
+@@ -48,6 +48,7 @@ extern SPPoint boss_hitbox_radius;
+ extern bool boss_phase_timed_out;
+ 
+ void near boss_reset(void);
++void near boss_direct_entry_prepare(void);
+ 
+ // Grants a score bonus of [units * BOSS_BONUS_UNIT_VALUE], rendered as one new
+ // point number popup per unit around the boss sprite.
+@@ -196,6 +197,13 @@ void pascal near boss_defeat_update(unsigned int bonus_units);
+ #else
+ void near boss_defeat_update(void);
+ #endif
++
++#if (GAME == 4)
++void pascal far boss_phase_skip_apply(void);
++
++// Performs half of the extra stage from Mugetsu to Gengetsu
++void pascal far gengetsu_start(void);
++#endif
+ // ---------------
+ 
+ #endif /* TH04_MAIN_BOSS_BOSS_HPP */
+diff --git a/th04/main/boss/phsk.cpp b/th04/main/boss/phsk.cpp
+new file mode 100644
+index 00000000..2b164526
+--- /dev/null
++++ b/th04/main/boss/phsk.cpp
+@@ -0,0 +1,271 @@
++#pragma option -zCmain_01_TEXT -zPmain_01
++
++#include "th04/resident.hpp"
++#include "th04/common.h"
++#include "th04/playchar.h"
++#include "th04/main/frames.h"
++#include "th04/main/boss/boss.hpp"
++#include "th04/main/bullet/bullet.hpp"
++#include "th04/main/bullet/clearzap.hpp"
++#include "th04/main/bullet/laser_t.hpp"
++#include "th04/formats/map.hpp"
++#include "th04/formats/std.hpp"
++#include "th04/main/scroll.hpp"
++#include "th04/main/tile/tile.hpp"
++#include "th04/main/dialog/dialog.hpp"
++
++extern "C" void pascal far enemies_update(void);
++extern unsigned char elly_phase;
++extern unsigned char marisa_phase;
++
++// The stage VM normally reaches the boss while scrolls. So we need the state
++// while avoiding spawning, then seeks the VM.
++static void near direct_entry_put_map_row(
++	int ring_row, int std_section, int map_row
++)
++{
++	const uint8_t section_id = std_seg[std_section];
++	for(int x = 0; x < TILES_X; x++) {
++		tile_ring[ring_row][x] = map_seg[section_id].row[map_row][x];
++	}
++}
++
++// We must discard only the instructions whicb are skipped part of the stage.
++// ST02.STD still has Elly attack at frames 7900 through 9200,
++// after scrolling has stopped and the dialog has run.
++static void near direct_entry_seek_stage_vm(unsigned int target_frame)
++{
++	uint8_t far *ip = reinterpret_cast<uint8_t far *>(std_ip);
++	while(*reinterpret_cast<unsigned int far *>(ip) != 0) {
++		const unsigned int instruction_frame = (
++			*reinterpret_cast<unsigned int far *>(ip)
++		);
++		if(instruction_frame >= target_frame) {
++			break;
++		}
++		ip += (3 + (ip[2] * 8));
++	}
++	std_ip = ip;
++}
++
++void near boss_direct_entry_prepare(void)
++{
++	if(!std_seg || !map_seg) {
++		return;
++	}
++
++	unsigned int speed_offset = reinterpret_cast<unsigned int>(std_scroll_speed);
++	const unsigned int speed_chunk_offset = (
++		speed_offset - (TILES_Y / TILE_ROWS_PER_SECTION)
++	);
++	unsigned int speed = std_seg[speed_chunk_offset];
++	unsigned int simulated_frames = 0;
++	unsigned int scroll_subpixel = 0;
++	int simulated_scroll_line = 0;
++	int previous_tile_line = 0;
++	int section = std_map_section_id;
++	int row_in_section = 0;
++
++	// This is the scrolling main loop, without rendering updates.
++	// Stage 3 reaches the dialog after 7_834 stage frames with two
++	// subpixels left over.
++	while((speed != 0) && (simulated_frames < 32767)) {
++		simulated_frames++;
++		scroll_subpixel += speed;
++		if(scroll_subpixel >= SUBPIXEL_FACTOR) {
++			const int pixels = (scroll_subpixel >> SUBPIXEL_BITS);
++			simulated_scroll_line -= pixels;
++			while(simulated_scroll_line < 0) {
++				simulated_scroll_line += RES_Y;
++			}
++			scroll_subpixel &= (SUBPIXEL_FACTOR - 1);
++		}
++
++		const int tile_line = (simulated_scroll_line / TILE_H);
++		if(tile_line != previous_tile_line) {
++			previous_tile_line = tile_line;
++			row_in_section--;
++			if(row_in_section < 0) {
++				row_in_section = (TILE_ROWS_PER_SECTION - 1);
++				section++;
++				speed_offset++;
++				speed = std_seg[speed_offset];
++				if(speed == 0) {
++					simulated_scroll_line = 0;
++					break;
++				}
++			}
++			direct_entry_put_map_row(tile_line, section, row_in_section);
++		}
++	}
++
++	std_map_section_id = section;
++	std_scroll_speed = reinterpret_cast<SubpixelLength8 near *>(speed_offset);
++	tile_row_in_section = row_in_section;
++	scroll_speed.v = 0;
++	scroll_subpixel_line.v = static_cast<uint8_t>(scroll_subpixel);
++	scroll_line = simulated_scroll_line;
++	scroll_line_on_page[0] = simulated_scroll_line;
++	scroll_line_on_page[1] = simulated_scroll_line;
++	stage_frame = simulated_frames;
++	stage_frame_mod2 = (stage_frame & 1);
++	stage_frame_mod4 = (stage_frame & 3);
++	stage_frame_mod8 = (stage_frame & 7);
++	stage_frame_mod16 = (stage_frame & 15);
++	direct_entry_seek_stage_vm(stage_frame);
++	tiles_invalidate_all();
++}
++
++static void near boss_phase_skip_update(int forced_hp)
++{
++	unsigned int slot;
++
++	stage_vm();
++	enemies_update();
++	if(forced_hp >= 0) {
++		boss.hp = forced_hp;
++	}
++	boss_update_func();
++
++	for(slot = 0; slot < BULLET_COUNT; slot++) {
++		bullets[slot].flag = F_FREE;
++	}
++	bullet_clear_time = 0;
++	for(slot = 0; slot < THICKLASER_COUNT; slot++) {
++		thicklasers[slot].flag = TF_FREE;
++	}
++
++	stage_frame++;
++	stage_frame_mod16 = (stage_frame & 15);
++	stage_frame_mod8 = (stage_frame & 7);
++	stage_frame_mod4 = (stage_frame & 3);
++	stage_frame_mod2 = (stage_frame & 1);
++}
++
++void pascal far boss_phase_skip_apply(void)
++{
++	int8_t skip_phase = resident->skip_to_boss_phase;
++	unsigned char target_phase;
++	unsigned char elly_target_phase = 0;
++	unsigned char marisa_target_phase = 0;
++	// Differs from th05. The work of th05 will be done later
++	// and they will be in one repo.
++	if(skip_phase <= 0) {
++		return;
++	}
++	if(resident->stage == 2) {
++		// Elly Floor Attack is phase 1. After the frame hard coded state
++		// transition we track them with number trick.
++		if(skip_phase == 1) {
++			target_phase = 1;
++		} else {
++			target_phase = 3;
++			elly_target_phase = (skip_phase - 2);
++		}
++	} else if((resident->stage == 3) && (playchar == PLAYCHAR_REIMU)) {
++		target_phase = 2;
++		marisa_target_phase = (skip_phase - 1);
++	} else if(resident->stage == STAGE_EXTRA) {
++		enum {
++			MUGETSU_PHASE_COUNT = 2,
++		};
++		if(skip_phase > MUGETSU_PHASE_COUNT) {
++			// Run the original second dialog.
++			dialog_animate();
++			gengetsu_start();
++
++			if(skip_phase <= 6) {
++				target_phase = (skip_phase - 1);
++			} else {
++				target_phase = skip_phase;
++			}
++		} else {
++			// Phases 1..2 are Mugetu raw attack states 2 and 4
++			target_phase = (skip_phase * 2);
++		}
++	} else {
++		static const unsigned char stage0_phases[] = { 2, 3, 4 };
++		static const unsigned char stage1_phases[] = { 2, 3, 4, 5 };
++		// Here we got 100% is the marisa vs remu boss
++		static const unsigned char stage3_phases[] = {
++			2, 3, 5, 7, 9, 10, 11,
++		};
++		static const unsigned char stage4_phases[] = {
++			2, 6, 9, 13, 17,
++		};
++		static const unsigned char stage5_phases[] = {
++			2, 3, 4, 6, 10, 11, 14,
++		};
++		switch(resident->stage) {
++		case 0:
++			target_phase = stage0_phases[skip_phase - 1];
++			break;
++		case 1:
++			target_phase = stage1_phases[skip_phase - 1];
++			break;
++		case 3:
++			target_phase = stage3_phases[skip_phase - 1];
++			break;
++		case 4:
++			target_phase = stage4_phases[skip_phase - 1];
++			break;
++		case 5:
++			target_phase = stage5_phases[skip_phase - 1];
++			break;
++		}
++	}
++
++	while(boss.phase < target_phase) {
++		// Claudio's task here. Today, the task for readers is finally completed as side quest.
++		//
++		// [copy]
++		//      
++		// â€¦ yeah, no, we won't get very far without figuring out these drawing routines.
++        // Which process data that comes from the .STD files. Which has various arrays 
++		// related to the backgroundâ€¦ including one to specify the scrolling speed. 
++		// And wait, setting that to 0 actually is what starts a boss battle?
++
++		// So, have a TH05 Boss Rush patch:
++		// 2018-12-26-TH05BossRush.zip
++		// Theoretically, this should have also worked for TH04, but for some reason, 
++		// the Stage 3 boss gets stuck on the first phase if we do this?
++        // Here's the diff for the Boss Rush. Turning it into a thcrap-style Skipgame 
++		// patch is left as an exercise for the reader.
++		// 
++		// We not only skip stages but also phases. And also, you forgot to mention that
++		// TH04's extra stage's issue.
++		// Solve to stage 3 special here below:
++
++		// ST02.STD spawns her floor panels as enemy obj, animate patterns 128 to 133,
++		// aimed at the player and continue across frame 9240.
++		bool phase_is_attack = (boss.phase > PHASE_BOSS_ENTRANCE_BB);
++		if(resident->stage == STAGE_EXTRA) {
++			if(boss_statebyte[0]) {
++				phase_is_attack = (
++					((boss.phase >= 2) && (boss.phase <= 5)) ||
++					(boss.phase == 7) || (boss.phase == 8)
++				);
++			} else {
++				phase_is_attack = ((boss.phase == 2) || (boss.phase == 4));
++			}
++		}
++		boss_phase_skip_update(
++			phase_is_attack ? boss.phase_end_hp : -1
++		);
++	}
++
++	if(resident->stage == 2) {
++		static const int ELLY_PHASE_END_HP[] = {
++			4700, 3300, 2100, 700,
++		};
++		while(elly_phase < elly_target_phase) {
++			boss_phase_skip_update(ELLY_PHASE_END_HP[elly_phase]);
++		}
++	}
++	if((resident->stage == 3) && (playchar == PLAYCHAR_REIMU)) {
++		static const int MARISA_PHASE_END_HP[] = { 4500, 2500, 1000 };
++		while(marisa_phase < marisa_target_phase) {
++			boss_phase_skip_update(MARISA_PHASE_END_HP[marisa_phase]);
++		}
++	}
++}
+diff --git a/th04/main/dialog/dialog.cpp b/th04/main/dialog/dialog.cpp
+index 57183090..f5c26936 100644
+--- a/th04/main/dialog/dialog.cpp
++++ b/th04/main/dialog/dialog.cpp
+@@ -37,8 +37,8 @@ script_ret_t pascal near dialog_op(unsigned char c)
+ 		// ZUN bloat: Copy-pasted from the TH03 cutscene script parser, and not
+ 		// used in any of TH04's original scripts.
+ 		script_param_read_number_first(p1, 100);
+-		frame_delay(1);
+-		palette_settone(p1);
++		// frame_delay(1);
++		// palette_settone(p1);
+ 		break;
+ 
+ 	case 'f':
+@@ -46,14 +46,18 @@ script_ret_t pascal near dialog_op(unsigned char c)
+ 		// used in any of TH04's original scripts.
+ 		c = *dialog_p;
+ 		if((c == 'i') || (c == 'o')) {
+-			script_op_fade(c, palette_black_in, palette_black_out, p1);
++			dialog_p++;
++			script_param_read_number_first(p1, 1);
++			// script_op_fade(c, palette_black_in, palette_black_out, p1);
+ 		}
+ 		break;
+ 
+ 	case 'w':
+ 		c = *dialog_p;
+ 		if((c == 'i') || (c == 'o')) {
+-			script_op_fade(c, palette_white_in, palette_white_out, p1);
++			dialog_p++;
++			script_param_read_number_first(p1, 1);
++			// script_op_fade(c, palette_white_in, palette_white_out, p1);
+ 		}
+ 		break;
+ 
+@@ -61,7 +65,8 @@ script_ret_t pascal near dialog_op(unsigned char c)
+ 		if(*dialog_p != 'a') {
+ 			// Actually used at the end of the dialog shown before the Bad
+ 			// Ending.
+-			script_op_shake(false, i, p1);
++			script_param_read_number_first(p1, 8);
++			// script_op_shake(false, i, p1);
+ 		} else {
+ 			dialog_p++;
+ 			script_param_read_number_first(p1, 0);
+@@ -73,11 +78,12 @@ script_ret_t pascal near dialog_op(unsigned char c)
+ 		// ZUN bloat: Copy-pasted from the TH03 cutscene script parser, and not
+ 		// used in any of TH04's original scripts.
+ 		script_param_read_number_first(p1, 0);
+-		input_wait_for_change(p1);
++		// input_wait_for_change(p1);
+ 		break;
+ 
+ 	case '=':
+ 		script_param_read_number_first(p1, 1);
++		/*
+ 		frame_delay(1);
+ 		if(dialog_side == SIDE_PLAYCHAR) {
+ 			dialog_face_unput_8(FACE_PLAYCHAR_LEFT, FACE_PLAYCHAR_TOP);
+@@ -92,14 +98,15 @@ script_ret_t pascal near dialog_op(unsigned char c)
+ 				cdg_put_8(FACE_BOSS_LEFT, FACE_BOSS_TOP, p1);
+ 			}
+ 		}
++		*/
+ 		break;
+ 
+ 	case 'b':
+ 		script_param_read_number_first(left, 0);
+ 		script_param_read_number_second(top);
+ 		script_param_read_number_second(p1);
+-		frame_delay(1);
+-		super_roll_put(left, top, p1);
++		// frame_delay(1);
++		// super_roll_put(left, top, p1);
+ 		break;
+ 
+ 	case 'm':
+@@ -114,7 +121,7 @@ script_ret_t pascal near dialog_op(unsigned char c)
+ 	// used in any of TH04's original scripts.
+ 	case 'e':
+ 		script_param_read_number_first(p1);
+-		snd_se_play_force(p1);
++		// snd_se_play_force(p1);
+ 		break;
+ 
+ 	case 'c':
+@@ -136,13 +143,19 @@ script_ret_t pascal near dialog_op(unsigned char c)
+ 		// The only .CDG slot not covered here is CDG_BG_PLAYCHAR_BOMB, which
+ 		// was freed before in dialog_init().
+ 		for(int i = CDG_PER_STAGE; i < CDG_COUNT; i++) {
++			// background was already loaded by stage
++			if(
++				((i == CDG_BG_BOSS) || (i == CDG_BG_2))
++			) {
++				continue;
++			}
+ 			cdg_free(i);
+ 		}
+ 		break;
+ 	}
+ 
+ 	case '$':
+-		input_wait_for_change(0);
++		// input_wait_for_change(0);
+ 		return STOP;
+ 
+ 	case '#':
+@@ -228,7 +241,7 @@ void near dialog_run(void)
+ 			}
+ 		}
+ 	}
+-	overlay_wipe();
++	// overlay_wipe();
+ }
+ 
+ void dialog_animate(void)
+@@ -237,6 +250,7 @@ void dialog_animate(void)
+ 	dialog_pre();
+ 	dialog_run();
+ 
++	// redraw both playfield pages
+ 	tiles_activate_and_render_all_for_next_N_frames(PAGE_COUNT);
+ 
+ 	dialog_exit();
+diff --git a/th04/main/dialog/shared.cpp b/th04/main/dialog/shared.cpp
+index da2c8268..73e1ec35 100644
+--- a/th04/main/dialog/shared.cpp
++++ b/th04/main/dialog/shared.cpp
+@@ -23,6 +23,8 @@
+ #include "th04/playchar.h"
+ #include "th04/formats/map.hpp"
+ #include "th04/formats/std.hpp"
++#include "th04/resident.hpp"
++#include "th04/main/null.hpp"
+ #endif
+ #include "th04/main/bg.hpp"
+ #include "th04/main/frames.h"
+@@ -123,23 +125,13 @@ void pascal near dialog_face_unput_8(uscreen_x_t left, uvram_y_t top);
+ #if (GAME == 5)
+ void pascal near dialog_box_wipe(dialog_x_t left, dialog_y_t top);
+ #else
+-#define dialog_box_wipe(left, top) { \
+-	/* ZUN bloat: Could have been calculated a single time. */ \
+-	tram_y_t y = to_tram_y(top); \
+-	while(y < (to_tram_y(top) + BOX_TRAM_H)) { \
+-		tram_x_t x = to_tram_x(left); \
+-		while(x < (to_tram_x(left) + TEXT_TRAM_W)) { \
+-			text_putca(x, y, ' ', TX_WHITE); \
+-			x++; \
+-		} \
+-		y++; \
+-	} \
+-}
++#define dialog_box_wipe(left, top) {}
+ #endif
+ 
+ void near dialog_box_fade_in_animate();
+ 
+ inline void dialog_text_put(shiftjis_t* const& text) {
++	return;
+ 	// ZUN landmine: Since this function is supposed to be called with [text]
+ 	// containing one fullwidth Shift-JIS codepoint followed by a terminating
+ 	// \0, it would have been safer to just assume this format and use
+@@ -157,24 +149,19 @@ inline void dialog_text_put(shiftjis_t* const& text) {
+ 	dialog_cursor.x += to_dialog_x(GLYPH_FULL_W);
+ }
+ 
+-#define dialog_delay(speedup_cycle) { \
+-	if(key_det == INPUT_NONE) { \
+-		frame_delay(2); \
+-	} else if(speedup_cycle & 1) { \
+-		frame_delay(1); \
+-	} \
+-}
++#define dialog_delay(speedup_cycle) {}
+ 
+ inline void dialog_pre(void) {
+ 	overlay_wipe();
+ 	palette_settone(100);
+ 	graph_accesspage(page_front);
+-	dialog_box_fade_in_animate();
++	// dialog_box_fade_in_animate();
+ 	playfield_copy_front_to_back();
+ }
+ 
+ inline void dialog_post(void) {
+ 	graph_accesspage(page_back);
++	return;
+ 	frame_delay(1);
+ }
+ 
+@@ -182,6 +169,7 @@ inline void dialog_post(void) {
+ // ---------------
+ 
+ template <class T> inline void dialog_op_gaiji(const T& c) {
++	return;
+ 	gaiji_putca(
+ 		to_tram_x(dialog_cursor.x), to_tram_y(dialog_cursor.y), c, TX_WHITE
+ 	);
+@@ -234,14 +222,28 @@ bool near std_update_frames_then_animate_dialog_and_activate_boss_if_done(void)
+ {
+ 	if((scroll_speed == 0) && (page_back == 1)) {
+ #if (GAME == 4)
++		// must happen while the STD and MAP allocations still exist
++		if(resident->skip_to_boss_phase > 0) {
++			boss_direct_entry_prepare();
++		}
++		// notice this is why the Exstage breaks.
+ 		if((stage_id == 5) || (stage_id == STAGE_EXTRA)) {
+ 			cdg_free(CDG_EYECATCH);
+ 			std_free();
+ 			map_free();
++			stage_vm = nullfunc_far;
+ 		}
+ #endif
+ 
++#if (GAME == 4)
+ 		dialog_animate();
++		if(resident->skip_to_boss_phase > 0) {
++			boss_phase_skip_apply();
++		}
++		resident->skip_to_boss_phase = 0;
++#else
++		dialog_animate();
++#endif
+ 
+ 		std_update = std_update_done;
+ 		bg_render_not_bombing = boss_bg_render_func;
+@@ -263,6 +265,7 @@ bool near std_update_frames_then_animate_dialog_and_activate_boss_if_done(void)
+ 
+ void pascal near dialog_box_put(uscreen_x_t left, uvram_y_t top, int tile)
+ {
++	return;
+ 	#define rows_left	static_cast<pixel_t>(_DX)
+ 
+ 	// ZUN bloat: A near pointer would have been much simpler...
+@@ -349,6 +352,7 @@ void near playfield_copy_front_to_back(void)
+ 
+ void pascal near dialog_face_unput_8(uscreen_x_t left, uvram_y_t top)
+ {
++	return;
+ 	egc_start_copy_noframe();
+ 
+ 	// ZUN bloat: _ES = grcg_segment(0, top);
+@@ -367,6 +371,7 @@ void pascal near dialog_face_unput_8(uscreen_x_t left, uvram_y_t top)
+ #if (GAME == 5)
+ void pascal near dialog_box_wipe(dialog_x_t left, dialog_y_t top)
+ {
++	return;
+ 	for(dialog_y_t y = top; y < (top + to_dialog_y(BOX_H)); y++) {
+ 		for(dialog_x_t x = left; x < (left + to_dialog_x(TEXT_W)); x++) {
+ 			text_putca(x, y, ' ', TX_WHITE);
+@@ -377,6 +382,7 @@ void pascal near dialog_box_wipe(dialog_x_t left, dialog_y_t top)
+ 
+ void near dialog_box_fade_in_animate(void)
+ {
++	return;
+ 	vsync_Count1 = 0; // ZUN bloat: Automatically done in frame_delay().
+ 	for(int i = 0; i < BOX_TILE_COUNT; i++) {
+ 		dialog_box_put(BOX_BOSS_LEFT, BOX_BOSS_TOP, i);
+diff --git a/th04/main/midboss/midboss.cpp b/th04/main/midboss/midboss.cpp
+index 5f3e9faa..5fa444ef 100644
+--- a/th04/main/midboss/midboss.cpp
++++ b/th04/main/midboss/midboss.cpp
+@@ -1,6 +1,9 @@
+ #include "th04/main/frames.h"
+ #include "th04/main/null.hpp"
+ #include "th04/main/midboss/midboss.hpp"
++#if (GAME == 4)
++#include "th04/resident.hpp"
++#endif
+ 
+ void midboss_reset(void)
+ {
+@@ -15,6 +18,11 @@ void midboss_reset(void)
+ 
+ void midboss_activate_if_stage_frame_is_midboss_start_frame(void)
+ {
++#if (GAME == 4)
++	if(resident->skip_to_boss_phase > 0) {
++		return;
++	}
++#endif
+ 	if(midboss.frames_until == stage_frame) {
+ 		midboss_invalidate = midboss_invalidate_func;
+ 		midboss_render = midboss_render_func;
+diff --git a/th04/op/m_main.cpp b/th04/op/m_main.cpp
+index 933d6a40..ed66d482 100644
+--- a/th04/op/m_main.cpp
++++ b/th04/op/m_main.cpp
+@@ -5,6 +5,8 @@
+ #include "th03/shiftjis/fnshared.hpp"
+ #include "th04/op/start.cpp"
+ #include "th04/shiftjis/fns.hpp"
++#include "th04/config/genscfg.hpp"
++#include "th04/end/end.h"
+ #endif
+ 
+ #include <conio.h>
+@@ -514,6 +516,30 @@ int main_op(int, const char *[])
+ #endif
+ 
+ 	cfg_load();
++#if (GAME == 4)
++	if(gensoo_cfg_load_and_apply(resident)) {
++		resident->end_sequence = ES_SCORE;
++		resident->demo_num = 0;
++		resident->credit_lives = resident->cfg_lives;
++		resident->credit_bombs = resident->cfg_bombs;
++		for(int digit = 0; digit < SCORE_DIGITS; digit++) {
++			resident->score_last.digits[digit] = 0;
++		}
++		main_cdg_load();
++		cleardata_load();
++		text_clear();
++		resident->game_end_flag = GAME_END_RUNNING;
++		op_exit_into_main(true, true);
++		cfg_save_exit();
++		gaiji_restore();
++		game_exit_to_dos();
++		return 0;
++	} else {
++		dos_puts2("GENSOO.CFG loading failed!");
++		getch();
++	}
++#endif
++
+ 	if(resident->rank == RANK_SHOW_SETUP_MENU) {
+ 		setup_menu();
+ 		resident->rank = RANK_NORMAL;
+diff --git a/th04/resident.hpp b/th04/resident.hpp
+index 0b218a30..2b90ea52 100644
+--- a/th04/resident.hpp
++++ b/th04/resident.hpp
+@@ -4,6 +4,13 @@
+ #include "th04/score.h"
+ 
+ #define RES_ID "HUMAConfig"
++
++enum game_end_flag_t {
++	GAME_END_RUNNING = 0,
++	GAME_END_RETRY = 1,
++	GAME_END_SUCCESS = 2,
++};
++
+ struct resident_t {
+ 	char id[sizeof(RES_ID)];
+ 	unsigned char rem_lives;
+@@ -50,14 +57,16 @@ struct resident_t {
+ 	unsigned char cfg_lives;
+ 	unsigned char cfg_bombs;
+ 	unsigned char demo_stage;
+-	int8_t unused_3; // ZUN bloat
++	int8_t skip_to_boss_phase;
+ 	unsigned char demo_num;
+-	int8_t unused_4; // ZUN bloat
++	uint8_t cfg_power;
+ 	unsigned long slow_frames;
+ 	unsigned long frames;	// (including bosses, see th04/frames.h)
+ 	bool zunsoft_shown;
+ 	bool turbo_mode;
+-	int8_t unused_5[182]; // ZUN bloat
++	uint8_t game_end_flag;
++	uint8_t end_phase;
++	int8_t unused_5[180]; // ZUN bloat
+ };
+ 
+ extern resident_t far *resident;
+diff --git a/th04/shiftjis/fns.hpp b/th04/shiftjis/fns.hpp
+index 9f66d1ad..2143ca8a 100644
+--- a/th04/shiftjis/fns.hpp
++++ b/th04/shiftjis/fns.hpp
+@@ -1,7 +1,7 @@
+ #define BINARY_OP	"op"
+ 
+ // Packfile loaded during OP.EXE and MAINE.EXE
+-#define OP_AND_END_PF_FN	"Œ¶‘z‹½ed.dat"
++#define OP_AND_END_PF_FN	"genso_ed.dat"
+ 
+ #define EYECATCH_FN_FORMAT	"eye0.cdg"
+ 
+diff --git a/th04/th04.inc b/th04/th04.inc
+index 85214b61..5a7b4d8d 100644
+--- a/th04/th04.inc
++++ b/th04/th04.inc
+@@ -36,14 +36,20 @@ resident_t struc
+ 	cfg_lives	db ?
+ 	cfg_bombs	db ?
+ 	demo_stage	db ?
+-		db ?
++	skip_to_boss_phase	db ?
+ 	demo_num	db ?
+-		db ?
++	cfg_power	db ?
+ 	slow_frames	dd ?
+ 	frames	dd ?
+ 	zunsoft_shown	db ?
+ 	turbo_mode	db ?
+-		db 54 dup(?)
++	game_end_flag	db ?
++	end_phase	db ?
++		db 52 dup(?)
+ resident_t ends
+ 
++GAME_END_RUNNING = 0
++GAME_END_RETRY = 1
++GAME_END_SUCCESS = 2
++
+ BOMB_INVINCIBILITY_FRAMES = 255
+diff --git a/th04_main.asm b/th04_main.asm
+index 09dd919e..a85d5d24 100644
+--- a/th04_main.asm
++++ b/th04_main.asm
+@@ -373,6 +373,114 @@ loc_ABBA:
+ 		call	enemies_update
+ 		call	_midboss_update
+ 		call	_boss_update
++
++		les	bx, _resident
++		mov	al, es:[bx+resident_t.end_phase]
++		or	al, al
++		jz	near ptr @@end_phase_done
++		cmp	_stage_id, 2
++		jnz	short @@end_phase_not_elly
++
++		; Elly phase 1 is the floor attack
++		cmp	al, 1
++		jbe	near ptr @@end_phase_compare
++		cmp	_boss_phase, 3
++		jb	near ptr @@end_phase_done
++		ja	near ptr @@end_phase_reached
++		sub	al, 2
++		cmp	_elly_phase, al
++		jb	near ptr @@end_phase_done
++		jmp	@@end_phase_reached
++
++@@end_phase_not_elly:
++		cmp	_stage_id, STAGE_EXTRA
++		jnz	short @@end_phase_stage_map
++
++		cmp	_boss_statebyte[0].BSB_gengetsu_started, 0
++		jnz	short @@end_phase_gengetsu
++
++		; Mugetsu connected phases 1..2 map to raw attacks 2 and 4.
++		cmp	al, 2
++		ja	near ptr @@end_phase_done
++		shl	al, 1
++		jmp	@@end_phase_compare
++
++@@end_phase_gengetsu:
++		; Raw phase 6 is a transition
++		cmp	al, 3
++		jb	near ptr @@end_phase_reached
++		cmp	al, 6
++		ja	near ptr @@end_phase_compare
++		dec	al
++		jmp	@@end_phase_compare
++
++@@end_phase_stage_map:
++		cmp	_stage_id, 0
++		jnz	short @@end_phase_stage1
++		inc	al
++		jmp	@@end_phase_compare
++
++@@end_phase_stage1:
++		cmp	_stage_id, 1
++		jnz	short @@end_phase_stage3
++		inc	al
++		jmp	@@end_phase_compare
++
++@@end_phase_stage3:
++		cmp	_stage_id, 3
++		jnz	short @@end_phase_stage4
++		cmp	_playchar, PLAYCHAR_REIMU
++		jz	short @@end_phase_marisa
++		dec	al
++		push	bx
++		mov	ah, 0
++		mov	bx, ax
++		mov	al, cs:@@end_phase_reimu_map[bx]
++		pop	bx
++		jmp	@@end_phase_compare
++
++@@end_phase_marisa:
++		cmp	_boss_phase, 2
++		jb	near ptr @@end_phase_done
++		ja	near ptr @@end_phase_reached
++		dec	al
++		cmp	_marisa_phase, al
++		jb	near ptr @@end_phase_done
++		jmp	@@end_phase_reached
++
++@@end_phase_stage4:
++		cmp	_stage_id, 4
++		jnz	short @@end_phase_stage5
++		dec	al
++		push	bx
++		mov	ah, 0
++		mov	bx, ax
++		mov	al, cs:@@end_phase_stage4_map[bx]
++		pop	bx
++		jmp	@@end_phase_compare
++
++@@end_phase_stage5:
++		dec	al
++		push	bx
++		mov	ah, 0
++		mov	bx, ax
++		mov	al, cs:@@end_phase_stage5_map[bx]
++		pop	bx
++		jmp	@@end_phase_compare
++
++@@end_phase_reimu_map	db 2, 3, 5, 7, 9, 10, 11
++@@end_phase_stage4_map	db 2, 6, 9, 13, 17
++@@end_phase_stage5_map	db 2, 3, 4, 6, 10, 11, 14
++
++@@end_phase_compare:
++		cmp	_boss_phase, al
++		jb	near ptr @@end_phase_done
++@@end_phase_reached:
++		mov	es:[bx+resident_t.game_end_flag], GAME_END_SUCCESS
++		push	30
++		call	@frame_delay$qi
++		mov	_quit, Q_QUIT_TO_OP
++@@end_phase_done:
+ 		call	items_update
+ 		call	@gather_update$qv
+ 		call	_stage_render
+@@ -487,6 +595,7 @@ sub_AD03	proc near
+ 		mov	es:[bx+resident_t.miss_count], 0
+ 		mov	es:[bx+resident_t.bombs_used], 0
+ 		mov	es:[bx+resident_t.end_sequence], ES_INGAME
++		mov	es:[bx+resident_t.game_end_flag], GAME_END_RUNNING
+ 		cmp	es:[bx+resident_t.playchar_ascii], '0' + PLAYCHAR_MARISA
+ 		jnz	short loc_AD2C
+ 		mov	ax, PLAYCHAR_MARISA
+@@ -510,6 +619,12 @@ loc_AD3B:
+ 		cmp	si, SCORE_DIGITS
+ 		jl	short loc_AD35
+ 		mov	_power, POWER_MIN
++		les	bx, _resident
++		mov	al, es:[bx+resident_t.cfg_power]
++		or	al, al
++		jz	short @@power_set
++		mov	_power, al
++@@power_set:
+ 		les	bx, _resident
+ 		mov	al, es:[bx+resident_t.credit_bombs]
+ 		mov	es:[bx+resident_t.rem_bombs], al
+@@ -665,10 +780,7 @@ sub_AED0	proc near
+ 		les	bx, _resident
+ 		mov	al, es:[bx+resident_t.stage]
+ 		mov	_stage_id, al
+-		cmp	_stage_id, 0
+-		jz	short loc_AEF9
+-		cmp	_stage_id, 6
+-		jnz	short loc_AF4A
++		jmp	short loc_AEF9
+ 
+ loc_AEF9:
+ 		mov	word_213DE, 1
+@@ -703,7 +815,7 @@ loc_AF4A:
+ 		call	@overlay_wipe$qv
+ 		call	main_01:sub_B1D0
+ 		nopcall	main_01:hud_put
+-		call	@eyecatch_animate$qv
++		; call	@eyecatch_animate$qv
+ 		call	@midboss_reset$qv
+ 		cmp	word_213DE, 0
+ 		jz	short loc_AFD5
+@@ -853,13 +965,18 @@ loc_B141:
+ loc_B144:
+ 		call	@map_load$qv
+ 		call	@std_load$qv
++		les	bx, _resident
++		cmp	es:[bx+resident_t.skip_to_boss_phase], 0
++		jle	short @@no_boss_skip
++		mov	_scroll_speed, 0
++@@no_boss_skip:
+ 		call	@dialog_load$qv
+ 		call	tiles_fill_initial
+ 		graph_accesspage 0
+ 
+-loc_B156:
+-		cmp	vsync_Count2, 80h
+-		jb	short loc_B156
++		; loc_B156:
++		; cmp	vsync_Count2, 80h
++		; jb	short loc_B156
+ 		push	1
+ 		call	palette_black_out
+ 		mov	PaletteTone, 100
+@@ -3448,6 +3565,14 @@ sub_E541	proc near
+ var_2		= word ptr -2
+ 
+ 		enter	2, 0
++		les	bx, _resident
++		mov	es:[bx+resident_t.game_end_flag], GAME_END_RETRY
++		push	30
++		call	@frame_delay$qi
++		mov	al, Q_QUIT_TO_OP
++		leave
++		retn
++
+ 		cmp	_stage_id, 5
+ 		jnz	short loc_E551
+ 		nopcall	@end_game_bad$qv
+@@ -7446,8 +7571,6 @@ loc_10B75:
+ 		mov	word_2598C, si
+ 
+ loc_10B82:
+-		test	_key_det.lo, low INPUT_SHOT
+-		jz	short loc_10B97
+ 		cmp	_shot_time, 1
+ 		ja	short loc_10B97
+ 		mov	_shot_time, SHOT_CYCLE_FRAMES
+@@ -12523,7 +12646,7 @@ enemy_velocity_set	endp
+ 
+ ; Attributes: bp-based frame
+ 
+-sub_155AA	proc near
++enemy_velocity_set_relative_to_player	proc near
+ 		push	bp
+ 		mov	bp, sp
+ 		push	si
+@@ -12545,7 +12668,7 @@ sub_155AA	proc near
+ 		pop	si
+ 		pop	bp
+ 		retn
+-sub_155AA	endp
++enemy_velocity_set_relative_to_player	endp
+ 
+ 
+ ; =============== S U B	R O U T	I N E =======================================
+@@ -12765,14 +12888,13 @@ loc_1579A:
+ 		mov	[bp+var_2], 5
+ 		jmp	loc_15B1A
+ ; ---------------------------------------------------------------------------
+-
+-loc_157B7:
++enemy_script_op_aim_at_player:
+ 		mov	al, es:[di+1]
+ 		mov	[si+enemy_t.E_angle], al
+ 		mov	al, es:[di+2]
+ 		mov	ah, 0
+ 		mov	[si+enemy_t.E_speed], ax
+-		call	sub_155AA
++		call	enemy_velocity_set_relative_to_player
+ 		jmp	loc_15A9D
+ ; ---------------------------------------------------------------------------
+ 
+@@ -13027,7 +13149,7 @@ loc_159DE:
+ 		jmp	loc_158BE
+ ; ---------------------------------------------------------------------------
+ 
+-loc_159E5:
++enemy_script_op_animation:
+ 		mov	al, es:[di+1]
+ 		mov	[si+enemy_t.E_anim_cels], al
+ 		mov	al, es:[di+2]
+@@ -13042,7 +13164,7 @@ loc_159F6:
+ 		jmp	loc_15AE4
+ ; ---------------------------------------------------------------------------
+ 
+-loc_15A05:
++enemy_script_op_patnum_set:
+ 		mov	al, es:[di+1]
+ 		mov	[si+enemy_t.E_patnum_base], al
+ 		jmp	loc_15AE4
+@@ -13106,7 +13228,7 @@ loc_15A76:
+ 		jmp	loc_15B1A
+ ; ---------------------------------------------------------------------------
+ 
+-loc_15A81:
++enemy_script_op_patnum_add:
+ 		mov	al, es:[di+1]
+ 		add	[si+enemy_t.E_patnum_base], al
+ 		jmp	short loc_15AE4
+@@ -13235,7 +13357,7 @@ off_15B4D	dw offset loc_159A4
+ 		dw offset loc_15711
+ 		dw offset loc_15749
+ 		dw offset loc_15749
+-		dw offset loc_157B7
++		dw offset enemy_script_op_aim_at_player
+ 		dw offset loc_157CD
+ 		dw offset loc_15721
+ 		dw offset loc_157D7
+@@ -13359,16 +13481,16 @@ off_15B4D	dw offset loc_159A4
+ 		dw offset loc_159D3
+ 		dw offset loc_159DE
+ 		dw offset loc_159DA
+-		dw offset loc_159E5
++		dw offset enemy_script_op_animation
+ 		dw offset loc_159F6
+-		dw offset loc_15A05
++		dw offset enemy_script_op_patnum_set
+ 		dw offset loc_15A0F
+ 		dw offset loc_15A1E
+ 		dw offset loc_15A48
+ 		dw offset loc_15A60
+ 		dw offset loc_15A3A
+ 		dw offset loc_15A41
+-		dw offset loc_15A81
++		dw offset enemy_script_op_patnum_add
+ 		dw offset loc_15AD2
+ 
+ include th04/main/boss/explosions_reset.asm
+@@ -15844,7 +15966,7 @@ loc_1736D:
+ 		mov	dl, 24
+ 		sub	dl, al
+ 		mov	_bullet_template.count, dl
+-		cmp	byte_25674, 2
++		cmp	_marisa_phase, 2
+ 		jnz	short loc_173A2
+ 		mov	_bullet_template.count, 28
+ 
+@@ -16580,7 +16702,7 @@ loc_17A75:
+ 		mov	_boss_phase_frame, 0
+ 		mov	_boss_sprite, 129
+ 		mov	byte_25673, 1
+-		mov	byte_25674, 0
++		mov	_marisa_phase, 0
+ 		mov	byte_2566E, 0Ah
+ 		mov	byte_2566F, 0
+ 		mov	_boss_statebyte[13].BSB_flystep_pointreflected_tick, 0
+@@ -16744,19 +16866,19 @@ loc_17BEB:
+ loc_17BF0:
+ 		cmp	_boss_hp, 4500
+ 		jg	short loc_17BFF
+-		cmp	byte_25674, 0
++		cmp	_marisa_phase, 0
+ 		jz	short loc_17C21
+ 
+ loc_17BFF:
+ 		cmp	_boss_hp, 2500
+ 		jg	short loc_17C0E
+-		cmp	byte_25674, 1
++		cmp	_marisa_phase, 1
+ 		jz	short loc_17C21
+ 
+ loc_17C0E:
+ 		cmp	_boss_hp, 1000
+ 		jg	loc_17CA4
+-		cmp	byte_25674, 2
++		cmp	_marisa_phase, 2
+ 		jnz	loc_17CA4
+ 
+ loc_17C21:
+@@ -16767,10 +16889,10 @@ loc_17C21:
+ 
+ loc_17C30:
+ 		call	@boss_score_bonus$qui pascal, 10
+-		mov	al, byte_25674
++		mov	al, _marisa_phase
+ 		mov	ah, 0
+ 		call	@boss_explode_small$q16explosion_type_t pascal, ax
+-		inc	byte_25674
++		inc	_marisa_phase
+ 		jmp	short loc_17CA4
+ ; ---------------------------------------------------------------------------
+ 
+@@ -24254,7 +24376,7 @@ loc_1C400:
+ 		mov	_boss_pos.cur.y, (96 shl 4)
+ 		mov	_boss_pos.prev.x, 0
+ 		call	@boss_phase_next$q16explosion_type_ti pascal, (ET_NONE shl 16) or 0
+-		mov	byte_25A24, 0
++		mov	_elly_phase, 0
+ 		jmp	loc_1C67A
+ ; ---------------------------------------------------------------------------
+ 
+@@ -24337,7 +24459,7 @@ loc_1C4A9:
+ 
+ loc_1C4BA:
+ 		inc	_boss_phase_state
+-		mov	al, byte_25A24
++		mov	al, _elly_phase
+ 		mov	ah, 0
+ 		mov	bx, ax
+ 		cmp	bx, 4
+@@ -24356,12 +24478,12 @@ loc_1C4D3:
+ 		jb	loc_1C57F
+ 
+ loc_1C4EB:
+-		mov	al, byte_25A24
++		mov	al, _elly_phase
+ 		mov	ah, 0
+ 		call	@boss_explode_small$q16explosion_type_t pascal, ax
+ 		mov	_boss_mode, -1
+-		inc	byte_25A24
+-		mov	al, byte_25A24
++		inc	_elly_phase
++		mov	al, _elly_phase
+ 		mov	ah, 0
+ 		imul	ax, 1500
+ 		mov	dx, 6000
+@@ -24436,27 +24558,27 @@ loc_1C591:
+ 		call	@sparks_add_circle$q20%SubpixelBase$ti$ti%t1ii pascal, _boss_pos.cur.x, _boss_pos.cur.y, large (((8 shl 4) shl 16) or 48)
+ 		call	@boss_explode_small$q16explosion_type_t pascal, ET_VERTICAL
+ 		mov	_boss_phase_frame, 0
+-
++; RE Boss Script of stage 3 (idx 2)
+ loc_1C5B1:
+-		cmp	byte_25A24, 0
++		cmp	_elly_phase, 0
+ 		jnz	short loc_1C5C0
+ 		cmp	_boss_hp, 4700
+ 		jle	short loc_1C5F1
+ 
+ loc_1C5C0:
+-		cmp	byte_25A24, 1
++		cmp	_elly_phase, 1
+ 		jnz	short loc_1C5CF
+ 		cmp	_boss_hp, 3300
+ 		jle	short loc_1C5F1
+ 
+ loc_1C5CF:
+-		cmp	byte_25A24, 2
++		cmp	_elly_phase, 2
+ 		jnz	short loc_1C5DE
+ 		cmp	_boss_hp, 2100
+ 		jle	short loc_1C5F1
+ 
+ loc_1C5DE:
+-		cmp	byte_25A24, 3
++		cmp	_elly_phase, 3
+ 		jnz	loc_1C67A
+ 		cmp	_boss_hp, 700
+ 		jg	loc_1C67A
+@@ -24469,12 +24591,12 @@ loc_1C5F1:
+ 
+ loc_1C600:
+ 		call	@boss_score_bonus$qui pascal, 10
+-		mov	al, byte_25A24
++		mov	al, _elly_phase
+ 		mov	ah, 0
+ 		call	@boss_explode_small$q16explosion_type_t pascal, ax
+ 		mov	_boss_mode, -1
+ 		mov	_boss_phase_frame, 0
+-		inc	byte_25A24
++		inc	_elly_phase
+ 		jmp	short loc_1C67A
+ ; ---------------------------------------------------------------------------
+ 
+@@ -29511,7 +29633,7 @@ off_213E0	dd aSt00
+ 					; "ST00"
+ _bbname	dd aBb0_cdg_0	; original ZUN variable name
+ _EYECATCH_FN_FORMAT	db 'eye0.cdg',0
+-aUmx		db '“Œ•ûŒ¶‘z.‹½',0
++aUmx		db 'tohogens.ko',0
+ aGameft_bft	db 'GAMEFT.bft',0
+ aMiko		db 'miko',0
+ ; char arg0[]
+@@ -30073,7 +30195,8 @@ byte_25671	db ?
+ public _bits_alive
+ _bits_alive	db ?
+ byte_25673	db ?
+-byte_25674	db ?
++public _marisa_phase
++_marisa_phase	db ?
+ 	evendata
+ 
+ public _bit_fire, _bit_center_x, _bit_center_y
+@@ -30154,7 +30277,8 @@ byte_25A1B	db ?
+ 		db 2 dup(?)
+ byte_25A1E	db ?
+ 		db 5 dup(?)
+-byte_25A24	db ?
++public _elly_phase
++_elly_phase	db ?
+ 		db ?
+ byte_25A26	db ?
+ byte_25A27	db ?

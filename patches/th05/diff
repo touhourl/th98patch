@@ -648,7 +648,7 @@ index 75d9cab5..0b72f616 100644
  
  // Packfile loaded during most of OP.EXE and MAINE.EXE, except for the Music
  // Room
--#define OP_AND_END_PF_FN	"ï¿½ï¿½ï¿½Yï¿½k1.dat"
+-#define OP_AND_END_PF_FN	"‰öãY’k1.dat"
 +#define OP_AND_END_PF_FN	"kaiki_1.dat"
  
  #define BGM_EXTRA_BOSS_FN	"st06b"
@@ -827,7 +827,7 @@ index 587dcc8d..3068b729 100644
  _bbname	dd aBb0_cdg_0	; ZUN symbol [MAGNet2010]
  aVersion1_01	db 'version 1.01',0
  _EYECATCH_FN	db 'eye.cdg',0
--aKAIKIDAN2_DAT	db 'ï¿½ï¿½ï¿½Yï¿½k2.dat',0
+-aKAIKIDAN2_DAT	db '‰öãY’k2.dat',0
 +aKAIKIDAN2_DAT	db 'kaiki_2.dat',0
  aMiko		db 'miko',0
  ; char arg0[]

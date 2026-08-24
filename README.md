@@ -1,5 +1,5 @@
-# The patch of game for RL
-If you are not a dev, I sincerely don't recommend you to build it from source. Also, this diff is likely to be final because I don't have any interests on modifying the diff under `bvi`. You need to read the things under, if you don't read, any issues are possible. You have been warned. But if you did this, and found an issue, please create a issue.
+# The patch of games for RL
+If you are not a dev, I sincerely don't recommend you to build it from source. You need to read the things under, if you don't read, any issues are possible. You have been warned. But if you did this, and found an issue, please create a issue.
 ## Setup
 ```bash
 sudo apt install bsdiff
@@ -39,7 +39,22 @@ Make sure that you compile dosbox-x from source!
 
 # R.I.P ReC98
 As [July 15, 2026](https://github.com/nmlgc/rec98.nmlgc.net/commit/eb4c9ead083f267eace73e687d364e2638e869f2), the ReC98 project sunsets. I am sad. I hope I or someone else can continue that project. It has really helped me so much in thrl project and this one. So, what will the future be? Well, [th06](https://github.com/GensokyoClub/th06) is decompiled and [th08](https://github.com/GensokyoClub/th08) is WIP. Or maybe thrl will just be all about Touhou fan games then. Touhou fans have been incredibly generous in the years. Thanks to [taisei-project](https://github.com/taisei-project/taisei) licensing all taisei source code under MIT/CC-BY-4.0, everything about this is legal, thus making taisei an objectively much more sustainable development by me.
-## This diff does:
+
+## TH04 diff does:
+1. Load the config GENSOO.CFG;
+2. The config contains things like
+    total_live=4    ; total lives (config lives)
+    total_bomb=2    ; bombs (also config bombs)
+    skip_to=2       ; skip to stage 2
+    skip_to_boss_phase=0  ; start from stage 2 begin
+    end_phase=0     ; end until boss is defeated
+    char=1          ; character; shot type = 1 if char = 1 or 3 else 0.
+    power=128
+    rank=1
+    ; if the skip to boss phase is 1, 2, or 3 or more then it indicates the boss's phase and the pattern (spell card alike)
+3. The custom loader load the config, launch the main.exe.
+
+## TH05 diff does:
 1. Load the config KAIKII.CFG;
 2. The config contains things like
     total_live=4    ; total lives (config lives)
@@ -53,7 +68,7 @@ As [July 15, 2026](https://github.com/nmlgc/rec98.nmlgc.net/commit/eb4c9ead083f2
     ; if the skip to boss phase is 1, 2, or 3 or more then it indicates the boss's phase and the pattern
 3. The custom loader load the config, launch the main.exe.
 
-## Overall changes:
+## Overall changes for all games:
 1. Changed config names to ASCII, so to run under linux and called. This requires renaming .DATs.
 2. Input control issue, cannot press shift key via memory reader
 3. Custom loader
@@ -83,4 +98,4 @@ A: ZUN Bloat in resident structure. While the young ZUN creates many bloats in r
 
 Q: How long you made it?
 
-A: 1-2 months.
+A: IDK but more than 3 months worked on it.
