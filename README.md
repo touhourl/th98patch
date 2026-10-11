@@ -6,8 +6,6 @@ sudo apt install bsdiff
 ./patch.sh <dir>
 ```
 And then you need to manually modify the GAME.BAT: Change all op to debloat.
-And then, do:
-
 ```bash
 echo "[dosbox]
 machine=pc9821
@@ -18,9 +16,10 @@ core=normal
 cputype=386
 cycles=12000" > ./default.conf
 ```
-
+And then, do if th05:
 ```bash
 echo "total_live=3
+
 total_bomb=3
 skip_to=6
 skip_to_boss_phase=9
@@ -28,6 +27,18 @@ end_phase=0
 char=2
 rank=0
 power=128" > ./KAIKII.CFG
+```
+if th04:
+
+```bash
+echo "total_live=3
+total_bomb=3
+skip_to=6
+skip_to_boss_phase=3
+end_phase=0
+char=0
+rank=0
+power=128" > ./GENSOO.CFG
 ```
 One creates the default.conf for dosbox-x and one creates KAIKII.CFG.
 Then you need to test launch it:

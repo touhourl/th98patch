@@ -1,0 +1,2577 @@
+
+ Start  Stop   Length Name               Class
+
+ 00000H 05E9CH 05E9DH _TEXT              CODE
+ 05E9EH 05EB3H 00016H SLOWDOWN_TEXT      CODE
+ 05EB4H 0692DH 00A7AH DEMO_TEXT          CODE
+ 0692EH 06B26H 001F9H EMS_TEXT           CODE
+ 06B27H 06B77H 00051H TILE_SET_TEXT      CODE
+ 06B78H 06C5DH 000E6H STD_TEXT           CODE
+ 06C5EH 06E7AH 0021DH END_TEXT           CODE
+ 06E7CH 07B70H 00CF5H CIRCLE_TEXT        CODE
+ 07B72H 07FCFH 0045EH TILE_TEXT          CODE
+ 07FD0H 0814DH 0017EH MAI_TEXT           CODE
+ 0814EH 08219H 000CCH PLAYFLD_TEXT       CODE
+ 0821AH 08346H 0012DH M4_RENDER_TEXT     CODE
+ 08347H 08A8CH 00746H DIALOG_TEXT        CODE
+ 08A8DH 08C5DH 001D1H BOSS_EXP_TEXT      CODE
+ 08C5EH 09CB8H 0105BH MAIN_TEXT          CODE
+ 09CB9H 09EB4H 001FCH STAGES_TEXT        CODE
+ 09EB5H 0BABEH 01C0AH MAIN__TEXT         CODE
+ 0BABFH 0BB75H 000B7H PLAYER_M_TEXT      CODE
+ 0BB76H 0BBA9H 00034H PLAYER_P_TEXT      CODE
+ 0BBAAH 0BF65H 003BCH MAIN_0_TEXT        CODE
+ 0BF66H 0C76CH 00807H HUD_OVRL_TEXT      CODE
+ 0C76DH 0CDDDH 00671H MAIN_01_TEXT       CODE
+ 0CDDEH 0D5E0H 00803H MAIN_012_TEXT      CODE
+ 0D5E1H 0D613H 00033H CFG_LRES_TEXT      CODE
+ 0D614H 0D6C1H 000AEH MAIN_013_TEXT      CODE
+ 0D6C2H 0D76FH 000AEH CHECKERB_TEXT      CODE
+ 0D770H 0D79EH 0002FH MB_INV_TEXT        CODE
+ 0D79FH 0D7C5H 00027H BOSS_BD_TEXT       CODE
+ 0D7C6H 0E051H 0088CH BOSS_BG_TEXT       CODE
+ 0E052H 0E4FAH 004A9H SCORE_TEXT         CODE
+ 0E4FBH 0E902H 00408H BOSS_FG_TEXT       CODE
+ 0E904H 0F2C3H 009C0H SHARED             CODE
+ 0F2C4H 0F503H 00240H GATHER_TEXT        CODE
+ 0F504H 0F55CH 00059H SCROLLY3_TEXT      CODE
+ 0F55EH 0F57DH 00020H MOTION_3_TEXT      CODE
+ 0F57EH 0F61DH 000A0H MAIN_032_TEXT      CODE
+ 0F61EH 0F655H 00038H VECTOR2N_TEXT      CODE
+ 0F656H 0F721H 000CCH SPARK_A_TEXT       CODE
+ 0F722H 0F740H 0001FH GRCG_3_TEXT        CODE
+ 0F742H 0F7D5H 00094H IT_SPL_U_TEXT      CODE
+ 0F7D6H 12428H 02C53H B4M_UPDATE_TEXT    CODE
+ 12429H 156DFH 032B7H MAIN_033_TEXT      CODE
+ 156E0H 1573EH 0005FH MIDBOSS_TEXT       CODE
+ 1573FH 15796H 00058H HUD_HP_TEXT        CODE
+ 15797H 158AFH 00119H MB_DFT_TEXT        CODE
+ 158B0H 17EF6H 02647H MAIN_034_TEXT      CODE
+ 17EF7H 1845AH 00564H BULLET_U_TEXT      CODE
+ 1845BH 18C96H 0083CH BULLET_A_TEXT      CODE
+ 18C97H 19DE0H 0114AH MAIN_035_TEXT      CODE
+ 19DE1H 1A168H 00388H BOSS_TEXT          CODE
+ 1A169H 1BF3DH 01DD5H MAIN_036_TEXT      CODE
+ 1BF3EH 1BF3EH 00000H BOSS_4R_TEXT       CODE
+ 1BF3EH 1BF3EH 00000H BOSS_X2_TEXT       CODE
+ 1BF40H 1BF40H 00000H _FARDATA           FAR_DATA
+ 1BF40H 1BF40H 00000H _FARBSS            FAR_BSS
+ 1BF40H 1BF40H 00000H _OVERLAY_          OVRINFO
+ 1BF40H 1BF40H 00000H _1STUB_            STUBSEG
+ 1BF40H 1E791H 02852H _DATA              DATA
+ 1E792H 1E792H 00000H _CVTSEG            DATA
+ 1E792H 1E792H 00000H _SCNSEG            DATA
+ 1E792H 1E792H 00000H _CONST             CONST
+ 1E792H 1E79DH 0000CH _INIT_             INITDATA
+ 1E79EH 1E79EH 00000H _INITEND_          INITDATA
+ 1E79EH 1E79EH 00000H _EXIT_             EXITDATA
+ 1E79EH 1E79EH 00000H _EXITEND_          EXITDATA
+ 1E79EH 27AEBH 0934EH _BSS               BSS
+ 27AECH 27AECH 00000H _COMDEF_           BSS
+ 27AECH 27AECH 00000H _BSSEND            BSS
+ 27AF0H 27B6FH 00080H _STACK             STACK
+
+
+Detailed map of segments
+
+ 0000:0000 0271 C=CODE   S=_TEXT          G=(none)   M=c0.ASM     ACBP=28
+ 0000:0271 00AB C=CODE   S=_TEXT          G=(none)   M=platform/x86real/noexcept.cpp ACBP=28
+ 0000:031C 0001 C=CODE   S=_TEXT          G=(none)   M=platform/x86real/novbuf.cpp ACBP=28
+ 0000:031E 3FE2 C=CODE   S=_TEXT          G=(none)   M=th04_main.asm ACBP=48
+ 0000:4300 001B C=CODE   S=_TEXT          G=(none)   M=_abort     ACBP=28
+ 0000:431B 003D C=CODE   S=_TEXT          G=(none)   M=_stpcpy    ACBP=28
+ 0000:4358 0031 C=CODE   S=_TEXT          G=(none)   M=atexit     ACBP=28
+ 0000:4389 016D C=CODE   S=_TEXT          G=(none)   M=dosenv     ACBP=28
+ 0000:44F6 0030 C=CODE   S=_TEXT          G=(none)   M=dosgdriv   ACBP=28
+ 0000:4526 002A C=CODE   S=_TEXT          G=(none)   M=errormsg   ACBP=28
+ 0000:4550 00AA C=CODE   S=_TEXT          G=(none)   M=exit       ACBP=28
+ 0000:45FA 0000 C=CODE   S=_TEXT          G=(none)   M=files      ACBP=28
+ 0000:45FA 0000 C=CODE   S=_TEXT          G=(none)   M=files2     ACBP=28
+ 0000:45FA 001C C=CODE   S=_TEXT          G=(none)   M=f_scopy    ACBP=28
+ 0000:4616 0021 C=CODE   S=_TEXT          G=(none)   M=h_llsh     ACBP=28
+ 0000:4637 0060 C=CODE   S=_TEXT          G=(none)   M=h_padd     ACBP=28
+ 0000:4697 0052 C=CODE   S=_TEXT          G=(none)   M=ioerror    ACBP=28
+ 0000:46E9 0021 C=CODE   S=_TEXT          G=(none)   M=n_pcmp     ACBP=28
+ 0000:470A 0000 C=CODE   S=_TEXT          G=(none)   M=stklen     ACBP=28
+ 0000:470A 0000 C=CODE   S=_TEXT          G=(none)   M=ctype      ACBP=28
+ 0000:470A 0030 C=CODE   S=_TEXT          G=(none)   M=tolower    ACBP=28
+ 0000:473A 0030 C=CODE   S=_TEXT          G=(none)   M=toupper    ACBP=28
+ 0000:476A 045B C=CODE   S=_TEXT          G=(none)   M=farheap    ACBP=28
+ 0000:4BC5 0160 C=CODE   S=_TEXT          G=(none)   M=fbrk       ACBP=28
+ 0000:4D25 003B C=CODE   S=_TEXT          G=(none)   M=_access    ACBP=28
+ 0000:4D60 00D0 C=CODE   S=_TEXT          G=(none)   M=_pathops   ACBP=28
+ 0000:4E30 0021 C=CODE   S=_TEXT          G=(none)   M=chmoda     ACBP=28
+ 0000:4E51 0342 C=CODE   S=_TEXT          G=(none)   M=fullpath   ACBP=28
+ 0000:5193 009D C=CODE   S=_TEXT          G=(none)   M=getdcwd    ACBP=28
+ 0000:5230 0070 C=CODE   S=_TEXT          G=(none)   M=getenv     ACBP=28
+ 0000:52A0 0024 C=CODE   S=_TEXT          G=(none)   M=memcpy     ACBP=28
+ 0000:52C4 0047 C=CODE   S=_TEXT          G=(none)   M=srchenv    ACBP=28
+ 0000:530B 0142 C=CODE   S=_TEXT          G=(none)   M=srchstr    ACBP=28
+ 0000:544D 003F C=CODE   S=_TEXT          G=(none)   M=strcat     ACBP=28
+ 0000:548C 0029 C=CODE   S=_TEXT          G=(none)   M=strcpy     ACBP=28
+ 0000:54B5 0041 C=CODE   S=_TEXT          G=(none)   M=stricmp    ACBP=28
+ 0000:54F6 0021 C=CODE   S=_TEXT          G=(none)   M=strlen     ACBP=28
+ 0000:5517 004D C=CODE   S=_TEXT          G=(none)   M=strrchr    ACBP=28
+ 0000:5564 0000 C=CODE   S=_TEXT          G=(none)   M=sysnerr    ACBP=28
+ 0000:5564 005B C=CODE   S=_TEXT          G=(none)   M=writea     ACBP=28
+ 0000:55BF 0137 C=CODE   S=_TEXT          G=(none)   M=doscmd     ACBP=28
+ 0000:56F6 03A5 C=CODE   S=_TEXT          G=(none)   M=exec       ACBP=28
+ 0000:5A9B 0023 C=CODE   S=_TEXT          G=(none)   M=execl      ACBP=28
+ 0000:5ABE 0020 C=CODE   S=_TEXT          G=(none)   M=setblock   ACBP=28
+ 0000:5ADE 0058 C=CODE   S=_TEXT          G=(none)   M=setenvp    ACBP=28
+ 0000:5B36 0367 C=CODE   S=_TEXT          G=(none)   M=loadprog   ACBP=28
+ 05E9:000E 0000 C=CODE   S=SLOWDOWN_TEXT  G=MAIN_01 M=th04_main.asm ACBP=48
+ 05E9:000E 0016 C=CODE   S=SLOWDOWN_TEXT  G=MAIN_01 M=th04/slowdown.cpp ACBP=28
+ 05E9:0024 09E2 C=CODE   S=DEMO_TEXT      G=MAIN_01 M=th04_main.asm ACBP=48
+ 05E9:0A06 0098 C=CODE   S=DEMO_TEXT      G=MAIN_01 M=th04/demo.cpp ACBP=28
+ 05E9:0A9E 0000 C=CODE   S=EMS_TEXT       G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:0A9E 01F9 C=CODE   S=EMS_TEXT       G=MAIN_01 M=th04/ems.cpp ACBP=28
+ 05E9:0C97 0000 C=CODE   S=TILE_SET_TEXT  G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:0C97 0051 C=CODE   S=TILE_SET_TEXT  G=MAIN_01 M=th04/tile_set.cpp ACBP=28
+ 05E9:0CE8 0000 C=CODE   S=STD_TEXT       G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:0CE8 00E6 C=CODE   S=STD_TEXT       G=MAIN_01 M=th04/std.cpp ACBP=28
+ 05E9:0DCE 021D C=CODE   S=END_TEXT       G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:0FEC 0BF4 C=CODE   S=CIRCLE_TEXT    G=MAIN_01 M=th04_main.asm ACBP=48
+ 05E9:1BE0 0101 C=CODE   S=CIRCLE_TEXT    G=MAIN_01 M=th04/circle.cpp ACBP=28
+ 05E9:1CE2 03E2 C=CODE   S=TILE_TEXT      G=MAIN_01 M=th04_main.asm ACBP=48
+ 05E9:20C4 007C C=CODE   S=TILE_TEXT      G=MAIN_01 M=th04/tile.cpp ACBP=28
+ 05E9:2140 017E C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04_main.asm ACBP=48
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/ems.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/tile_set.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/std.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/circle.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/tile.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/playfld.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/midboss4.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/dialog.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/boss_exp.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/stages.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/player_m.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/player_p.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/hud_ovrl.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/checkerb.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/mb_inv.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/gather.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/scrolly3.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/midboss.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/mb_dft.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/it_spl_u.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/boss_4m.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/bullet_u.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/bullet_a.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/boss.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/main/boss/phsk.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/boss_4r.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=MAI_TEXT       G=MAIN_01 M=th04/boss_x2.cpp ACBP=28
+ 05E9:22BE 0000 C=CODE   S=PLAYFLD_TEXT   G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:22BE 00CC C=CODE   S=PLAYFLD_TEXT   G=MAIN_01 M=th04/playfld.cpp ACBP=28
+ 05E9:238A 0000 C=CODE   S=M4_RENDER_TEXT G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:238A 008F C=CODE   S=M4_RENDER_TEXT G=MAIN_01 M=th04/midboss4.cpp ACBP=28
+ 05E9:2419 009E C=CODE   S=M4_RENDER_TEXT G=MAIN_01 M=th04/f_dialog.cpp ACBP=28
+ 05E9:24B7 0000 C=CODE   S=DIALOG_TEXT    G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:24B7 0746 C=CODE   S=DIALOG_TEXT    G=MAIN_01 M=th04/dialog.cpp ACBP=28
+ 05E9:2BFD 0000 C=CODE   S=BOSS_EXP_TEXT  G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:2BFD 01D1 C=CODE   S=BOSS_EXP_TEXT  G=MAIN_01 M=th04/boss_exp.cpp ACBP=28
+ 05E9:2DCE 105B C=CODE   S=MAIN_TEXT      G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:3E29 0000 C=CODE   S=STAGES_TEXT    G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:3E29 01FC C=CODE   S=STAGES_TEXT    G=MAIN_01 M=th04/stages.cpp ACBP=28
+ 05E9:4025 1C0A C=CODE   S=MAIN__TEXT     G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:5C2F 0000 C=CODE   S=PLAYER_M_TEXT  G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:5C2F 00B7 C=CODE   S=PLAYER_M_TEXT  G=MAIN_01 M=th04/player_m.cpp ACBP=28
+ 05E9:5CE6 0000 C=CODE   S=PLAYER_P_TEXT  G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:5CE6 0034 C=CODE   S=PLAYER_P_TEXT  G=MAIN_01 M=th04/player_p.cpp ACBP=28
+ 05E9:5D1A 03BC C=CODE   S=MAIN_0_TEXT    G=MAIN_01 M=th04_main.asm ACBP=48
+ 05E9:60D6 0000 C=CODE   S=MAIN_0_TEXT    G=MAIN_01 M=th04\scoreupd.asm ACBP=28
+ 05E9:60D6 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:60D6 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/tile.cpp ACBP=28
+ 05E9:60D6 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/dialog.cpp ACBP=28
+ 05E9:60D6 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/boss_exp.cpp ACBP=28
+ 05E9:60D6 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/stages.cpp ACBP=28
+ 05E9:60D6 0807 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/hud_ovrl.cpp ACBP=28
+ 05E9:68DD 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/mb_dft.cpp ACBP=28
+ 05E9:68DD 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/boss_4m.cpp ACBP=28
+ 05E9:68DD 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/bullet_u.cpp ACBP=28
+ 05E9:68DD 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/boss.cpp ACBP=28
+ 05E9:68DD 0000 C=CODE   S=HUD_OVRL_TEXT  G=MAIN_01 M=th04/main/boss/phsk.cpp ACBP=28
+ 05E9:68DD 0141 C=CODE   S=MAIN_01_TEXT   G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:6A1E 0101 C=CODE   S=MAIN_01_TEXT   G=MAIN_01 M=th04\scoreupd.asm ACBP=48
+ 05E9:6B1F 042F C=CODE   S=MAIN_01_TEXT   G=MAIN_01 M=th04/main/boss/phsk.cpp ACBP=28
+ 05E9:6F4E 0803 C=CODE   S=MAIN_012_TEXT  G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:7751 0000 C=CODE   S=CFG_LRES_TEXT  G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:7751 0033 C=CODE   S=CFG_LRES_TEXT  G=MAIN_01 M=th04/cfg_lres.cpp ACBP=28
+ 05E9:7784 00AE C=CODE   S=MAIN_013_TEXT  G=MAIN_01 M=th04_main.asm ACBP=48
+ 05E9:7832 0000 C=CODE   S=CHECKERB_TEXT  G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:7832 00AE C=CODE   S=CHECKERB_TEXT  G=MAIN_01 M=th04/checkerb.cpp ACBP=28
+ 05E9:78E0 0000 C=CODE   S=MB_INV_TEXT    G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:78E0 002F C=CODE   S=MB_INV_TEXT    G=MAIN_01 M=th04/mb_inv.cpp ACBP=28
+ 05E9:790F 0000 C=CODE   S=BOSS_BD_TEXT   G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:790F 0027 C=CODE   S=BOSS_BD_TEXT   G=MAIN_01 M=th04/boss_bd.cpp ACBP=28
+ 05E9:7936 088C C=CODE   S=BOSS_BG_TEXT   G=MAIN_01 M=th04_main.asm ACBP=48
+ 05E9:81C2 0000 C=CODE   S=SCORE_TEXT     G=MAIN_01 M=th04_main.asm ACBP=28
+ 05E9:81C2 0307 C=CODE   S=SCORE_TEXT     G=MAIN_01 M=th04/scoredat.cpp ACBP=28
+ 05E9:84C9 01A2 C=CODE   S=SCORE_TEXT     G=MAIN_01 M=th04/score_rm.cpp ACBP=28
+ 05E9:866B 0408 C=CODE   S=BOSS_FG_TEXT   G=MAIN_01 M=th04_main.asm ACBP=28
+ 0E90:0004 0000 C=CODE   S=SHARED         G=(none)  M=th04_main.asm ACBP=28
+ 0E90:0004 0015 C=CODE   S=SHARED         G=(none)  M=th02/frmdelay.cpp ACBP=28
+ 0E90:001A 000C C=CODE   S=SHARED         G=(none)  M=th02/snd_se_r.cpp ACBP=48
+ 0E90:0026 0029 C=CODE   S=SHARED         G=(none)  M=th02/vplanset.cpp ACBP=28
+ 0E90:0050 001E C=CODE   S=SHARED         G=(none)  M=th03\hfliplut.asm ACBP=48
+ 0E90:006E 00A0 C=CODE   S=SHARED         G=(none)  M=th03/vector.cpp ACBP=28
+ 0E90:010E 0164 C=CODE   S=SHARED         G=(none)  M=th04\cdg_load.asm ACBP=48
+ 0E90:0272 0065 C=CODE   S=SHARED         G=(none)  M=th04/cdg_p_na.cpp ACBP=28
+ 0E90:02D8 0082 C=CODE   S=SHARED         G=(none)  M=th04\cdg_p_pr.asm ACBP=48
+ 0E90:035A 009E C=CODE   S=SHARED         G=(none)  M=th04\cdg_put.asm ACBP=48
+ 0E90:03F8 0044 C=CODE   S=SHARED         G=(none)  M=th04/exit.cpp ACBP=28
+ 0E90:043C 004D C=CODE   S=SHARED         G=(none)  M=th04/initmain.cpp ACBP=28
+ 0E90:048A 0118 C=CODE   S=SHARED         G=(none)  M=th04\input_s.asm ACBP=48
+ 0E90:05A2 0056 C=CODE   S=SHARED         G=(none)  M=th04/input_w.cpp ACBP=28
+ 0E90:05F8 0029 C=CODE   S=SHARED         G=(none)  M=th04/mpn_free.cpp ACBP=28
+ 0E90:0621 00BB C=CODE   S=SHARED         G=(none)  M=th04/mpn_l_i.cpp ACBP=28
+ 0E90:06DC 001E C=CODE   S=SHARED         G=(none)  M=th04/snd_kaja.cpp ACBP=28
+ 0E90:06FA 00EA C=CODE   S=SHARED         G=(none)  M=th04/snd_load.cpp ACBP=28
+ 0E90:07E4 0030 C=CODE   S=SHARED         G=(none)  M=th04/snd_mmdr.c ACBP=28
+ 0E90:0814 009C C=CODE   S=SHARED         G=(none)  M=th04/snd_mode.cpp ACBP=28
+ 0E90:08B0 002E C=CODE   S=SHARED         G=(none)  M=th04/snd_pmdr.c ACBP=28
+ 0E90:08DE 0088 C=CODE   S=SHARED         G=(none)  M=th04/snd_se.cpp ACBP=28
+ 0E90:0966 005E C=CODE   S=SHARED         G=(none)  M=th04/vector.cpp ACBP=28
+ 0F2C:0004 0000 C=CODE   S=GATHER_TEXT    G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:0004 0240 C=CODE   S=GATHER_TEXT    G=MAIN_03 M=th04/gather.cpp ACBP=28
+ 0F2C:0244 0000 C=CODE   S=SCROLLY3_TEXT  G=MAIN_03 M=th04_main.asm ACBP=48
+ 0F2C:0244 0059 C=CODE   S=SCROLLY3_TEXT  G=MAIN_03 M=th04/scrolly3.cpp ACBP=28
+ 0F2C:029E 0000 C=CODE   S=MOTION_3_TEXT  G=MAIN_03 M=th04_main.asm ACBP=48
+ 0F2C:029E 0020 C=CODE   S=MOTION_3_TEXT  G=MAIN_03 M=th04\motion_3.asm ACBP=48
+ 0F2C:02BE 00A0 C=CODE   S=MAIN_032_TEXT  G=MAIN_03 M=th04_main.asm ACBP=48
+ 0F2C:035E 0000 C=CODE   S=VECTOR2N_TEXT  G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:035E 0038 C=CODE   S=VECTOR2N_TEXT  G=MAIN_03 M=th04\vector2n.asm ACBP=48
+ 0F2C:0396 0000 C=CODE   S=SPARK_A_TEXT   G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:0396 00CC C=CODE   S=SPARK_A_TEXT   G=MAIN_03 M=th04\spark_a.asm ACBP=48
+ 0F2C:0462 0000 C=CODE   S=GRCG_3_TEXT    G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:0462 001F C=CODE   S=GRCG_3_TEXT    G=MAIN_03 M=th04/grcg_3.cpp ACBP=28
+ 0F2C:0482 0000 C=CODE   S=IT_SPL_U_TEXT  G=MAIN_03 M=th04_main.asm ACBP=48
+ 0F2C:0482 0094 C=CODE   S=IT_SPL_U_TEXT  G=MAIN_03 M=th04/it_spl_u.cpp ACBP=28
+ 0F2C:0516 2BD3 C=CODE   S=B4M_UPDATE_TEXT G=MAIN_03 M=th04_main.asm ACBP=48
+ 0F2C:30E9 0080 C=CODE   S=B4M_UPDATE_TEXT G=MAIN_03 M=th04/boss_4m.cpp ACBP=28
+ 0F2C:3169 32B7 C=CODE   S=MAIN_033_TEXT  G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:6420 0000 C=CODE   S=MIDBOSS_TEXT   G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:6420 005F C=CODE   S=MIDBOSS_TEXT   G=MAIN_03 M=th04/midboss.cpp ACBP=28
+ 0F2C:647F 0000 C=CODE   S=HUD_HP_TEXT    G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:647F 0058 C=CODE   S=HUD_HP_TEXT    G=MAIN_03 M=th04/hud_hp.cpp ACBP=28
+ 0F2C:64D7 0000 C=CODE   S=MB_DFT_TEXT    G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:64D7 0119 C=CODE   S=MB_DFT_TEXT    G=MAIN_03 M=th04/mb_dft.cpp ACBP=28
+ 0F2C:65F0 2647 C=CODE   S=MAIN_034_TEXT  G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:8C37 0000 C=CODE   S=BULLET_U_TEXT  G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:8C37 0564 C=CODE   S=BULLET_U_TEXT  G=MAIN_03 M=th04/bullet_u.cpp ACBP=28
+ 0F2C:919B 0000 C=CODE   S=BULLET_A_TEXT  G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:919B 083C C=CODE   S=BULLET_A_TEXT  G=MAIN_03 M=th04/bullet_a.cpp ACBP=28
+ 0F2C:99D7 114A C=CODE   S=MAIN_035_TEXT  G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:AB21 0000 C=CODE   S=BOSS_TEXT      G=MAIN_03 M=th04_main.asm ACBP=28
+ 0F2C:AB21 0388 C=CODE   S=BOSS_TEXT      G=MAIN_03 M=th04/boss.cpp ACBP=28
+ 0F2C:AEA9 1DD5 C=CODE   S=MAIN_036_TEXT  G=MAIN_03 M=th04_main.asm ACBP=28
+ 1BF3:000E 0000 C=CODE   S=BOSS_4R_TEXT   G=(none) M=th04/boss_4r.cpp ACBP=28
+ 1BF3:000E 0000 C=CODE   S=BOSS_X2_TEXT   G=(none) M=th04/boss_x2.cpp ACBP=28
+ 1BF4:0000 0000 C=FAR_DATA S=_FARDATA       G=(none) M=c0.ASM     ACBP=68
+ 1BF4:0000 0000 C=FAR_BSS S=_FARBSS        G=(none) M=c0.ASM     ACBP=68
+ 1BF4:0000 0000 C=OVRINFO S=_OVERLAY_      G=(none) M=c0.ASM     ACBP=68
+ 1BF4:0000 0000 C=STUBSEG S=_1STUB_        G=(none) M=c0.ASM     ACBP=68
+ 1BF4:0000 0090 C=DATA   S=_DATA          G=DGROUP  M=c0.ASM     ACBP=68
+ 1BF4:0090 0004 C=DATA   S=_DATA          G=DGROUP  M=platform/x86real/noexcept.cpp ACBP=48
+ 1BF4:0094 0000 C=DATA   S=_DATA          G=DGROUP  M=platform/x86real/novbuf.cpp ACBP=48
+ 1BF4:0094 23D2 C=DATA   S=_DATA          G=DGROUP  M=th04_main.asm ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/slowdown.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/demo.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/ems.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/tile_set.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/std.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/circle.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/tile.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/playfld.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/midboss4.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/f_dialog.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/dialog.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/boss_exp.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/stages.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/player_m.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/player_p.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/hud_ovrl.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/cfg_lres.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/checkerb.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/mb_inv.cpp ACBP=48
+ 1BF4:2466 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/boss_bd.cpp ACBP=48
+ 1BF4:2466 000B C=DATA   S=_DATA          G=DGROUP  M=th04/scoredat.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/score_rm.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/gather.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/scrolly3.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04\motion_3.asm ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/midboss.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/hud_hp.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/mb_dft.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04\vector2n.asm ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04\spark_a.asm ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/grcg_3.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/it_spl_u.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/boss_4m.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/bullet_u.cpp ACBP=48
+ 1BF4:2472 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/bullet_a.cpp ACBP=48
+ 1BF4:2472 0028 C=DATA   S=_DATA          G=DGROUP  M=th04/boss.cpp ACBP=48
+ 1BF4:249A 0028 C=DATA   S=_DATA          G=DGROUP  M=th04/main/boss/phsk.cpp ACBP=48
+ 1BF4:24C2 0002 C=DATA   S=_DATA          G=DGROUP  M=th04/boss_4r.cpp ACBP=48
+ 1BF4:24C4 0001 C=DATA   S=_DATA          G=DGROUP  M=th04/boss_x2.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th02/frmdelay.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th02/snd_se_r.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th02/vplanset.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th03/vector.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04\cdg_load.asm ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/cdg_p_na.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04\cdg_p_pr.asm ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04\cdg_put.asm ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/exit.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/initmain.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04\input_s.asm ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/input_w.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/mpn_free.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/mpn_l_i.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/snd_kaja.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/snd_load.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/snd_mmdr.c ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/snd_mode.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/snd_pmdr.c ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/snd_se.cpp ACBP=48
+ 1BF4:24C6 0000 C=DATA   S=_DATA          G=DGROUP  M=th04/vector.cpp ACBP=48
+ 1BF4:24C6 001F C=DATA   S=_DATA          G=DGROUP  M=_abort     ACBP=48
+ 1BF4:24E6 0000 C=DATA   S=_DATA          G=DGROUP  M=_stpcpy    ACBP=48
+ 1BF4:24E6 0002 C=DATA   S=_DATA          G=DGROUP  M=atexit     ACBP=48
+ 1BF4:24E8 0000 C=DATA   S=_DATA          G=DGROUP  M=dosenv     ACBP=48
+ 1BF4:24E8 0000 C=DATA   S=_DATA          G=DGROUP  M=dosgdriv   ACBP=48
+ 1BF4:24E8 0000 C=DATA   S=_DATA          G=DGROUP  M=errormsg   ACBP=48
+ 1BF4:24E8 000C C=DATA   S=_DATA          G=DGROUP  M=exit       ACBP=48
+ 1BF4:24F4 0190 C=DATA   S=_DATA          G=DGROUP  M=files      ACBP=48
+ 1BF4:2684 002A C=DATA   S=_DATA          G=DGROUP  M=files2     ACBP=48
+ 1BF4:26AE 0000 C=DATA   S=_DATA          G=DGROUP  M=f_scopy    ACBP=48
+ 1BF4:26AE 0000 C=DATA   S=_DATA          G=DGROUP  M=h_llsh     ACBP=48
+ 1BF4:26AE 0000 C=DATA   S=_DATA          G=DGROUP  M=h_padd     ACBP=48
+ 1BF4:26AE 005B C=DATA   S=_DATA          G=DGROUP  M=ioerror    ACBP=48
+ 1BF4:270A 0000 C=DATA   S=_DATA          G=DGROUP  M=n_pcmp     ACBP=48
+ 1BF4:270A 0002 C=DATA   S=_DATA          G=DGROUP  M=stklen     ACBP=48
+ 1BF4:270C 0101 C=DATA   S=_DATA          G=DGROUP  M=ctype      ACBP=48
+ 1BF4:280E 0000 C=DATA   S=_DATA          G=DGROUP  M=tolower    ACBP=48
+ 1BF4:280E 0000 C=DATA   S=_DATA          G=DGROUP  M=toupper    ACBP=48
+ 1BF4:280E 0000 C=DATA   S=_DATA          G=DGROUP  M=farheap    ACBP=48
+ 1BF4:280E 0002 C=DATA   S=_DATA          G=DGROUP  M=fbrk       ACBP=48
+ 1BF4:2810 0000 C=DATA   S=_DATA          G=DGROUP  M=_access    ACBP=48
+ 1BF4:2810 0010 C=DATA   S=_DATA          G=DGROUP  M=_pathops   ACBP=48
+ 1BF4:2820 0000 C=DATA   S=_DATA          G=DGROUP  M=chmoda     ACBP=48
+ 1BF4:2820 0000 C=DATA   S=_DATA          G=DGROUP  M=fullpath   ACBP=48
+ 1BF4:2820 0000 C=DATA   S=_DATA          G=DGROUP  M=getdcwd    ACBP=48
+ 1BF4:2820 0000 C=DATA   S=_DATA          G=DGROUP  M=getenv     ACBP=48
+ 1BF4:2820 0000 C=DATA   S=_DATA          G=DGROUP  M=memcpy     ACBP=48
+ 1BF4:2820 0001 C=DATA   S=_DATA          G=DGROUP  M=srchenv    ACBP=48
+ 1BF4:2822 0002 C=DATA   S=_DATA          G=DGROUP  M=srchstr    ACBP=48
+ 1BF4:2824 0000 C=DATA   S=_DATA          G=DGROUP  M=strcat     ACBP=48
+ 1BF4:2824 0000 C=DATA   S=_DATA          G=DGROUP  M=strcpy     ACBP=48
+ 1BF4:2824 0000 C=DATA   S=_DATA          G=DGROUP  M=stricmp    ACBP=48
+ 1BF4:2824 0000 C=DATA   S=_DATA          G=DGROUP  M=strlen     ACBP=48
+ 1BF4:2824 0000 C=DATA   S=_DATA          G=DGROUP  M=strrchr    ACBP=48
+ 1BF4:2824 0002 C=DATA   S=_DATA          G=DGROUP  M=sysnerr    ACBP=48
+ 1BF4:2826 0000 C=DATA   S=_DATA          G=DGROUP  M=writea     ACBP=48
+ 1BF4:2826 0000 C=DATA   S=_DATA          G=DGROUP  M=doscmd     ACBP=48
+ 1BF4:2826 0000 C=DATA   S=_DATA          G=DGROUP  M=exec       ACBP=48
+ 1BF4:2826 0000 C=DATA   S=_DATA          G=DGROUP  M=execl      ACBP=48
+ 1BF4:2826 0000 C=DATA   S=_DATA          G=DGROUP  M=setblock   ACBP=48
+ 1BF4:2826 0004 C=DATA   S=_DATA          G=DGROUP  M=setenvp    ACBP=48
+ 1BF4:282A 0028 C=DATA   S=_DATA          G=DGROUP  M=loadprog   ACBP=48
+ 1BF4:2852 0000 C=DATA   S=_CVTSEG        G=DGROUP  M=c0.ASM     ACBP=48
+ 1BF4:2852 0000 C=DATA   S=_SCNSEG        G=DGROUP  M=c0.ASM     ACBP=48
+ 1BF4:2852 0000 C=CONST  S=_CONST         G=DGROUP  M=c0.ASM     ACBP=48
+ 1BF4:2852 0000 C=INITDATA S=_INIT_         G=DGROUP  M=c0.ASM     ACBP=48
+ 1BF4:2852 0006 C=INITDATA S=_INIT_         G=DGROUP  M=_pathops   ACBP=48
+ 1BF4:2858 0006 C=INITDATA S=_INIT_         G=DGROUP  M=setenvp    ACBP=48
+ 1BF4:285E 0000 C=INITDATA S=_INITEND_      G=DGROUP  M=c0.ASM     ACBP=28
+ 1BF4:285E 0000 C=EXITDATA S=_EXIT_         G=DGROUP  M=c0.ASM     ACBP=48
+ 1BF4:285E 0000 C=EXITDATA S=_EXITEND_      G=DGROUP  M=c0.ASM     ACBP=28
+ 1BF4:285E 0000 C=BSS    S=_BSS           G=DGROUP  M=c0.ASM     ACBP=48
+ 1BF4:285E 0000 C=BSS    S=_BSS           G=DGROUP  M=platform/x86real/noexcept.cpp ACBP=48
+ 1BF4:285E 0000 C=BSS    S=_BSS           G=DGROUP  M=platform/x86real/novbuf.cpp ACBP=48
+ 1BF4:285E 92CC C=BSS    S=_BSS           G=DGROUP  M=th04_main.asm ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/slowdown.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/demo.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/ems.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/tile_set.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/std.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/circle.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/tile.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/playfld.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/midboss4.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/f_dialog.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/dialog.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/boss_exp.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/stages.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/player_m.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/player_p.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/hud_ovrl.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/cfg_lres.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/checkerb.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/mb_inv.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/boss_bd.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/scoredat.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/score_rm.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/gather.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/scrolly3.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/midboss.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/hud_hp.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/mb_dft.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/grcg_3.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/it_spl_u.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/boss_4m.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/bullet_u.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/bullet_a.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/boss.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/main/boss/phsk.cpp ACBP=48
+ 1BF4:BB2A 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/boss_4r.cpp ACBP=48
+ 1BF4:BB2A 0002 C=BSS    S=_BSS           G=DGROUP  M=th04/boss_x2.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th02/frmdelay.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th02/snd_se_r.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th02/vplanset.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th03/vector.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/cdg_p_na.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/exit.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/initmain.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/input_w.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/mpn_free.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/mpn_l_i.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/snd_kaja.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/snd_load.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/snd_mmdr.c ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/snd_mode.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/snd_pmdr.c ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/snd_se.cpp ACBP=48
+ 1BF4:BB2C 0000 C=BSS    S=_BSS           G=DGROUP  M=th04/vector.cpp ACBP=48
+ 1BF4:BB2C 0080 C=BSS    S=_BSS           G=DGROUP  M=atexit     ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=ioerror    ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=_pathops   ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=chmoda     ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=getdcwd    ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=getenv     ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=memcpy     ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=strcat     ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=strcpy     ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=stricmp    ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=strlen     ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=strrchr    ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=writea     ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSS           G=DGROUP  M=setblock   ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_COMDEF_       G=DGROUP  M=c0.ASM     ACBP=48
+ 1BF4:BBAC 0000 C=BSS    S=_BSSEND        G=DGROUP  M=c0.ASM     ACBP=28
+ 27AF:0000 0080 C=STACK  S=_STACK         G=(none)  M=c0.ASM     ACBP=74
+
+  Address         Publics by Name
+
+ 0000:0290 idle  operator new(unsigned int)
+ 0000:02D3 idle  operator new(unsigned long)
+ 0F2C:A51D       bb_boss_free()
+ 0F2C:A4F1       bb_boss_load(const char far*)
+ 05E9:16B0       bb_txt_put_8_raw(unsigned int,unsigned int)
+ 05E9:7BA9 idle  bg_shape_clip_and_respawn_in_cen(bg_shape_t near&)
+ 05E9:7BDF idle  bg_shape_clip_and_wrap(bg_shape_t near&)
+ 05E9:0B47       bomb_bg_load__ems_preload_playch()
+ 05E9:55A1 idle  bomb_update_and_render()
+ 05E9:790F       boss_backdrop_render(int,int,unsigned char)
+ 0F2C:AD11       boss_defeat_update()
+ 05E9:6BB8       boss_direct_entry_prepare()
+ 0F2C:2260 idle  boss_explode_big(unsigned int)
+ 0F2C:21E0       boss_explode_small(explosion_type_t)
+ 0F2C:AB97       boss_hittest_shots()
+ 0F2C:AB21       boss_hittest_shots_damage(int,int,int)
+ 0F2C:ABC0       boss_hittest_shots_invincible()
+ 0F2C:ABD2       boss_items_drop()
+ 0F2C:AC35       boss_phase_next(explosion_type_t,int)
+ 05E9:6D5A       boss_phase_skip_apply()
+ 0F2C:A4AA       boss_reset()
+ 0F2C:6543       boss_score_bonus(unsigned int)
+ 0F2C:97DD idle  bullets_add_regular_raw()
+ 0F2C:9908 idle  bullets_add_special_raw()
+ 05E9:202E       bullets_and_gather_invalidate()
+ 0F2C:8E31       bullets_update()
+ 0F2C:977E idle  bullet_template_clip()
+ 0F2C:9722 idle  bullet_template_speedtune_for_pl()
+ 0F2C:8C37 idle  bullet_turn_x(bullet_t near&)
+ 0F2C:8C6B idle  bullet_turn_y(bullet_t near&)
+ 0F2C:8C9F idle  bullet_update_special(bullet_t near&)
+ 0F2C:951D idle  bullet_velocity_and_angle_set(int)
+ 05E9:3E29 idle  carpet_lighting_put_new(int,unsigned int)
+ 0E90:02D8       cdg_put_plane_roll_8(int,int,int,vram_plane_t,unsigned char _seg *)
+ 05E9:7751       cfg_load_resident_ptr()
+ 0F2C:65F0 idle  chasecrosses_add(unsigned char,unsigned char)
+ 05E9:1BE0       circles_add_growing(int,int)
+ 05E9:1C30       circles_add_shrinking(int,int)
+ 05E9:1CB2       circles_render()
+ 05E9:1C80       circles_update()
+ 05E9:0A53       demoplay()
+ 05E9:0A06       demo_load()
+ 05E9:2A6C       dialog_animate()
+ 05E9:25EB idle  dialog_box_fade_in_animate()
+ 05E9:256A idle  dialog_box_put(unsigned int,unsigned int,int)
+ 05E9:2B63 idle  dialog_exit()
+ 05E9:25C6 idle  dialog_face_unput_8(unsigned int,unsigned int)
+ 05E9:249C       dialog_free()
+ 05E9:2A9C idle  dialog_init()
+ 05E9:2419 idle  dialog_load(const char far*)
+ 05E9:245A       dialog_load()
+ 05E9:2483       dialog_load_yuuka5_defeat_bad()
+ 05E9:26FC idle  dialog_op(unsigned char)
+ 05E9:297C idle  dialog_run()
+ 05E9:622C idle  dissolve_put(int,int,int)
+ 05E9:2182       egc_start_copy_noframe()
+ 05E9:14E2 idle  elly_backdrop_colorfill()
+ 05E9:0A9E       ems_allocate_and_preload_eyecatc()
+ 05E9:0E24       end_extra()
+ 05E9:0DF9       end_game_bad()
+ 05E9:0DCE       end_game_good()
+ 05E9:1CE2       enemies_invalidate()
+ 05E9:2CC8       explosions_big_update_and_render()
+ 0F2C:21D1 idle  explosions_small_reset()
+ 05E9:2BFD       explosions_small_update_and_rend()
+ 05E9:0C2F idle  eyecatch_animate()
+ 0E90:0004       frame_delay(int)
+ 05E9:3B90       gameexecl(const char far*)
+ 0E90:03F8       game_exit()
+ 0E90:043C       game_init_main(const unsigned char far*)
+ 0F2C:001F       gather_add_bullets()
+ 0F2C:0085       gather_add_only()
+ 0F2C:00E9       gather_add_only_3stack(int,unsigned int,unsigned int)
+ 0F2C:0191 idle  gather_point_on_playfield()
+ 0F2C:0FFC       gather_point_render(int,int)
+ 0F2C:01B7       gather_render()
+ 0F2C:0131       gather_update()
+ 05E9:88E5       gengetsu_fg_render()
+ 0F2C:AC85       gengetsu_start()
+ 0F2C:C7FC       gengetsu_update()
+ 05E9:1778       grcg_setcolor_direct_raw()
+ 0F2C:0462       grcg_setcolor_direct_seg3_raw()
+ 05E9:176C       grcg_setmode_rmw()
+ 0F2C:047C idle  grcg_setmode_rmw_seg3()
+ 05E9:1772       grcg_setmode_tdw()
+ 05E9:7784 idle  @grcg_tile_bb_put_8
+ 05E9:8625       hiscore_continue_enter()
+ 05E9:84C9 idle  hiscore_continue_enter_raw()
+ 05E9:8642       hiscore_load()
+ 05E9:4428       hud_graze_put()
+ 05E9:4474       hud_hp_put(int)
+ 0F2C:647F       hud_hp_update_and_render(int,int)
+ 0E90:048A       input_reset_sense()
+ 0E90:0498       input_sense()
+ 0E90:05A2       input_wait_for_change(int)
+ 0F2C:9F81       items_add(int,int,item_type_t)
+ 05E9:1712       items_invalidate()
+ 0F2C:0498       item_splashes_add(subpixelbase<int,int>,subpixelbase<int,int>)
+ 0F2C:0482       item_splashes_init()
+ 0F2C:04E0       item_splashes_update()
+ 05E9:1948 idle  @item_splash_dot_render
+ 05E9:3E0F idle  kurumi_backdrop_colorfill()
+ 0F2C:4F78 idle  kurumi_spawnrays_add(int,unsigned char)
+ 05E9:14F0 idle  mai_yuki_backdrop_colorfill()
+ 05E9:0FD0       map_free()
+ 05E9:0F86 idle  map_load()
+ 0F2C:30E9       marisa_flystep_pointreflected(int)
+ 05E9:1D0E idle  midboss1_render()
+ 0F2C:057B idle  midboss1_update()
+ 05E9:21C2 idle  midboss2_render()
+ 0F2C:1261 idle  midboss2_update()
+ 05E9:1E1B idle  midboss3_render()
+ 0F2C:09EF idle  midboss3_update()
+ 05E9:238A       midboss4_render()
+ 0F2C:1818 idle  midboss4_update()
+ 05E9:1EE0 idle  midbossx_render()
+ 0F2C:0EB0 idle  midbossx_update()
+ 0F2C:6444       midboss_activate_if_stage_frame_()
+ 05E9:7255       midboss_defeat_render()
+ 0F2C:65B4       midboss_defeat_update()
+ 0F2C:AB61       midboss_hittest_shots_damage(int,int,int)
+ 05E9:78E0       midboss_invalidate_func()
+ 0F2C:6420       midboss_reset()
+ 0F2C:64D7       midboss_score_bonus(unsigned int)
+ 05E9:175E idle  mugetsu_gengetsu_backdrop_colorfill()
+ 05E9:8131       mugetsu_gengetsu_bg_render()
+ 05E9:4179 idle  orange_backdrop_colorfill()
+ 0F2C:B0C3 idle  orbs_add_moving()
+ 0F2C:B11E idle  orbs_add_spinning(unsigned char,int)
+ 05E9:60FE       overlay_black()
+ 05E9:6522       overlay_boss_bgm_update_and_rend()
+ 05E9:6660       overlay_popup_update_and_render()
+ 05E9:6126       overlay_stage_enter_update_and_r()
+ 05E9:61BE       overlay_stage_leave_update_and_r()
+ 05E9:627D       overlay_titles_invalidate()
+ 05E9:62C8 idle  overlay_titles_update_and_render()
+ 05E9:60D6       overlay_wipe()
+ 05E9:5B79       player_invalidate()
+ 05E9:5C2F       player_move(unsigned int)
+ 05E9:5CE6       player_pos_update_and_clamp()
+ 05E9:124E       playfieldmotion::update_seg1()
+ 0F2C:029E       playfieldmotion::update_seg3()
+ 05E9:7832       playfield_checkerboard_grcg_tdw_()
+ 05E9:2592 idle  playfield_copy_front_to_back()
+ 05E9:22BE       playfield_shake_update_and_rende()
+ 0F2C:0316       pointnums_add_white(int,int,unsigned int)
+ 0F2C:02FC       pointnums_add_yellow(int,int,unsigned int)
+ 05E9:12D4       pointnums_invalidate()
+ 05E9:1414 idle  @pointnum_put
+ 0E90:0966       polar(int,int,int)
+ 05E9:684F idle  popup_put_points_th04(unsigned long)
+ 05E9:1286 idle  randring1_next16()
+ 05E9:1294 idle  randring1_next16_and(unsigned int)
+ 05E9:12AA idle  randring1_next16_mod(unsigned int)
+ 0F2C:02BE       randring2_next16()
+ 0F2C:02CC       randring2_next16_and(unsigned int)
+ 0F2C:02E2       randring2_next16_mod(unsigned int)
+ 05E9:126E idle  randring_fill()
+ 05E9:14F0 idle  reimu_marisa_backdrop_colorfill()
+ 05E9:81C2 idle  scoredat_decode(scoredat_section_t far&)
+ 05E9:82E6 idle  scoredat_defaults_set()
+ 05E9:8244 idle  scoredat_encode(scoredat_section_t far&)
+ 05E9:83A8       scoredat_load(playchar_t,rank_t)
+ 05E9:8386 idle  scoredat_recreate()
+ 05E9:848B       scoredat_save(playchar_t,rank_t)
+ 05E9:8369 idle  scoredat_save_default(int)
+ 05E9:82CD idle  scoredat_section_offset(playchar_t,rank_t)
+ 05E9:6A50       score_update_and_render()
+ 05E9:2611 idle  script_param_read_number_first(int far&)
+ 05E9:26D3 idle  script_param_read_number_second(int far&)
+ 0F2C:0116 idle  set_bullet_template_to_gather_te(gather_t near&)
+ 0F2C:0004 idle  set_gather_template_to_bullet_te(gather_t near&)
+ 0000:0272 idle  set_new_handler(void(far*)())
+ 05E9:7551 idle  shots_add()
+ 05E9:5950       shots_hittest()
+ 05E9:57DB       shots_invalidate()
+ 05E9:58E9 idle  shots_render()
+ 05E9:2E25 idle  shot_laser_update(unsigned int,shot_laser_style_t)
+ 05E9:7585 idle  shot_velocity_set(sppoint near*,unsigned char)
+ 05E9:000E       slowdown_frame_delay()
+ 0F2C:03F8       sparks_add_circle(subpixelbase<int,int>,subpixelbase<int,int>,int,int)
+ 0F2C:0396       sparks_add_random(subpixelbase<int,int>,subpixelbase<int,int>,int,int)
+ 05E9:1904       sparks_invalidate()
+ 05E9:1816 idle  @spark_render
+ 05E9:3E83       stage4_render()
+ 05E9:3FF4       stage5_invalidate()
+ 05E9:3F8F       stage5_render()
+ 0F2C:9DDF       stage_allclear_bonus()
+ 0F2C:9C0A       stage_clear_bonus()
+ 05E9:0DB7       std_free()
+ 05E9:0CE8       std_load()
+ 0F2C:4335       std_run()
+ 05E9:24B7 idle  std_update_done()
+ 05E9:24BA       std_update_frames_then_animate_d()
+ 0F2C:2309 idle  thicklaser_template_pull(thicklaser_t near&)
+ 05E9:2126       tiles_activate()
+ 05E9:212D       tiles_activate_and_render_all_fo(unsigned char)
+ 05E9:15AA idle  tiles_bb_invalidate_raw(int)
+ 05E9:152C idle  tiles_bb_put_raw(int)
+ 05E9:20D7       tiles_invalidate_all()
+ 05E9:20C4       tiles_invalidate_reset()
+ 05E9:11BA       tiles_redraw_invalidated()
+ 05E9:20ED       tiles_render()
+ 05E9:2140       tiles_render_all()
+ 05E9:0C97       tile_ring_set_vo(int,int,int)
+ 0F2C:919B idle  tune_for_easy()
+ 0F2C:921C idle  tune_for_hard()
+ 0F2C:92D5 idle  tune_for_lunatic()
+ 0F2C:9373 idle  tune_for_playperf()
+ 0E90:0026       vram_planes_set()
+ 05E9:160E idle  yuuka5_backdrop_colorfill()
+ 05E9:1630 idle  z_super_put_16x16_mono_raw(int)
+ 1BF4:0222 idle  AtanTable8
+ 1BF4:1EAD idle  aTxt2_bb
+ 1BF4:1EA6 idle  aTxt_bb
+ 1BF4:03E0 idle  bbufsiz
+ 05E9:5320 idle  BB_PLAYCHAR_FREE
+ 05E9:52CB idle  BB_PLAYCHAR_LOAD
+ 05E9:53C1 idle  BB_PLAYCHAR_PUT
+ 05E9:6927 idle  BB_TXT_FREE
+ 05E9:68DD idle  BB_TXT_LOAD
+ 0000:060A idle  BCLOSER
+ 0000:0622 idle  BFILL
+ 0000:0332 idle  BFNT_ENTRY_PAT
+ 0000:04BE idle  BFNT_EXTEND_HEADER_ANALYSIS
+ 0000:0460 idle  BFNT_EXTEND_HEADER_SKIP
+ 0000:0482 idle  BFNT_HEADER_READ
+ 1BF4:032A idle  BFNT_ID
+ 0000:065E idle  BFNT_PALETTE_SET
+ 0000:069E idle  BGETC
+ 0000:3FE8       BGM_FINISH
+ 0000:3E44       BGM_INIT
+ 0000:3908       BGM_READ_SDATA
+ 0000:3E16 idle  BGM_SET_TEMPO
+ 0000:3D3A       BGM_SOUND
+ 0000:3DFC idle  BGM_STOP_PLAY
+ 0000:4046 idle  BGM_STOP_SOUND
+ 05E9:54AA idle  BOMB_MARISA
+ 05E9:53E4 idle  BOMB_REIMU
+ 05E9:56A4 idle  BOMB_STARS_UPDATE_AND_RENDER_FOR
+ 0000:0750 idle  BOPENR
+ 0000:07A4 idle  BREAD
+ 0000:07D4 idle  BSEEK
+ 0000:0816 idle  BSEEK_
+ 0F2C:943F       BULLETS_ADD_REGULAR_EASY
+ 0F2C:9487       BULLETS_ADD_REGULAR_HARD_LUNATIC
+ 0F2C:9469       BULLETS_ADD_REGULAR_NORMAL
+ 0F2C:94A5       BULLETS_ADD_SPECIAL_EASY
+ 0F2C:94E1       BULLETS_ADD_SPECIAL_HARD_LUNATIC
+ 0F2C:94C3       BULLETS_ADD_SPECIAL_NORMAL
+ 05E9:866B idle  BULLETS_RENDER
+ 0F2C:9768 idle  BULLET_PATNUM_FOR_ANGLE
+ 0F2C:9426       BULLET_TEMPLATE_TUNE_EASY
+ 0F2C:9431       BULLET_TEMPLATE_TUNE_HARD
+ 0F2C:9438       BULLET_TEMPLATE_TUNE_LUNATIC
+ 0F2C:942D       BULLET_TEMPLATE_TUNE_NORMAL
+ 1BF4:077A idle  BYTE_MASK
+ 0E90:022E       CDG_FREE
+ 0E90:0264       CDG_FREE_ALL
+ 1BF4:3B88       cdg_images_to_load
+ 0E90:01D2       CDG_LOAD_ALL
+ 0E90:01CC idle  CDG_LOAD_ALL_NOALPHA
+ 0E90:0114 idle  CDG_LOAD_SINGLE
+ 0E90:010E       CDG_LOAD_SINGLE_NOALPHA
+ 0E90:035A idle  CDG_PUT_8
+ 0E90:0272       CDG_PUT_NOALPHA_8
+ 0000:1A9C idle  CHECK_MACHINE_FMR
+ 1BF4:0330 idle  ClipXL
+ 1BF4:0334 idle  ClipXR
+ 1BF4:0332 idle  ClipXW
+ 1BF4:033A idle  ClipYB
+ 1BF4:033E idle  ClipYB_adr
+ 1BF4:0338 idle  ClipYH
+ 1BF4:0336 idle  ClipYT
+ 1BF4:033C idle  ClipYT_seg
+ 0000:0846 idle  cutline
+ 1BF4:0000 idle  DATASEG@
+ 0000:026D       DGROUP@
+ 0000:08BA idle  DOS_AXDX
+ 0000:10D6 idle  DOS_CLOSE
+ 0000:08D2 idle  DOS_FILESIZE
+ 0000:090A idle  DOS_KEYCLEAR
+ 0000:0910 idle  DOS_READ
+ 0000:10EC idle  DOS_ROPEN
+ 0000:092A idle  DOS_SEEK
+ 0000:0946 idle  DOS_SETVECT
+ 1BF4:0340 idle  EDGES
+ 0000:099C idle  EGC_END
+ 0000:097C       EGC_OFF
+ 0000:0966 idle  EGC_ON
+ 0000:09C8       EGC_SHIFT_DOWN
+ 0000:0ACE       EGC_SHIFT_LEFT
+ 0000:0BD0       EGC_SHIFT_RIGHT
+ 0000:0CE0       EGC_SHIFT_UP
+ 0000:099C       EGC_START
+ 0000:41E6       EMS_ALLOCATE
+ 0000:420C idle  EMS_ENABLEPAGEFRAME
+ 0000:421A       EMS_EXIST
+ 0000:4244 idle  EMS_FREE
+ 0000:4256 idle  EMS_MOVEMEMORYREGION
+ 0000:4184       EMS_READ
+ 0000:426C       EMS_SETNAME
+ 0000:42E8       EMS_SPACE
+ 0000:4286       EMS_WRITE
+ 0F2C:4257 idle  ENEMIES_ADD
+ 05E9:5AAA idle  ENEMIES_RENDER
+ 0F2C:43BD       ENEMIES_UPDATE
+ 0F2C:43A2 idle  ENEMY_BULLET_TEMPLATE_PUSH
+ 0F2C:1AB3 idle  ENEMY_POS_UPDATE
+ 0F2C:1AF6 idle  ENEMY_VELOCITY_SET
+ 1BF4:34B2 idle  esound
+ 0000:0DE0       FILE_APPEND
+ 1BF4:287A idle  file_Buffer
+ 1BF4:287E idle  file_BufferPos
+ 1BF4:0362 idle  file_BufferSize
+ 1BF4:2882 idle  file_BufPtr
+ 0000:0EA0       FILE_CLOSE
+ 0000:0EB0       FILE_CREATE
+ 1BF4:2886 idle  file_Eof
+ 1BF4:2888 idle  file_ErrorStat
+ 0000:0E34 idle  FILE_FLUSH
+ 1BF4:0364 idle  file_Handle
+ 1BF4:2884 idle  file_InReadBuf
+ 1BF4:2876 idle  file_Pointer
+ 0000:0EF0       FILE_READ
+ 0000:0FA4       FILE_ROPEN
+ 0000:0FE0       FILE_SEEK
+ 1BF4:0366 idle  file_sharingmode
+ 0000:1022       FILE_SIZE
+ 0000:1014 idle  FILE_TELL
+ 0000:1030       FILE_WRITE
+ 0000:10D6 idle  FONTFILE_CLOSE
+ 0000:10EC idle  FONTFILE_OPEN
+ 0000:4619 idle  F_LXLSH@
+ 0000:463A idle  F_PADD@
+ 0000:4669 idle  F_PSUB@
+ 0000:45FA idle  F_SCOPY@
+ 0000:1AC6 idle  GAIJI_BACKUP
+ 0000:1B06 idle  GAIJI_ENTRY_BFNT
+ 0000:1B9C       GAIJI_PUTCA
+ 0000:1BE0       GAIJI_PUTSA
+ 0000:1C58 idle  GAIJI_READ
+ 0000:1C7E idle  GAIJI_READ_ALL
+ 0000:1AEA idle  GAIJI_RESTORE
+ 0000:1CC4 idle  GAIJI_WRITE
+ 0000:1CEC idle  GAIJI_WRITE_ALL
+ 0000:188A idle  gdc_outpw
+ 0000:1AAA idle  GET_MACHINE
+ 0000:1896 idle  GET_MACHINE_98
+ 0000:1914 idle  GET_MACHINE_AT
+ 0000:1A6A idle  GET_MACHINE_DOSBOX
+ 1BF4:086A idle  glb
+ 0000:1D12       GRAPH_400LINE
+ 0000:1D60       GRAPH_CLEAR
+ 0000:1D84 idle  GRAPH_EXTMODE
+ 0000:1DDA idle  GRAPH_HIDE
+ 1BF4:039C idle  graph_MeshByte
+ 0000:1DE0 idle  GRAPH_SCROLLUP
+ 1BF4:0396 idle  graph_VramLines
+ 1BF4:0392 idle  graph_VramSeg
+ 1BF4:0398 idle  graph_VramWidth
+ 1BF4:0394 idle  graph_VramWords
+ 1BF4:039A idle  graph_VramZoom
+ 0000:110C idle  GRCG_BOXFILL
+ 0000:127C       GRCG_CIRCLE
+ 0000:11DC idle  GRCG_CIRCLEFILL
+ 0000:13EA idle  GRCG_CIRCLE_X
+ 0000:156C idle  GRCG_HLINE
+ 0000:15F2 idle  GRCG_LINE
+ 0000:17FE idle  GRCG_OFF
+ 0000:1790 idle  GRCG_PSET
+ 0000:17D4       GRCG_SETCOLOR
+ 0000:1804 idle  GRCG_VLINE
+ 0000:14DA idle  GRC_SETCLIP
+ 0000:261C idle  HMEM_ALLOC
+ 0000:2608       HMEM_ALLOCBYTE
+ 0000:270C       HMEM_FREE
+ 05E9:450E idle  HUD_BAR_PUT
+ 05E9:4411 idle  HUD_DREAM_PUT
+ 05E9:43FB idle  HUD_POINT_ITEMS_PUT
+ 05E9:443C idle  HUD_POWER_PUT
+ 05E9:459B idle  HUD_PUT
+ 05E9:6A1E       HUD_SCORE_PUT
+ 0000:1E38       IATAN2
+ 1BF4:07B8 idle  intdiv
+ 0000:2202       IRAND
+ 0F2C:A017 idle  ITEMS_MISS_ADD
+ 05E9:8776 idle  ITEMS_RENDER
+ 0F2C:A3A6 idle  ITEMS_UPDATE
+ 05E9:1792 idle  ITEM_SPLASHES_RENDER
+ 1BF4:03A2 idle  js_2player
+ 1BF4:039E       js_bexist
+ 0000:1EA4       JS_END
+ 1BF4:03A0 idle  js_saj_port
+ 0000:36FA       JS_SENSE
+ 1BF4:03A4 idle  js_shift
+ 0000:356C       JS_START
+ 1BF4:288E       js_stat
+ 0000:1EAA idle  LARGE_BYTE
+ 1BF4:07EA idle  lcount
+ 0000:4619 idle  LXLSH@
+ 1BF4:03A6 idle  Machine_State
+ 1BF4:0786 idle  mem_AllocID
+ 0000:25BA idle  MEM_ASSIGN
+ 0000:25E0 idle  MEM_ASSIGN_ALL
+ 0000:2598       MEM_ASSIGN_DOS
+ 1BF4:28D2 idle  mem_EndMark
+ 1BF4:28D0 idle  mem_FirstHole
+ 1BF4:0784 idle  mem_MyOwn
+ 1BF4:28CC idle  mem_OutSeg
+ 1BF4:0788 idle  mem_Reserve
+ 1BF4:28CE idle  mem_TopHeap
+ 1BF4:0782 idle  mem_TopSeg
+ 0000:27B4       MEM_UNASSIGN
+ 0E90:05F8       MPN_FREE
+ 05E9:0F11 idle  MPN_LOAD
+ 0E90:0646       MPN_LOAD_PALETTE_SHOW
+ 0E90:0621 idle  MPN_PALETTE_SHOW
+ 0F2C:4BE8 idle  MUGETSU_PHASE2_NEXT
+ 1BF4:07BA idle  note_dat
+ 05E9:12C6       NULLFUNC_FAR
+ 05E9:12C4       NULLFUNC_NEAR
+ 0000:4616       N_LXLSH@
+ 0000:4637       N_PADD@
+ 0000:46E9       N_PCMP@
+ 0000:4666 idle  N_PSUB@
+ 0000:463A idle  PADD@
+ 1BF4:03DA idle  PaletteNote
+ 1BF4:2892 idle  Palettes
+ 1BF4:03AA idle  PalettesInit
+ 1BF4:03A8 idle  PaletteTone
+ 0000:06CE       PALETTE_BLACK_IN
+ 0000:0712       PALETTE_BLACK_OUT
+ 0000:222C idle  PALETTE_ENTRY_RGB
+ 0000:1F94       PALETTE_SHOW
+ 0000:2518 idle  PALETTE_WHITE_IN
+ 0000:2558 idle  PALETTE_WHITE_OUT
+ 1BF4:3470 idle  part
+ 0000:209E idle  PFCLOSE
+ 0000:33D0       PFEND
+ 1BF4:03E2 idle  pferrno
+ 0000:20B8 idle  PFGETC
+ 0000:20C8 idle  PFGETC1
+ 0000:2116 idle  PFGETX0
+ 0000:215A idle  PFGETX1
+ 1BF4:03E4 idle  pfkey
+ 0000:3596 idle  PFOPEN
+ 0000:2168 idle  PFREAD
+ 0000:2196 idle  PFREWIND
+ 0000:21D2 idle  PFSEEK
+ 0000:3314       PFSTART
+ 05E9:534B idle  PLAYER_BOMB
+ 05E9:5F88 idle  PLAYER_RENDER
+ 05E9:1994 idle  PLAYPERF_LOWER
+ 05E9:197A idle  PLAYPERF_RAISE
+ 05E9:12C8 idle  POINTNUMS_INIT
+ 05E9:137A idle  POINTNUMS_RENDER
+ 05E9:130A idle  POINTNUMS_UPDATE
+ 0F2C:4F52 idle  POINTNUM_DIGITS_SET
+ 0000:4669 idle  PSUB@
+ 1BF4:03E6 idle  random_seed
+ 1BF4:03DC idle  ResPalSeg
+ 0000:0522 idle  rtc_int_set
+ 0000:45FA       SCOPY@
+ 05E9:419D       SCORE_EXTEND_UPDATE_AND_RENDER
+ 0F2C:0274       SCROLL_SUBPIXEL_Y_TO_VRAM_ALWAYS
+ 05E9:1226       SCROLL_SUBPIXEL_Y_TO_VRAM_SEG1
+ 0F2C:0244       SCROLL_SUBPIXEL_Y_TO_VRAM_SEG3
+ 1BF4:03DE idle  SdiExists
+ 05E9:19AC idle  SELECT_FOR_RANK
+ 05E9:147E idle  SHOT_LASER_PUT_RAW
+ 1BF4:03EA idle  SinTable7
+ 0000:226E idle  SMEM_RELEASE
+ 0000:2284 idle  SMEM_WGET
+ 0E90:0814       SND_DETERMINE_MODES
+ 0E90:06DC       SND_KAJA_INTERRUPT
+ 0E90:06FA       SND_LOAD
+ 0E90:08DE       SND_SE_PLAY
+ 1BF4:07AA idle  super_buffer
+ 0000:2B8E idle  SUPER_CANCEL_PAT
+ 1BF4:07AE idle  super_charfree
+ 0000:2BDE       SUPER_CLEAN
+ 0000:3196 idle  SUPER_CONVERT_TINY
+ 0000:2A90 idle  SUPER_ENTRY_AT
+ 0000:2B04       SUPER_ENTRY_BFNT
+ 0000:281C idle  SUPER_ENTRY_PAT
+ 0000:27D8 idle  SUPER_FREE
+ 0000:1EBA idle  SUPER_LARGE_PUT
+ 1BF4:28D4 idle  super_patdata
+ 1BF4:07AC idle  super_patnum
+ 1BF4:2CD4 idle  super_patsize
+ 0000:2FE4       SUPER_PUT
+ 0000:28C8 idle  SUPER_PUT_1PLANE
+ 0000:2DCE       SUPER_ROLL_PUT
+ 0000:2C08       SUPER_ROLL_PUT_1PLANE
+ 0000:4060 idle  SUPER_WAVE_PUT
+ 0000:3232 idle  SUPER_ZOOM
+ 1BF4:0770 idle  TextShown
+ 1BF4:076A idle  TextVramAdr
+ 1BF4:076C idle  TextVramSeg
+ 1BF4:076E idle  TextVramWidth
+ 0000:22E4       TEXT_CLEAR
+ 0000:22F6 idle  TEXT_FILLCA
+ 0000:232E       TEXT_PUTCA
+ 0000:2386       TEXT_PUTSA
+ 05E9:10B8 idle  TILES_FILL_INITIAL
+ 05E9:0FEC       TILES_INVALIDATE_AROUND
+ 1BF4:346C idle  timerorg
+ 1BF4:2866 idle  trapez_a
+ 1BF4:286E idle  trapez_b
+ 0E90:006E       VECTOR2
+ 0E90:0982       VECTOR2_AT
+ 0E90:00B4 idle  VECTOR2_BETWEEN_PLUS
+ 0F2C:035E       VECTOR2_NEAR
+ 1BF4:28C2 idle  vsync_Count1
+ 1BF4:28C4 idle  vsync_Count2
+ 1BF4:0776 idle  vsync_Delay
+ 1BF4:28CA idle  vsync_delay_count
+ 0000:24AA       VSYNC_END
+ 0000:24AA idle  VSYNC_LEAVE
+ 1BF4:0778 idle  vsync_OldMask
+ 1BF4:28C6 idle  vsync_OldVect
+ 1BF4:0772 idle  vsync_Proc
+ 0000:23FC       VSYNC_START
+ 0000:24F2 idle  VSYNC_WAIT
+ 0F2C:7998 idle  YUUKA6_PHASE_NEXT
+ 05E9:1ADC       Z_SUPER_ROLL_PUT_TINY_16X16_RAW
+ 05E9:19C2 idle  Z_SUPER_ROLL_PUT_TINY_32X32_RAW
+ 0000:0000 idle  _address_0
+ 1BF4:01E7 idle  _aGAME_PAUSE_SPACES_2
+ 1BF4:01EC idle  _aGAME_PAUSE_SPACES_3
+ 1BF4:0222 idle  _AtanTable8
+ 0000:4358 idle  _atexit
+ 1BF4:00A8       _bbname
+ 1BF4:03E0       _bbufsiz
+ 1BF4:BAFE idle  _bb_boss_seg
+ 1BF4:1AF8 idle  _bb_playchar_bb_fn
+ 1BF4:1AFC idle  _bb_playchar_cdg_fn
+ 1BF4:417E idle  _bb_playchar_seg
+ 1BF4:1B6A idle  _bb_txt_seg
+ 1BF4:032A idle  _BFNT_ID
+ 0000:3786 idle  _BGM_BELL_ORG
+ 0000:3D84 idle  _BGM_EFFECT_SOUND
+ 1BF4:34B2 idle  _bgm_esound
+ 1BF4:086A idle  _bgm_glb
+ 0000:37DE idle  _BGM_MGET
+ 1BF4:3470 idle  _bgm_part
+ 0000:3AB6 idle  _BGM_PINIT
+ 0000:3C0C idle  _BGM_PLAY
+ 0000:3AF4 idle  _BGM_TIMERHOOK
+ 0000:3A8C idle  _BGM_TIMER_FINISH
+ 0000:3A48 idle  _BGM_TIMER_INIT
+ 1BF4:1BE0       _BGM_TITLES
+ 1BF4:44AA       _bgm_title_id
+ 1BF4:407A idle  _bg_render_bombing
+ 1BF4:407C       _bg_render_bombing_func
+ 1BF4:4078       _bg_render_not_bombing
+ 1BF4:B8A2 idle  _bg_shapes
+ 1BF4:B9FC idle  _bg_shape_clip
+ 1BF4:B9FA idle  _bg_shape_flyout_speed
+ 1BF4:B9F8 idle  _bg_shape_patnum
+ 1BF4:4142 idle  _bits_alive
+ 1BF4:4148 idle  _bit_center_x
+ 1BF4:4150 idle  _bit_center_y
+ 1BF4:4146 idle  _bit_fire
+ 1BF4:4178 idle  _bombing
+ 1BF4:BADA       _bombing_disabled
+ 1BF4:18D3       _BOMB_BG_MARISA_FN
+ 1BF4:18CB       _BOMB_BG_REIMU_FN
+ 1BF4:4179 idle  _bomb_frame
+ 1BF4:4180 idle  _bomb_stars
+ 1BF4:51DA       _boss
+ 1BF4:51EE idle  _boss_angle
+ 1BF4:B89C       _boss_backdrop_colorfill
+ 1BF4:1B67       _boss_bgm_frame
+ 1BF4:4496       _boss_bgm_title_len
+ 1BF4:BAE6       _boss_bg_render_func
+ 1BF4:51EC idle  _boss_damage_this_frame
+ 1BF4:BAE4       _boss_fg_render
+ 1BF4:BAEC       _boss_fg_render_func
+ 1BF4:BB00       _boss_hitbox_radius
+ 1BF4:51E6 idle  _boss_hp
+ 1BF4:23B6       _BOSS_ITEM_DROPS
+ 1BF4:51ED idle  _boss_mode
+ 1BF4:51E9 idle  _boss_phase
+ 1BF4:51F0 idle  _boss_phase_end_hp
+ 1BF4:51EA idle  _boss_phase_frame
+ 1BF4:51EF idle  _boss_phase_state
+ 1BF4:23C5       _boss_phase_timed_out
+ 1BF4:51DA idle  _boss_pos
+ 1BF4:51E8 idle  _boss_sprite
+ 1BF4:BAEE       _boss_statebyte
+ 1BF4:BAE0       _boss_update
+ 1BF4:BAE8       _boss_update_func
+ 1BF4:1876       _BOX_TILES
+ 1BF4:5832       _bullets
+ 1BF4:7092 idle  _bullets16
+ 1BF4:BAD0       _bullets_add_regular
+ 0F2C:94FF       _bullets_add_regular_fixedspeed
+ 1BF4:BAD2       _bullets_add_special
+ 0F2C:950E       _bullets_add_special_fixedspeed
+ 1BF4:BACA       _bullet_clear_time
+ 1BF4:BAC7       _bullet_special
+ 1BF4:51B2       _bullet_template
+ 1BF4:BAC8       _bullet_template_special_angle
+ 1BF4:BAD4 idle  _bullet_template_tune
+ 1BF4:BAC9       _bullet_zap
+ 1BF4:19A0       _CARPET_LIGHTING_ANIM
+ 1BF4:1A60       _carpet_lighting_cel
+ 1BF4:4138       _carpet_light_level
+ 1BF4:1910       _CARPET_TILE_IMAGE_VOS
+ 1BF4:091A       _cdg_noalpha
+ 1BF4:3788       _cdg_slots
+ 1BF4:1EF4       _CFG_FN
+ 1BF4:1EFE       _checkerboard
+ 1BF4:93A4       _circles
+ 1BF4:4062       _circles_color
+ 1BF4:0330 idle  _ClipXL
+ 1BF4:0334 idle  _ClipXR
+ 1BF4:0332 idle  _ClipXW
+ 1BF4:033A idle  _ClipYB
+ 1BF4:033E idle  _ClipYB_adr
+ 1BF4:0338 idle  _ClipYH
+ 1BF4:0336 idle  _ClipYT
+ 1BF4:033C idle  _ClipYT_seg
+ 1BF4:4159 idle  _continues_used
+ 1BF4:056A       _CosTable8
+ 1BF4:B014 idle  _custom_entities
+ 1BF4:2862       _DemoBuf
+ 1BF4:01FB       _DEMOPLAY_BINARY_OP
+ 1BF4:01F1       _demo_fn
+ 1BF4:40A0       _dialog_cursor
+ 1BF4:186E       _dialog_fn
+ 1BF4:1872       _dialog_fn_yuuka5_defeat_bad
+ 1BF4:18A4       _dialog_kanji_buf
+ 1BF4:409C       _dialog_p
+ 1BF4:40A4       _dialog_side
+ 1BF4:1BBA       _dissolve_sprite
+ 1BF4:51AA       _drawpoint
+ 1BF4:4486 idle  _dream_items_collected
+ 1BF4:BADC idle  _dream_score
+ 1BF4:235E idle  _DREAM_SCORE_PER_ITEMS
+ 1BF4:44F4       _elly_phase
+ 1BF4:51AE       _Ems
+ 1BF4:01FE       _EMS_NAME
+ 1BF4:88A2 idle  _enemies
+ 1BF4:445A idle  _enemy_cur
+ 1BF4:BAC2       _entered_place
+ 1BF4:007E       _errno
+ 0000:5A9B       _execl
+ 0000:45AF       _exit
+ 1BF4:40C8       _explosions_big
+ 1BF4:40A8       _explosions_small
+ 1BF4:18DC       _explosion_big_frame
+ 1BF4:1A6A idle  _extends_gained
+ 1BF4:009E       _eyename
+ 1BF4:18C2       _FACESET_GENGETSU_DEFEAT_FN
+ 1BF4:0218       _FACESET_MARISA_FN_0
+ 1BF4:18B0       _FACESET_MARISA_FN_1
+ 1BF4:18B9       _FACESET_MUGETSU_DEFEAT_FN
+ 1BF4:020F       _FACESET_REIMU_FN_0
+ 1BF4:18A7       _FACESET_REIMU_FN_1
+ 0000:48AA idle  _farfree
+ 0000:49E7       _farmalloc
+ 0000:4B4B idle  _farrealloc
+ 1BF4:287A idle  _file_Buffer
+ 1BF4:287E idle  _file_BufferPos
+ 1BF4:0362 idle  _file_BufferSize
+ 1BF4:2882 idle  _file_BufPtr
+ 1BF4:2886 idle  _file_Eof
+ 1BF4:2888 idle  _file_ErrorStat
+ 1BF4:0364 idle  _file_Handle
+ 1BF4:2884 idle  _file_InReadBuf
+ 1BF4:2876 idle  _file_Pointer
+ 1BF4:0366 idle  _file_sharingmode
+ 1BF4:1EB8       _FIVE_DIGIT_POWERS_OF_10
+ 1BF4:5196 idle  _frames_unused
+ 0000:48AA       _free
+ 1BF4:90A2       _gather_circles
+ 1BF4:9396       _gather_template
+ 1BF4:1F08       _gCONTINUE_
+ 1BF4:1C24       _gDEMO_PLAY
+ 1BF4:24C4       _gengetsu_wave_amp
+ 1BF4:BB2A       _gengetsu_wave_target_x
+ 0000:5230       _getenv
+ 1BF4:1B80       _gEXTRA_STAGE
+ 1BF4:1B74       _gFINAL_STAGE
+ 1BF4:1ACB idle  _gHUD_HP_BLANK
+ 1BF4:039C idle  _graph_MeshByte
+ 1BF4:0396 idle  _graph_VramLines
+ 1BF4:0392 idle  _graph_VramSeg
+ 1BF4:0398 idle  _graph_VramWidth
+ 1BF4:0394 idle  _graph_VramWords
+ 1BF4:039A idle  _graph_VramZoom
+ 1BF4:BACE       _graze_score
+ 05E9:7824 idle  _grcg_fill_playfield_rows
+ 1BF4:1F10       _group_fixedspeed
+ 1BF4:BAD8       _group_i_absolute_angle
+ 1BF4:BAC6       _group_i_spread_angle
+ 1BF4:1B6C       _gStage_1
+ 1BF4:4510       _halftiles_dirty
+ 1BF4:4B50 idle  _halftiles_dirty_end
+ 1BF4:316A       _hflip_lut
+ 0E90:0050 idle  _hflip_lut_generate
+ 1BF4:B9FE       _hi
+ 1BF4:4161       _hiscore
+ 1BF4:1A6B       _hiscore_popup_shown
+ 1BF4:4452       _homing_target
+ 1BF4:1AD9 idle  _hud_bar_max
+ 1BF4:1ECA       _hud_gaiji_row
+ 1BF4:1ED4       _hud_hp_bar_value_prev
+ 1BF4:1AD4 idle  _HUD_HP_COLORS
+ 1BF4:1AC1 idle  _HUD_POWER_COLORS
+ 1BF4:AD44 idle  _items
+ 1BF4:2372 idle  _items_collected
+ 1BF4:2378 idle  _items_pull_to_player
+ 1BF4:2370 idle  _items_spawned
+ 1BF4:237A idle  _ITEM_MISS_VELOCITIES
+ 1BF4:22FA idle  _ITEM_PATNUM
+ 1BF4:22F9 idle  _item_playperf_lower
+ 1BF4:22F8 idle  _item_playperf_raise
+ 1BF4:4006       _item_splashes
+ 1BF4:4060       _item_splash_last_id
+ 1BF4:03A2 idle  _js_2player
+ 1BF4:039E idle  _js_bexist
+ 1BF4:03A0 idle  _js_saj_port
+ 1BF4:03A4 idle  _js_shift
+ 1BF4:288E idle  _js_stat
+ 1BF4:3784       _key_det
+ 1BF4:03A6 idle  _Machine_State
+ 05E9:0024       _main
+ 0000:49DD       _malloc
+ 1BF4:450E       _map_seg
+ 1BF4:1A62 idle  _MARISA_BIT_HP
+ 1BF4:4144       _marisa_phase
+ 0000:52A0       _memcpy
+ 1BF4:0786 idle  _mem_AllocID
+ 1BF4:3782       _mem_assign_paras
+ 1BF4:28D2 idle  _mem_EndMark
+ 1BF4:28D0 idle  _mem_FirstHole
+ 1BF4:0784 idle  _mem_MyOwn
+ 1BF4:28CC idle  _mem_OutSeg
+ 1BF4:0788 idle  _mem_Reserve
+ 1BF4:28CE idle  _mem_TopHeap
+ 1BF4:0782 idle  _mem_TopSeg
+ 1BF4:51C4       _midboss
+ 1BF4:1794 idle  _MIDBOSS3_FLY_ANGLES
+ 1BF4:406A idle  _midboss3_patterns_done
+ 1BF4:44C2       _midboss_active
+ 1BF4:51D9 idle  _midboss_angle
+ 1BF4:51D8 idle  _midboss_damage_this_frame
+ 1BF4:51D0 idle  _midboss_frames_until
+ 1BF4:51D2 idle  _midboss_hp
+ 1BF4:44C4       _midboss_invalidate
+ 1BF4:51D5 idle  _midboss_phase
+ 1BF4:51D6 idle  _midboss_phase_frame
+ 1BF4:51C4 idle  _midboss_pos
+ 1BF4:44CA       _midboss_render
+ 1BF4:44D0       _midboss_render_func
+ 1BF4:51D4 idle  _midboss_sprite
+ 1BF4:44C6       _midboss_update
+ 1BF4:44CC       _midboss_update_func
+ 1BF4:4489 idle  _miss_explosion_angle
+ 1BF4:448A idle  _miss_explosion_radius
+ 1BF4:447A idle  _miss_time
+ 1BF4:07B6       _mpn_show_palette_on_load
+ 1BF4:326A       _mpn_slots
+ 1BF4:44BE idle  _mugetsu_phase2_mode
+ 1BF4:0090 idle  _NEW_HANDLER
+ 1BF4:188E       _number_of_calls_to_this_function
+ 1BF4:BB0B idle  _orb_patnum_base
+ 1BF4:BB0E idle  _orb_template
+ 1BF4:44AC       _overlay1
+ 1BF4:44AE       _overlay2
+ 1BF4:1B66       _overlay_fade
+ 1BF4:44B2       _overlay_popup_bonus
+ 1BF4:44AB       _overlay_popup_id_new
+ 1BF4:450C       _page_back
+ 1BF4:450D       _page_front
+ 1BF4:03DA idle  _PaletteNote
+ 1BF4:2892       _Palettes
+ 1BF4:03AA idle  _PalettesInit
+ 1BF4:03A8       _PaletteTone
+ 1BF4:51A3       _palette_changed
+ 05E9:08E7 idle  _pause
+ 1BF4:5832 idle  _pellets
+ 1BF4:84E2       _pellets_render
+ 05E9:1FC4 idle  _pellets_render_bottom
+ 1BF4:BAD6       _pellets_render_count
+ 05E9:1F32 idle  _pellets_render_top
+ 1BF4:03E2 idle  _pferrno
+ 1BF4:03E4 idle  _pfkey
+ 1BF4:51A8       _playchar
+ 1BF4:417C idle  _playchar_bomb_func
+ 1BF4:417A idle  _player_bomb_func
+ 1BF4:4472       _player_invincibility_time
+ 1BF4:4479       _player_is_hit
+ 1BF4:447C idle  _player_option_pos_cur
+ 1BF4:4480 idle  _player_option_pos_prev
+ 1BF4:445E       _player_pos
+ 1BF4:1BBC       _PLAYFIELD_BLANK_ROW
+ 1BF4:4092       _playfield_shake_anim_time
+ 1BF4:1860       _playfield_shake_redraw_time
+ 1BF4:408E       _playfield_shake_x
+ 1BF4:4090       _playfield_shake_y
+ 1BF4:51A5       _playperf
+ 1BF4:51A6 idle  _playperf_max
+ 1BF4:51A7 idle  _playperf_min
+ 1BF4:9444 idle  _pointnums
+ 1BF4:3CE0 idle  _pointnums_alive
+ 1BF4:4002 idle  _pointnum_first_yellow_alive
+ 1BF4:098C       _pointnum_times_2
+ 1BF4:3CDE idle  _pointnum_white_p
+ 1BF4:3CDF idle  _pointnum_yellow_p
+ 1BF4:44A6       _popup_cur_tram_left
+ 1BF4:449B       _popup_dest_reached
+ 1BF4:44A8       _popup_dest_tram_left
+ 1BF4:1B68       _popup_frame
+ 1BF4:4498       _popup_gaiji_len
+ 1BF4:449A       _popup_id_cur
+ 1BF4:449C       _popup_shiftbuf
+ 1BF4:1BAA       _POPUP_STRINGS
+ 1BF4:4474       _power
+ 1BF4:236E idle  _power_overflow
+ 1BF4:2308 idle  _POWER_OVERFLOW_BONUS
+ 1BF4:51A2       _quit
+ 1BF4:03E6 idle  _random_seed
+ 1BF4:3BDC idle  _randring
+ 1BF4:3CDC idle  _randring_p
+ 1BF4:4158       _rank
+ 0000:4B44       _realloc
+ 1BF4:24C3       _reimu_bg_pulse_direction
+ 1BF4:24C2       _reimu_pattern8_angle
+ 1BF4:B896       _resident
+ 1BF4:03DC idle  _ResPalSeg
+ 1BF4:4159       _score
+ 1BF4:416A       _score_delta
+ 1BF4:416E       _score_delta_frame
+ 1BF4:4169       _score_unused
+ 1BF4:40A6       _script_param_number_default
+ 1BF4:408C       _scroll_active
+ 1BF4:4088       _scroll_line
+ 1BF4:4070       _scroll_line_on_page
+ 1BF4:4087       _scroll_speed
+ 1BF4:4086       _scroll_subpixel_line
+ 1BF4:03DE idle  _SdiExists
+ 0000:5ABE       _setblock
+ 1BF4:3786       _shiftkey
+ 1BF4:B36E idle  _shots
+ 1BF4:42B6 idle  _shots_alive
+ 1BF4:444E idle  _shots_alive_count
+ 1BF4:1B60       _shots_hittest_against_boss
+ 1BF4:42AE       _shot_hitbox_center
+ 1BF4:42B2       _shot_hitbox_radius
+ 1BF4:40DC idle  _shot_laser_bottomcenter
+ 1BF4:0F8E idle  _SHOT_LASER_DOTS
+ 1BF4:18DE idle  _shot_laser_ring_cycle
+ 1BF4:40DA idle  _shot_laser_style
+ 1BF4:40D8 idle  _shot_laser_time
+ 1BF4:4176 idle  _shot_last_id
+ 1BF4:4475 idle  _shot_level
+ 1BF4:1EE2 idle  _SHOT_LEVEL_TO_POWER
+ 1BF4:4174 idle  _shot_ptr
+ 1BF4:4476 idle  _shot_time
+ 1BF4:03EA idle  _SinTable7
+ 1BF4:04EA       _SinTable8
+ 1BF4:51A0       _slowdown_factor
+ 1BF4:08F9       _snd_bgm_mode
+ 1BF4:346A       _snd_interrupt_if_midi
+ 1BF4:08FC       _SND_LOAD_EXT
+ 1BF4:3774       _snd_load_fn
+ 1BF4:08FA       _snd_midi_possible
+ 0E90:07E4       _snd_mmd_resident
+ 0E90:08B0       _snd_pmd_resident
+ 1BF4:0919       _snd_se_frame
+ 1BF4:08F8       _snd_se_mode
+ 1BF4:0918       _snd_se_playing
+ 1BF4:08D6       _snd_se_priorities
+ 1BF4:08E7       _snd_se_priority_frames
+ 0E90:001A       _snd_se_reset
+ 0E90:091A       _snd_se_update
+ 1BF4:51F2       _sparks
+ 05E9:192A idle  _sparks_init
+ 05E9:18C8 idle  _sparks_render
+ 05E9:187C idle  _sparks_update
+ 1BF4:4004       _spark_ring_offset
+ 1BF4:17A0 idle  _sPELLET
+ 1BF4:1820 idle  _sPELLET_BOTTOM
+ 1BF4:098E idle  _sPOINTNUMS
+ 1BF4:0F94 idle  _sSPARKS
+ 1BF4:2472       _st06bk_cdg
+ 1BF4:247D       _st06_bb
+ 1BF4:BB04       _stage5_star_center_y
+ 1BF4:4492       _stage_bgm_title_len
+ 1BF4:1F12 idle  _STAGE_CLEAR_BONUS_DESC
+ 1BF4:519A       _stage_frame
+ 1BF4:519F       _stage_frame_mod16
+ 1BF4:519C       _stage_frame_mod2
+ 1BF4:519D       _stage_frame_mod4
+ 1BF4:519E       _stage_frame_mod8
+ 1BF4:BACC       _stage_graze
+ 1BF4:51A4       _stage_id
+ 1BF4:413A       _stage_invalidate
+ 1BF4:447B idle  _stage_point_items_collected
+ 1BF4:413C       _stage_render
+ 1BF4:1BC0       _STAGE_TITLES
+ 1BF4:4494       _stage_title_id
+ 1BF4:4490       _stage_title_len
+ 1BF4:4456       _stage_vm
+ 1BF4:3B8A       _std_enemy_scripts
+ 1BF4:091E       _std_fn
+ 1BF4:3BCA       _std_ip
+ 1BF4:5190       _std_map_section_id
+ 1BF4:5194       _std_scroll_speed
+ 1BF4:091C       _std_seg
+ 1BF4:409A       _std_update
+ 0000:544D       _strcat
+ 0000:548C       _strcpy
+ 0000:54B5       _stricmp
+ 0000:54F6       _strlen
+ 0000:5517       _strrchr
+ 1BF4:07AA idle  _super_buffer
+ 1BF4:07AE idle  _super_charfree
+ 1BF4:28D4 idle  _super_patdata
+ 1BF4:07AC idle  _super_patnum
+ 1BF4:2CD4 idle  _super_patsize
+ 1BF4:1EC2       _temp_lebcd
+ 1BF4:0770 idle  _TextShown
+ 1BF4:076A idle  _TextVramAdr
+ 1BF4:076C idle  _TextVramSeg
+ 1BF4:076E idle  _TextVramWidth
+ 1BF4:4100       _thicklasers
+ 1BF4:40E8 idle  _thicklaser_template
+ 1BF4:B89A idle  _tiles_bb_col
+ 1BF4:B89E idle  _tiles_bb_seg
+ 1BF4:4074       _tile_invalidate_box
+ 1BF4:4080       _tile_render_all_time
+ 1BF4:4B50       _tile_ring
+ 1BF4:5192       _tile_row_in_section
+ 1BF4:093E idle  _TILE_SECTION_OFFSETS
+ 1BF4:44B0       _titles_frame
+ 0000:470A       _tolower
+ 1BF4:1868 idle  _total_frames
+ 1BF4:2376 idle  _total_max_valued_point_items_collected
+ 1BF4:2374 idle  _total_point_items_collected
+ 1BF4:1864 idle  _total_slow_frames
+ 1BF4:186C       _total_std_frames
+ 0000:473A       _toupper
+ 1BF4:2866 idle  _trapez_a
+ 1BF4:286E idle  _trapez_b
+ 1BF4:51B0       _turbo_mode
+ 1BF4:1394 idle  _VELOCITY_192_AT_ANGLE
+ 1BF4:30D4 idle  _VRAM_PLANE
+ 1BF4:30D4       _VRAM_PLANE_B
+ 1BF4:30E0       _VRAM_PLANE_E
+ 1BF4:30DC       _VRAM_PLANE_G
+ 1BF4:30D8       _VRAM_PLANE_R
+ 1BF4:28C2       _vsync_Count1
+ 1BF4:28C4 idle  _vsync_Count2
+ 1BF4:0776 idle  _vsync_Delay
+ 1BF4:0778 idle  _vsync_OldMask
+ 1BF4:28C6 idle  _vsync_OldVect
+ 1BF4:0772 idle  _vsync_Proc
+ 0F2C:6D9A idle  _yuuka6_anim_appear
+ 1BF4:44DA idle  _yuuka6_anim_frame
+ 0F2C:6AA6 idle  _yuuka6_anim_parasol_back_close
+ 0F2C:6B15 idle  _yuuka6_anim_parasol_back_open
+ 0F2C:6B85 idle  _yuuka6_anim_parasol_back_pull_forward
+ 0F2C:6BEF idle  _yuuka6_anim_parasol_back_pull_left
+ 0F2C:6C4E idle  _yuuka6_anim_parasol_left_spin_back
+ 0F2C:6E10 idle  _yuuka6_anim_parasol_shield
+ 0F2C:6D25 idle  _yuuka6_anim_vanish
+ 1BF4:1ED8 idle  _YUUKA6_PHASE2_FLY_ANGLES
+ 1BF4:44D7 idle  _yuuka6_phase2_fly_path
+ 1BF4:44D6 idle  _yuuka6_sprite_flag
+ 0000:4300       __abort
+ 0000:4D25       __access
+ 0000:1000 idle  __AHINCR
+ 0000:000C idle  __AHSHIFT
+ 1BF4:24E6       __atexitcnt
+ 1BF4:BB2C       __atexittbl
+ 0000:4C53       __brk
+ 1BF4:0088       __brklvl
+ 1BF4:006A idle  __C0argc
+ 1BF4:006C idle  __C0argv
+ 1BF4:0070       __C0environ
+ 0000:45D8       __cexit
+ 0000:0159       __checknull
+ 0000:0146       __cleanup
+ 1BF4:270C       __ctype
+ 0000:45EA idle  __c_exit
+ 0000:55BF       __DOSCMD
+ 0000:4389       __DOSENV
+ 1BF4:26AE idle  __doserrno
+ 0000:46D5 idle  __DOSERROR
+ 1BF4:26B0 idle  __dosErrorToSV
+ 0000:44F6       __dos_getdrive
+ 0000:450C idle  __dos_setdrive
+ 1BF4:2826       __environ
+ 1BF4:0074       __envLng
+ 1BF4:0076       __envseg
+ 1BF4:0078       __envSize
+ 0000:0271       __ExceptInit
+ 1BF4:0080 idle  __Exception_list
+ 0000:585D       __exec
+ 0000:45C2       __exit
+ 1BF4:24E8       __exitbuf
+ 1BF4:24EC idle  __exitfopen
+ 1BF4:24F0 idle  __exitopen
+ 0000:4EAA       __fullpath
+ 0000:5193       __getdcwd
+ 1BF4:0084       __heapbase
+ 1BF4:008C       __heaptop
+ 1BF4:005A idle  __Int0Vector
+ 1BF4:005E idle  __Int4Vector
+ 1BF4:0062 idle  __Int5Vector
+ 1BF4:0066 idle  __Int6Vector
+ 0000:4697       __IOERROR
+ 0000:5C43       __LoadProg
+ 0000:026F idle  __MMODEL
+ 1BF4:2684       __nfile
+ 1BF4:2686       __openfd
+ 1BF4:007C idle  __osmajor
+ 1BF4:007D idle  __osminor
+ 1BF4:007C idle  __osversion
+ 1BF4:007A       __psp
+ 1BF4:2852 idle  __RealCvtVector
+ 0000:01BB       __restorezero
+ 0000:4E30       __rtl_chmod
+ 0000:5564       __rtl_write
+ 0000:4C96       __sbrk
+ 1BF4:2852 idle  __ScanTodVector
+ 0000:52C4       __searchenv
+ 0000:530B       __searchstr
+ 0000:0000 idle  __setenvp__
+ 0000:031C       __setupio
+ 1BF4:270A       __stklen
+ 0000:431B       __stpcpy
+ 1BF4:24F4       __streams
+ 1BF4:2824       __sys_nerr
+ 0000:015A       __terminate
+ 1BF4:007C       __version
+ 0000:55A3 idle  __write
+ 1BF4:0082 idle  ___brklvl
+ 0000:4526       ___ErrorMessage
+ 0000:476A idle  ___first
+ 0000:476C idle  ___last
+ 1BF4:2814 idle  ___path_dbcs_default
+ 1BF4:2810 idle  ___path_dbcs_vector
+ 0000:4DA9       ___path_isdbcsleadbyte
+ 0000:4DCE       ___path_issbcs
+ 0000:476E idle  ___rover
+
+  Address         Publics by Value
+
+ 0000:0000 idle  _address_0
+ 0000:0000 idle  __setenvp__
+ 0000:000C idle  __AHSHIFT
+ 0000:1000 idle  __AHINCR
+ 0000:0146       __cleanup
+ 0000:0159       __checknull
+ 0000:015A       __terminate
+ 0000:01BB       __restorezero
+ 0000:026D       DGROUP@
+ 0000:026F idle  __MMODEL
+ 0000:0271       __ExceptInit
+ 0000:0272 idle  set_new_handler(void(far*)())
+ 0000:0290 idle  operator new(unsigned int)
+ 0000:02D3 idle  operator new(unsigned long)
+ 0000:031C       __setupio
+ 0000:0332 idle  BFNT_ENTRY_PAT
+ 0000:0460 idle  BFNT_EXTEND_HEADER_SKIP
+ 0000:0482 idle  BFNT_HEADER_READ
+ 0000:04BE idle  BFNT_EXTEND_HEADER_ANALYSIS
+ 0000:0522 idle  rtc_int_set
+ 0000:060A idle  BCLOSER
+ 0000:0622 idle  BFILL
+ 0000:065E idle  BFNT_PALETTE_SET
+ 0000:069E idle  BGETC
+ 0000:06CE       PALETTE_BLACK_IN
+ 0000:0712       PALETTE_BLACK_OUT
+ 0000:0750 idle  BOPENR
+ 0000:07A4 idle  BREAD
+ 0000:07D4 idle  BSEEK
+ 0000:0816 idle  BSEEK_
+ 0000:0846 idle  cutline
+ 0000:08BA idle  DOS_AXDX
+ 0000:08D2 idle  DOS_FILESIZE
+ 0000:090A idle  DOS_KEYCLEAR
+ 0000:0910 idle  DOS_READ
+ 0000:092A idle  DOS_SEEK
+ 0000:0946 idle  DOS_SETVECT
+ 0000:0966 idle  EGC_ON
+ 0000:097C       EGC_OFF
+ 0000:099C       EGC_START
+ 0000:099C idle  EGC_END
+ 0000:09C8       EGC_SHIFT_DOWN
+ 0000:0ACE       EGC_SHIFT_LEFT
+ 0000:0BD0       EGC_SHIFT_RIGHT
+ 0000:0CE0       EGC_SHIFT_UP
+ 0000:0DE0       FILE_APPEND
+ 0000:0E34 idle  FILE_FLUSH
+ 0000:0EA0       FILE_CLOSE
+ 0000:0EB0       FILE_CREATE
+ 0000:0EF0       FILE_READ
+ 0000:0FA4       FILE_ROPEN
+ 0000:0FE0       FILE_SEEK
+ 0000:1014 idle  FILE_TELL
+ 0000:1022       FILE_SIZE
+ 0000:1030       FILE_WRITE
+ 0000:10D6 idle  FONTFILE_CLOSE
+ 0000:10D6 idle  DOS_CLOSE
+ 0000:10EC idle  FONTFILE_OPEN
+ 0000:10EC idle  DOS_ROPEN
+ 0000:110C idle  GRCG_BOXFILL
+ 0000:11DC idle  GRCG_CIRCLEFILL
+ 0000:127C       GRCG_CIRCLE
+ 0000:13EA idle  GRCG_CIRCLE_X
+ 0000:14DA idle  GRC_SETCLIP
+ 0000:156C idle  GRCG_HLINE
+ 0000:15F2 idle  GRCG_LINE
+ 0000:1790 idle  GRCG_PSET
+ 0000:17D4       GRCG_SETCOLOR
+ 0000:17FE idle  GRCG_OFF
+ 0000:1804 idle  GRCG_VLINE
+ 0000:188A idle  gdc_outpw
+ 0000:1896 idle  GET_MACHINE_98
+ 0000:1914 idle  GET_MACHINE_AT
+ 0000:1A6A idle  GET_MACHINE_DOSBOX
+ 0000:1A9C idle  CHECK_MACHINE_FMR
+ 0000:1AAA idle  GET_MACHINE
+ 0000:1AC6 idle  GAIJI_BACKUP
+ 0000:1AEA idle  GAIJI_RESTORE
+ 0000:1B06 idle  GAIJI_ENTRY_BFNT
+ 0000:1B9C       GAIJI_PUTCA
+ 0000:1BE0       GAIJI_PUTSA
+ 0000:1C58 idle  GAIJI_READ
+ 0000:1C7E idle  GAIJI_READ_ALL
+ 0000:1CC4 idle  GAIJI_WRITE
+ 0000:1CEC idle  GAIJI_WRITE_ALL
+ 0000:1D12       GRAPH_400LINE
+ 0000:1D60       GRAPH_CLEAR
+ 0000:1D84 idle  GRAPH_EXTMODE
+ 0000:1DDA idle  GRAPH_HIDE
+ 0000:1DE0 idle  GRAPH_SCROLLUP
+ 0000:1E38       IATAN2
+ 0000:1EA4       JS_END
+ 0000:1EAA idle  LARGE_BYTE
+ 0000:1EBA idle  SUPER_LARGE_PUT
+ 0000:1F94       PALETTE_SHOW
+ 0000:209E idle  PFCLOSE
+ 0000:20B8 idle  PFGETC
+ 0000:20C8 idle  PFGETC1
+ 0000:2116 idle  PFGETX0
+ 0000:215A idle  PFGETX1
+ 0000:2168 idle  PFREAD
+ 0000:2196 idle  PFREWIND
+ 0000:21D2 idle  PFSEEK
+ 0000:2202       IRAND
+ 0000:222C idle  PALETTE_ENTRY_RGB
+ 0000:226E idle  SMEM_RELEASE
+ 0000:2284 idle  SMEM_WGET
+ 0000:22E4       TEXT_CLEAR
+ 0000:22F6 idle  TEXT_FILLCA
+ 0000:232E       TEXT_PUTCA
+ 0000:2386       TEXT_PUTSA
+ 0000:23FC       VSYNC_START
+ 0000:24AA       VSYNC_END
+ 0000:24AA idle  VSYNC_LEAVE
+ 0000:24F2 idle  VSYNC_WAIT
+ 0000:2518 idle  PALETTE_WHITE_IN
+ 0000:2558 idle  PALETTE_WHITE_OUT
+ 0000:2598       MEM_ASSIGN_DOS
+ 0000:25BA idle  MEM_ASSIGN
+ 0000:25E0 idle  MEM_ASSIGN_ALL
+ 0000:2608       HMEM_ALLOCBYTE
+ 0000:261C idle  HMEM_ALLOC
+ 0000:270C       HMEM_FREE
+ 0000:27B4       MEM_UNASSIGN
+ 0000:27D8 idle  SUPER_FREE
+ 0000:281C idle  SUPER_ENTRY_PAT
+ 0000:28C8 idle  SUPER_PUT_1PLANE
+ 0000:2A90 idle  SUPER_ENTRY_AT
+ 0000:2B04       SUPER_ENTRY_BFNT
+ 0000:2B8E idle  SUPER_CANCEL_PAT
+ 0000:2BDE       SUPER_CLEAN
+ 0000:2C08       SUPER_ROLL_PUT_1PLANE
+ 0000:2DCE       SUPER_ROLL_PUT
+ 0000:2FE4       SUPER_PUT
+ 0000:3196 idle  SUPER_CONVERT_TINY
+ 0000:3232 idle  SUPER_ZOOM
+ 0000:3314       PFSTART
+ 0000:33D0       PFEND
+ 0000:356C       JS_START
+ 0000:3596 idle  PFOPEN
+ 0000:36FA       JS_SENSE
+ 0000:3786 idle  _BGM_BELL_ORG
+ 0000:37DE idle  _BGM_MGET
+ 0000:3908       BGM_READ_SDATA
+ 0000:3A48 idle  _BGM_TIMER_INIT
+ 0000:3A8C idle  _BGM_TIMER_FINISH
+ 0000:3AB6 idle  _BGM_PINIT
+ 0000:3AF4 idle  _BGM_TIMERHOOK
+ 0000:3C0C idle  _BGM_PLAY
+ 0000:3D3A       BGM_SOUND
+ 0000:3D84 idle  _BGM_EFFECT_SOUND
+ 0000:3DFC idle  BGM_STOP_PLAY
+ 0000:3E16 idle  BGM_SET_TEMPO
+ 0000:3E44       BGM_INIT
+ 0000:3FE8       BGM_FINISH
+ 0000:4046 idle  BGM_STOP_SOUND
+ 0000:4060 idle  SUPER_WAVE_PUT
+ 0000:4184       EMS_READ
+ 0000:41E6       EMS_ALLOCATE
+ 0000:420C idle  EMS_ENABLEPAGEFRAME
+ 0000:421A       EMS_EXIST
+ 0000:4244 idle  EMS_FREE
+ 0000:4256 idle  EMS_MOVEMEMORYREGION
+ 0000:426C       EMS_SETNAME
+ 0000:4286       EMS_WRITE
+ 0000:42E8       EMS_SPACE
+ 0000:4300       __abort
+ 0000:431B       __stpcpy
+ 0000:4358 idle  _atexit
+ 0000:4389       __DOSENV
+ 0000:44F6       __dos_getdrive
+ 0000:450C idle  __dos_setdrive
+ 0000:4526       ___ErrorMessage
+ 0000:45AF       _exit
+ 0000:45C2       __exit
+ 0000:45D8       __cexit
+ 0000:45EA idle  __c_exit
+ 0000:45FA idle  F_SCOPY@
+ 0000:45FA       SCOPY@
+ 0000:4616       N_LXLSH@
+ 0000:4619 idle  LXLSH@
+ 0000:4619 idle  F_LXLSH@
+ 0000:4637       N_PADD@
+ 0000:463A idle  F_PADD@
+ 0000:463A idle  PADD@
+ 0000:4666 idle  N_PSUB@
+ 0000:4669 idle  PSUB@
+ 0000:4669 idle  F_PSUB@
+ 0000:4697       __IOERROR
+ 0000:46D5 idle  __DOSERROR
+ 0000:46E9       N_PCMP@
+ 0000:470A       _tolower
+ 0000:473A       _toupper
+ 0000:476A idle  ___first
+ 0000:476C idle  ___last
+ 0000:476E idle  ___rover
+ 0000:48AA       _free
+ 0000:48AA idle  _farfree
+ 0000:49DD       _malloc
+ 0000:49E7       _farmalloc
+ 0000:4B44       _realloc
+ 0000:4B4B idle  _farrealloc
+ 0000:4C53       __brk
+ 0000:4C96       __sbrk
+ 0000:4D25       __access
+ 0000:4DA9       ___path_isdbcsleadbyte
+ 0000:4DCE       ___path_issbcs
+ 0000:4E30       __rtl_chmod
+ 0000:4EAA       __fullpath
+ 0000:5193       __getdcwd
+ 0000:5230       _getenv
+ 0000:52A0       _memcpy
+ 0000:52C4       __searchenv
+ 0000:530B       __searchstr
+ 0000:544D       _strcat
+ 0000:548C       _strcpy
+ 0000:54B5       _stricmp
+ 0000:54F6       _strlen
+ 0000:5517       _strrchr
+ 0000:5564       __rtl_write
+ 0000:55A3 idle  __write
+ 0000:55BF       __DOSCMD
+ 0000:585D       __exec
+ 0000:5A9B       _execl
+ 0000:5ABE       _setblock
+ 0000:5C43       __LoadProg
+ 05E9:000E       slowdown_frame_delay()
+ 05E9:0024       _main
+ 05E9:08E7 idle  _pause
+ 05E9:0A06       demo_load()
+ 05E9:0A53       demoplay()
+ 05E9:0A9E       ems_allocate_and_preload_eyecatc()
+ 05E9:0B47       bomb_bg_load__ems_preload_playch()
+ 05E9:0C2F idle  eyecatch_animate()
+ 05E9:0C97       tile_ring_set_vo(int,int,int)
+ 05E9:0CE8       std_load()
+ 05E9:0DB7       std_free()
+ 05E9:0DCE       end_game_good()
+ 05E9:0DF9       end_game_bad()
+ 05E9:0E24       end_extra()
+ 05E9:0F11 idle  MPN_LOAD
+ 05E9:0F86 idle  map_load()
+ 05E9:0FD0       map_free()
+ 05E9:0FEC       TILES_INVALIDATE_AROUND
+ 05E9:10B8 idle  TILES_FILL_INITIAL
+ 05E9:11BA       tiles_redraw_invalidated()
+ 05E9:1226       SCROLL_SUBPIXEL_Y_TO_VRAM_SEG1
+ 05E9:124E       playfieldmotion::update_seg1()
+ 05E9:126E idle  randring_fill()
+ 05E9:1286 idle  randring1_next16()
+ 05E9:1294 idle  randring1_next16_and(unsigned int)
+ 05E9:12AA idle  randring1_next16_mod(unsigned int)
+ 05E9:12C4       NULLFUNC_NEAR
+ 05E9:12C6       NULLFUNC_FAR
+ 05E9:12C8 idle  POINTNUMS_INIT
+ 05E9:12D4       pointnums_invalidate()
+ 05E9:130A idle  POINTNUMS_UPDATE
+ 05E9:137A idle  POINTNUMS_RENDER
+ 05E9:1414 idle  @pointnum_put
+ 05E9:147E idle  SHOT_LASER_PUT_RAW
+ 05E9:14E2 idle  elly_backdrop_colorfill()
+ 05E9:14F0 idle  mai_yuki_backdrop_colorfill()
+ 05E9:14F0 idle  reimu_marisa_backdrop_colorfill()
+ 05E9:152C idle  tiles_bb_put_raw(int)
+ 05E9:15AA idle  tiles_bb_invalidate_raw(int)
+ 05E9:160E idle  yuuka5_backdrop_colorfill()
+ 05E9:1630 idle  z_super_put_16x16_mono_raw(int)
+ 05E9:16B0       bb_txt_put_8_raw(unsigned int,unsigned int)
+ 05E9:1712       items_invalidate()
+ 05E9:175E idle  mugetsu_gengetsu_backdrop_colorfill()
+ 05E9:176C       grcg_setmode_rmw()
+ 05E9:1772       grcg_setmode_tdw()
+ 05E9:1778       grcg_setcolor_direct_raw()
+ 05E9:1792 idle  ITEM_SPLASHES_RENDER
+ 05E9:1816 idle  @spark_render
+ 05E9:187C idle  _sparks_update
+ 05E9:18C8 idle  _sparks_render
+ 05E9:1904       sparks_invalidate()
+ 05E9:192A idle  _sparks_init
+ 05E9:1948 idle  @item_splash_dot_render
+ 05E9:197A idle  PLAYPERF_RAISE
+ 05E9:1994 idle  PLAYPERF_LOWER
+ 05E9:19AC idle  SELECT_FOR_RANK
+ 05E9:19C2 idle  Z_SUPER_ROLL_PUT_TINY_32X32_RAW
+ 05E9:1ADC       Z_SUPER_ROLL_PUT_TINY_16X16_RAW
+ 05E9:1BE0       circles_add_growing(int,int)
+ 05E9:1C30       circles_add_shrinking(int,int)
+ 05E9:1C80       circles_update()
+ 05E9:1CB2       circles_render()
+ 05E9:1CE2       enemies_invalidate()
+ 05E9:1D0E idle  midboss1_render()
+ 05E9:1E1B idle  midboss3_render()
+ 05E9:1EE0 idle  midbossx_render()
+ 05E9:1F32 idle  _pellets_render_top
+ 05E9:1FC4 idle  _pellets_render_bottom
+ 05E9:202E       bullets_and_gather_invalidate()
+ 05E9:20C4       tiles_invalidate_reset()
+ 05E9:20D7       tiles_invalidate_all()
+ 05E9:20ED       tiles_render()
+ 05E9:2126       tiles_activate()
+ 05E9:212D       tiles_activate_and_render_all_fo(unsigned char)
+ 05E9:2140       tiles_render_all()
+ 05E9:2182       egc_start_copy_noframe()
+ 05E9:21C2 idle  midboss2_render()
+ 05E9:22BE       playfield_shake_update_and_rende()
+ 05E9:238A       midboss4_render()
+ 05E9:2419 idle  dialog_load(const char far*)
+ 05E9:245A       dialog_load()
+ 05E9:2483       dialog_load_yuuka5_defeat_bad()
+ 05E9:249C       dialog_free()
+ 05E9:24B7 idle  std_update_done()
+ 05E9:24BA       std_update_frames_then_animate_d()
+ 05E9:256A idle  dialog_box_put(unsigned int,unsigned int,int)
+ 05E9:2592 idle  playfield_copy_front_to_back()
+ 05E9:25C6 idle  dialog_face_unput_8(unsigned int,unsigned int)
+ 05E9:25EB idle  dialog_box_fade_in_animate()
+ 05E9:2611 idle  script_param_read_number_first(int far&)
+ 05E9:26D3 idle  script_param_read_number_second(int far&)
+ 05E9:26FC idle  dialog_op(unsigned char)
+ 05E9:297C idle  dialog_run()
+ 05E9:2A6C       dialog_animate()
+ 05E9:2A9C idle  dialog_init()
+ 05E9:2B63 idle  dialog_exit()
+ 05E9:2BFD       explosions_small_update_and_rend()
+ 05E9:2CC8       explosions_big_update_and_render()
+ 05E9:2E25 idle  shot_laser_update(unsigned int,shot_laser_style_t)
+ 05E9:3B90       gameexecl(const char far*)
+ 05E9:3E0F idle  kurumi_backdrop_colorfill()
+ 05E9:3E29 idle  carpet_lighting_put_new(int,unsigned int)
+ 05E9:3E83       stage4_render()
+ 05E9:3F8F       stage5_render()
+ 05E9:3FF4       stage5_invalidate()
+ 05E9:4179 idle  orange_backdrop_colorfill()
+ 05E9:419D       SCORE_EXTEND_UPDATE_AND_RENDER
+ 05E9:43FB idle  HUD_POINT_ITEMS_PUT
+ 05E9:4411 idle  HUD_DREAM_PUT
+ 05E9:4428       hud_graze_put()
+ 05E9:443C idle  HUD_POWER_PUT
+ 05E9:4474       hud_hp_put(int)
+ 05E9:450E idle  HUD_BAR_PUT
+ 05E9:459B idle  HUD_PUT
+ 05E9:52CB idle  BB_PLAYCHAR_LOAD
+ 05E9:5320 idle  BB_PLAYCHAR_FREE
+ 05E9:534B idle  PLAYER_BOMB
+ 05E9:53C1 idle  BB_PLAYCHAR_PUT
+ 05E9:53E4 idle  BOMB_REIMU
+ 05E9:54AA idle  BOMB_MARISA
+ 05E9:55A1 idle  bomb_update_and_render()
+ 05E9:56A4 idle  BOMB_STARS_UPDATE_AND_RENDER_FOR
+ 05E9:57DB       shots_invalidate()
+ 05E9:58E9 idle  shots_render()
+ 05E9:5950       shots_hittest()
+ 05E9:5AAA idle  ENEMIES_RENDER
+ 05E9:5B79       player_invalidate()
+ 05E9:5C2F       player_move(unsigned int)
+ 05E9:5CE6       player_pos_update_and_clamp()
+ 05E9:5F88 idle  PLAYER_RENDER
+ 05E9:60D6       overlay_wipe()
+ 05E9:60FE       overlay_black()
+ 05E9:6126       overlay_stage_enter_update_and_r()
+ 05E9:61BE       overlay_stage_leave_update_and_r()
+ 05E9:622C idle  dissolve_put(int,int,int)
+ 05E9:627D       overlay_titles_invalidate()
+ 05E9:62C8 idle  overlay_titles_update_and_render()
+ 05E9:6522       overlay_boss_bgm_update_and_rend()
+ 05E9:6660       overlay_popup_update_and_render()
+ 05E9:684F idle  popup_put_points_th04(unsigned long)
+ 05E9:68DD idle  BB_TXT_LOAD
+ 05E9:6927 idle  BB_TXT_FREE
+ 05E9:6A1E       HUD_SCORE_PUT
+ 05E9:6A50       score_update_and_render()
+ 05E9:6BB8       boss_direct_entry_prepare()
+ 05E9:6D5A       boss_phase_skip_apply()
+ 05E9:7255       midboss_defeat_render()
+ 05E9:7551 idle  shots_add()
+ 05E9:7585 idle  shot_velocity_set(sppoint near*,unsigned char)
+ 05E9:7751       cfg_load_resident_ptr()
+ 05E9:7784 idle  @grcg_tile_bb_put_8
+ 05E9:7824 idle  _grcg_fill_playfield_rows
+ 05E9:7832       playfield_checkerboard_grcg_tdw_()
+ 05E9:78E0       midboss_invalidate_func()
+ 05E9:790F       boss_backdrop_render(int,int,unsigned char)
+ 05E9:7BA9 idle  bg_shape_clip_and_respawn_in_cen(bg_shape_t near&)
+ 05E9:7BDF idle  bg_shape_clip_and_wrap(bg_shape_t near&)
+ 05E9:8131       mugetsu_gengetsu_bg_render()
+ 05E9:81C2 idle  scoredat_decode(scoredat_section_t far&)
+ 05E9:8244 idle  scoredat_encode(scoredat_section_t far&)
+ 05E9:82CD idle  scoredat_section_offset(playchar_t,rank_t)
+ 05E9:82E6 idle  scoredat_defaults_set()
+ 05E9:8369 idle  scoredat_save_default(int)
+ 05E9:8386 idle  scoredat_recreate()
+ 05E9:83A8       scoredat_load(playchar_t,rank_t)
+ 05E9:848B       scoredat_save(playchar_t,rank_t)
+ 05E9:84C9 idle  hiscore_continue_enter_raw()
+ 05E9:8625       hiscore_continue_enter()
+ 05E9:8642       hiscore_load()
+ 05E9:866B idle  BULLETS_RENDER
+ 05E9:8776 idle  ITEMS_RENDER
+ 05E9:88E5       gengetsu_fg_render()
+ 0E90:0004       frame_delay(int)
+ 0E90:001A       _snd_se_reset
+ 0E90:0026       vram_planes_set()
+ 0E90:0050 idle  _hflip_lut_generate
+ 0E90:006E       VECTOR2
+ 0E90:00B4 idle  VECTOR2_BETWEEN_PLUS
+ 0E90:010E       CDG_LOAD_SINGLE_NOALPHA
+ 0E90:0114 idle  CDG_LOAD_SINGLE
+ 0E90:01CC idle  CDG_LOAD_ALL_NOALPHA
+ 0E90:01D2       CDG_LOAD_ALL
+ 0E90:022E       CDG_FREE
+ 0E90:0264       CDG_FREE_ALL
+ 0E90:0272       CDG_PUT_NOALPHA_8
+ 0E90:02D8       cdg_put_plane_roll_8(int,int,int,vram_plane_t,unsigned char _seg *)
+ 0E90:035A idle  CDG_PUT_8
+ 0E90:03F8       game_exit()
+ 0E90:043C       game_init_main(const unsigned char far*)
+ 0E90:048A       input_reset_sense()
+ 0E90:0498       input_sense()
+ 0E90:05A2       input_wait_for_change(int)
+ 0E90:05F8       MPN_FREE
+ 0E90:0621 idle  MPN_PALETTE_SHOW
+ 0E90:0646       MPN_LOAD_PALETTE_SHOW
+ 0E90:06DC       SND_KAJA_INTERRUPT
+ 0E90:06FA       SND_LOAD
+ 0E90:07E4       _snd_mmd_resident
+ 0E90:0814       SND_DETERMINE_MODES
+ 0E90:08B0       _snd_pmd_resident
+ 0E90:08DE       SND_SE_PLAY
+ 0E90:091A       _snd_se_update
+ 0E90:0966       polar(int,int,int)
+ 0E90:0982       VECTOR2_AT
+ 0F2C:0004 idle  set_gather_template_to_bullet_te(gather_t near&)
+ 0F2C:001F       gather_add_bullets()
+ 0F2C:0085       gather_add_only()
+ 0F2C:00E9       gather_add_only_3stack(int,unsigned int,unsigned int)
+ 0F2C:0116 idle  set_bullet_template_to_gather_te(gather_t near&)
+ 0F2C:0131       gather_update()
+ 0F2C:0191 idle  gather_point_on_playfield()
+ 0F2C:01B7       gather_render()
+ 0F2C:0244       SCROLL_SUBPIXEL_Y_TO_VRAM_SEG3
+ 0F2C:0274       SCROLL_SUBPIXEL_Y_TO_VRAM_ALWAYS
+ 0F2C:029E       playfieldmotion::update_seg3()
+ 0F2C:02BE       randring2_next16()
+ 0F2C:02CC       randring2_next16_and(unsigned int)
+ 0F2C:02E2       randring2_next16_mod(unsigned int)
+ 0F2C:02FC       pointnums_add_yellow(int,int,unsigned int)
+ 0F2C:0316       pointnums_add_white(int,int,unsigned int)
+ 0F2C:035E       VECTOR2_NEAR
+ 0F2C:0396       sparks_add_random(subpixelbase<int,int>,subpixelbase<int,int>,int,int)
+ 0F2C:03F8       sparks_add_circle(subpixelbase<int,int>,subpixelbase<int,int>,int,int)
+ 0F2C:0462       grcg_setcolor_direct_seg3_raw()
+ 0F2C:047C idle  grcg_setmode_rmw_seg3()
+ 0F2C:0482       item_splashes_init()
+ 0F2C:0498       item_splashes_add(subpixelbase<int,int>,subpixelbase<int,int>)
+ 0F2C:04E0       item_splashes_update()
+ 0F2C:057B idle  midboss1_update()
+ 0F2C:09EF idle  midboss3_update()
+ 0F2C:0EB0 idle  midbossx_update()
+ 0F2C:0FFC       gather_point_render(int,int)
+ 0F2C:1261 idle  midboss2_update()
+ 0F2C:1818 idle  midboss4_update()
+ 0F2C:1AB3 idle  ENEMY_POS_UPDATE
+ 0F2C:1AF6 idle  ENEMY_VELOCITY_SET
+ 0F2C:21D1 idle  explosions_small_reset()
+ 0F2C:21E0       boss_explode_small(explosion_type_t)
+ 0F2C:2260 idle  boss_explode_big(unsigned int)
+ 0F2C:2309 idle  thicklaser_template_pull(thicklaser_t near&)
+ 0F2C:30E9       marisa_flystep_pointreflected(int)
+ 0F2C:4257 idle  ENEMIES_ADD
+ 0F2C:4335       std_run()
+ 0F2C:43A2 idle  ENEMY_BULLET_TEMPLATE_PUSH
+ 0F2C:43BD       ENEMIES_UPDATE
+ 0F2C:4BE8 idle  MUGETSU_PHASE2_NEXT
+ 0F2C:4F52 idle  POINTNUM_DIGITS_SET
+ 0F2C:4F78 idle  kurumi_spawnrays_add(int,unsigned char)
+ 0F2C:6420       midboss_reset()
+ 0F2C:6444       midboss_activate_if_stage_frame_()
+ 0F2C:647F       hud_hp_update_and_render(int,int)
+ 0F2C:64D7       midboss_score_bonus(unsigned int)
+ 0F2C:6543       boss_score_bonus(unsigned int)
+ 0F2C:65B4       midboss_defeat_update()
+ 0F2C:65F0 idle  chasecrosses_add(unsigned char,unsigned char)
+ 0F2C:6AA6 idle  _yuuka6_anim_parasol_back_close
+ 0F2C:6B15 idle  _yuuka6_anim_parasol_back_open
+ 0F2C:6B85 idle  _yuuka6_anim_parasol_back_pull_forward
+ 0F2C:6BEF idle  _yuuka6_anim_parasol_back_pull_left
+ 0F2C:6C4E idle  _yuuka6_anim_parasol_left_spin_back
+ 0F2C:6D25 idle  _yuuka6_anim_vanish
+ 0F2C:6D9A idle  _yuuka6_anim_appear
+ 0F2C:6E10 idle  _yuuka6_anim_parasol_shield
+ 0F2C:7998 idle  YUUKA6_PHASE_NEXT
+ 0F2C:8C37 idle  bullet_turn_x(bullet_t near&)
+ 0F2C:8C6B idle  bullet_turn_y(bullet_t near&)
+ 0F2C:8C9F idle  bullet_update_special(bullet_t near&)
+ 0F2C:8E31       bullets_update()
+ 0F2C:919B idle  tune_for_easy()
+ 0F2C:921C idle  tune_for_hard()
+ 0F2C:92D5 idle  tune_for_lunatic()
+ 0F2C:9373 idle  tune_for_playperf()
+ 0F2C:9426       BULLET_TEMPLATE_TUNE_EASY
+ 0F2C:942D       BULLET_TEMPLATE_TUNE_NORMAL
+ 0F2C:9431       BULLET_TEMPLATE_TUNE_HARD
+ 0F2C:9438       BULLET_TEMPLATE_TUNE_LUNATIC
+ 0F2C:943F       BULLETS_ADD_REGULAR_EASY
+ 0F2C:9469       BULLETS_ADD_REGULAR_NORMAL
+ 0F2C:9487       BULLETS_ADD_REGULAR_HARD_LUNATIC
+ 0F2C:94A5       BULLETS_ADD_SPECIAL_EASY
+ 0F2C:94C3       BULLETS_ADD_SPECIAL_NORMAL
+ 0F2C:94E1       BULLETS_ADD_SPECIAL_HARD_LUNATIC
+ 0F2C:94FF       _bullets_add_regular_fixedspeed
+ 0F2C:950E       _bullets_add_special_fixedspeed
+ 0F2C:951D idle  bullet_velocity_and_angle_set(int)
+ 0F2C:9722 idle  bullet_template_speedtune_for_pl()
+ 0F2C:9768 idle  BULLET_PATNUM_FOR_ANGLE
+ 0F2C:977E idle  bullet_template_clip()
+ 0F2C:97DD idle  bullets_add_regular_raw()
+ 0F2C:9908 idle  bullets_add_special_raw()
+ 0F2C:9C0A       stage_clear_bonus()
+ 0F2C:9DDF       stage_allclear_bonus()
+ 0F2C:9F81       items_add(int,int,item_type_t)
+ 0F2C:A017 idle  ITEMS_MISS_ADD
+ 0F2C:A3A6 idle  ITEMS_UPDATE
+ 0F2C:A4AA       boss_reset()
+ 0F2C:A4F1       bb_boss_load(const char far*)
+ 0F2C:A51D       bb_boss_free()
+ 0F2C:AB21       boss_hittest_shots_damage(int,int,int)
+ 0F2C:AB61       midboss_hittest_shots_damage(int,int,int)
+ 0F2C:AB97       boss_hittest_shots()
+ 0F2C:ABC0       boss_hittest_shots_invincible()
+ 0F2C:ABD2       boss_items_drop()
+ 0F2C:AC35       boss_phase_next(explosion_type_t,int)
+ 0F2C:AC85       gengetsu_start()
+ 0F2C:AD11       boss_defeat_update()
+ 0F2C:B0C3 idle  orbs_add_moving()
+ 0F2C:B11E idle  orbs_add_spinning(unsigned char,int)
+ 0F2C:C7FC       gengetsu_update()
+ 1BF4:0000 idle  DATASEG@
+ 1BF4:005A idle  __Int0Vector
+ 1BF4:005E idle  __Int4Vector
+ 1BF4:0062 idle  __Int5Vector
+ 1BF4:0066 idle  __Int6Vector
+ 1BF4:006A idle  __C0argc
+ 1BF4:006C idle  __C0argv
+ 1BF4:0070       __C0environ
+ 1BF4:0074       __envLng
+ 1BF4:0076       __envseg
+ 1BF4:0078       __envSize
+ 1BF4:007A       __psp
+ 1BF4:007C idle  __osmajor
+ 1BF4:007C idle  __osversion
+ 1BF4:007C       __version
+ 1BF4:007D idle  __osminor
+ 1BF4:007E       _errno
+ 1BF4:0080 idle  __Exception_list
+ 1BF4:0082 idle  ___brklvl
+ 1BF4:0084       __heapbase
+ 1BF4:0088       __brklvl
+ 1BF4:008C       __heaptop
+ 1BF4:0090 idle  _NEW_HANDLER
+ 1BF4:009E       _eyename
+ 1BF4:00A8       _bbname
+ 1BF4:01E7 idle  _aGAME_PAUSE_SPACES_2
+ 1BF4:01EC idle  _aGAME_PAUSE_SPACES_3
+ 1BF4:01F1       _demo_fn
+ 1BF4:01FB       _DEMOPLAY_BINARY_OP
+ 1BF4:01FE       _EMS_NAME
+ 1BF4:020F       _FACESET_REIMU_FN_0
+ 1BF4:0218       _FACESET_MARISA_FN_0
+ 1BF4:0222 idle  AtanTable8
+ 1BF4:0222 idle  _AtanTable8
+ 1BF4:032A idle  BFNT_ID
+ 1BF4:032A idle  _BFNT_ID
+ 1BF4:0330 idle  _ClipXL
+ 1BF4:0330 idle  ClipXL
+ 1BF4:0332 idle  _ClipXW
+ 1BF4:0332 idle  ClipXW
+ 1BF4:0334 idle  _ClipXR
+ 1BF4:0334 idle  ClipXR
+ 1BF4:0336 idle  _ClipYT
+ 1BF4:0336 idle  ClipYT
+ 1BF4:0338 idle  _ClipYH
+ 1BF4:0338 idle  ClipYH
+ 1BF4:033A idle  _ClipYB
+ 1BF4:033A idle  ClipYB
+ 1BF4:033C idle  _ClipYT_seg
+ 1BF4:033C idle  ClipYT_seg
+ 1BF4:033E idle  _ClipYB_adr
+ 1BF4:033E idle  ClipYB_adr
+ 1BF4:0340 idle  EDGES
+ 1BF4:0362 idle  _file_BufferSize
+ 1BF4:0362 idle  file_BufferSize
+ 1BF4:0364 idle  _file_Handle
+ 1BF4:0364 idle  file_Handle
+ 1BF4:0366 idle  _file_sharingmode
+ 1BF4:0366 idle  file_sharingmode
+ 1BF4:0392 idle  graph_VramSeg
+ 1BF4:0392 idle  _graph_VramSeg
+ 1BF4:0394 idle  _graph_VramWords
+ 1BF4:0394 idle  graph_VramWords
+ 1BF4:0396 idle  graph_VramLines
+ 1BF4:0396 idle  _graph_VramLines
+ 1BF4:0398 idle  graph_VramWidth
+ 1BF4:0398 idle  _graph_VramWidth
+ 1BF4:039A idle  _graph_VramZoom
+ 1BF4:039A idle  graph_VramZoom
+ 1BF4:039C idle  graph_MeshByte
+ 1BF4:039C idle  _graph_MeshByte
+ 1BF4:039E       js_bexist
+ 1BF4:039E idle  _js_bexist
+ 1BF4:03A0 idle  js_saj_port
+ 1BF4:03A0 idle  _js_saj_port
+ 1BF4:03A2 idle  _js_2player
+ 1BF4:03A2 idle  js_2player
+ 1BF4:03A4 idle  js_shift
+ 1BF4:03A4 idle  _js_shift
+ 1BF4:03A6 idle  Machine_State
+ 1BF4:03A6 idle  _Machine_State
+ 1BF4:03A8 idle  PaletteTone
+ 1BF4:03A8       _PaletteTone
+ 1BF4:03AA idle  PalettesInit
+ 1BF4:03AA idle  _PalettesInit
+ 1BF4:03DA idle  PaletteNote
+ 1BF4:03DA idle  _PaletteNote
+ 1BF4:03DC idle  ResPalSeg
+ 1BF4:03DC idle  _ResPalSeg
+ 1BF4:03DE idle  SdiExists
+ 1BF4:03DE idle  _SdiExists
+ 1BF4:03E0 idle  bbufsiz
+ 1BF4:03E0       _bbufsiz
+ 1BF4:03E2 idle  pferrno
+ 1BF4:03E2 idle  _pferrno
+ 1BF4:03E4 idle  pfkey
+ 1BF4:03E4 idle  _pfkey
+ 1BF4:03E6 idle  _random_seed
+ 1BF4:03E6 idle  random_seed
+ 1BF4:03EA idle  _SinTable7
+ 1BF4:03EA idle  SinTable7
+ 1BF4:04EA       _SinTable8
+ 1BF4:056A       _CosTable8
+ 1BF4:076A idle  TextVramAdr
+ 1BF4:076A idle  _TextVramAdr
+ 1BF4:076C idle  TextVramSeg
+ 1BF4:076C idle  _TextVramSeg
+ 1BF4:076E idle  TextVramWidth
+ 1BF4:076E idle  _TextVramWidth
+ 1BF4:0770 idle  TextShown
+ 1BF4:0770 idle  _TextShown
+ 1BF4:0772 idle  _vsync_Proc
+ 1BF4:0772 idle  vsync_Proc
+ 1BF4:0776 idle  _vsync_Delay
+ 1BF4:0776 idle  vsync_Delay
+ 1BF4:0778 idle  _vsync_OldMask
+ 1BF4:0778 idle  vsync_OldMask
+ 1BF4:077A idle  BYTE_MASK
+ 1BF4:0782 idle  mem_TopSeg
+ 1BF4:0782 idle  _mem_TopSeg
+ 1BF4:0784 idle  mem_MyOwn
+ 1BF4:0784 idle  _mem_MyOwn
+ 1BF4:0786 idle  mem_AllocID
+ 1BF4:0786 idle  _mem_AllocID
+ 1BF4:0788 idle  mem_Reserve
+ 1BF4:0788 idle  _mem_Reserve
+ 1BF4:07AA idle  _super_buffer
+ 1BF4:07AA idle  super_buffer
+ 1BF4:07AC idle  super_patnum
+ 1BF4:07AC idle  _super_patnum
+ 1BF4:07AE idle  super_charfree
+ 1BF4:07AE idle  _super_charfree
+ 1BF4:07B6       _mpn_show_palette_on_load
+ 1BF4:07B8 idle  intdiv
+ 1BF4:07BA idle  note_dat
+ 1BF4:07EA idle  lcount
+ 1BF4:086A idle  glb
+ 1BF4:086A idle  _bgm_glb
+ 1BF4:08D6       _snd_se_priorities
+ 1BF4:08E7       _snd_se_priority_frames
+ 1BF4:08F8       _snd_se_mode
+ 1BF4:08F9       _snd_bgm_mode
+ 1BF4:08FA       _snd_midi_possible
+ 1BF4:08FC       _SND_LOAD_EXT
+ 1BF4:0918       _snd_se_playing
+ 1BF4:0919       _snd_se_frame
+ 1BF4:091A       _cdg_noalpha
+ 1BF4:091C       _std_seg
+ 1BF4:091E       _std_fn
+ 1BF4:093E idle  _TILE_SECTION_OFFSETS
+ 1BF4:098C       _pointnum_times_2
+ 1BF4:098E idle  _sPOINTNUMS
+ 1BF4:0F8E idle  _SHOT_LASER_DOTS
+ 1BF4:0F94 idle  _sSPARKS
+ 1BF4:1394 idle  _VELOCITY_192_AT_ANGLE
+ 1BF4:1794 idle  _MIDBOSS3_FLY_ANGLES
+ 1BF4:17A0 idle  _sPELLET
+ 1BF4:1820 idle  _sPELLET_BOTTOM
+ 1BF4:1860       _playfield_shake_redraw_time
+ 1BF4:1864 idle  _total_slow_frames
+ 1BF4:1868 idle  _total_frames
+ 1BF4:186C       _total_std_frames
+ 1BF4:186E       _dialog_fn
+ 1BF4:1872       _dialog_fn_yuuka5_defeat_bad
+ 1BF4:1876       _BOX_TILES
+ 1BF4:188E       _number_of_calls_to_this_function
+ 1BF4:18A4       _dialog_kanji_buf
+ 1BF4:18A7       _FACESET_REIMU_FN_1
+ 1BF4:18B0       _FACESET_MARISA_FN_1
+ 1BF4:18B9       _FACESET_MUGETSU_DEFEAT_FN
+ 1BF4:18C2       _FACESET_GENGETSU_DEFEAT_FN
+ 1BF4:18CB       _BOMB_BG_REIMU_FN
+ 1BF4:18D3       _BOMB_BG_MARISA_FN
+ 1BF4:18DC       _explosion_big_frame
+ 1BF4:18DE idle  _shot_laser_ring_cycle
+ 1BF4:1910       _CARPET_TILE_IMAGE_VOS
+ 1BF4:19A0       _CARPET_LIGHTING_ANIM
+ 1BF4:1A60       _carpet_lighting_cel
+ 1BF4:1A62 idle  _MARISA_BIT_HP
+ 1BF4:1A6A idle  _extends_gained
+ 1BF4:1A6B       _hiscore_popup_shown
+ 1BF4:1AC1 idle  _HUD_POWER_COLORS
+ 1BF4:1ACB idle  _gHUD_HP_BLANK
+ 1BF4:1AD4 idle  _HUD_HP_COLORS
+ 1BF4:1AD9 idle  _hud_bar_max
+ 1BF4:1AF8 idle  _bb_playchar_bb_fn
+ 1BF4:1AFC idle  _bb_playchar_cdg_fn
+ 1BF4:1B60       _shots_hittest_against_boss
+ 1BF4:1B66       _overlay_fade
+ 1BF4:1B67       _boss_bgm_frame
+ 1BF4:1B68       _popup_frame
+ 1BF4:1B6A idle  _bb_txt_seg
+ 1BF4:1B6C       _gStage_1
+ 1BF4:1B74       _gFINAL_STAGE
+ 1BF4:1B80       _gEXTRA_STAGE
+ 1BF4:1BAA       _POPUP_STRINGS
+ 1BF4:1BBA       _dissolve_sprite
+ 1BF4:1BBC       _PLAYFIELD_BLANK_ROW
+ 1BF4:1BC0       _STAGE_TITLES
+ 1BF4:1BE0       _BGM_TITLES
+ 1BF4:1C24       _gDEMO_PLAY
+ 1BF4:1EA6 idle  aTxt_bb
+ 1BF4:1EAD idle  aTxt2_bb
+ 1BF4:1EB8       _FIVE_DIGIT_POWERS_OF_10
+ 1BF4:1EC2       _temp_lebcd
+ 1BF4:1ECA       _hud_gaiji_row
+ 1BF4:1ED4       _hud_hp_bar_value_prev
+ 1BF4:1ED8 idle  _YUUKA6_PHASE2_FLY_ANGLES
+ 1BF4:1EE2 idle  _SHOT_LEVEL_TO_POWER
+ 1BF4:1EF4       _CFG_FN
+ 1BF4:1EFE       _checkerboard
+ 1BF4:1F08       _gCONTINUE_
+ 1BF4:1F10       _group_fixedspeed
+ 1BF4:1F12 idle  _STAGE_CLEAR_BONUS_DESC
+ 1BF4:22F8 idle  _item_playperf_raise
+ 1BF4:22F9 idle  _item_playperf_lower
+ 1BF4:22FA idle  _ITEM_PATNUM
+ 1BF4:2308 idle  _POWER_OVERFLOW_BONUS
+ 1BF4:235E idle  _DREAM_SCORE_PER_ITEMS
+ 1BF4:236E idle  _power_overflow
+ 1BF4:2370 idle  _items_spawned
+ 1BF4:2372 idle  _items_collected
+ 1BF4:2374 idle  _total_point_items_collected
+ 1BF4:2376 idle  _total_max_valued_point_items_collected
+ 1BF4:2378 idle  _items_pull_to_player
+ 1BF4:237A idle  _ITEM_MISS_VELOCITIES
+ 1BF4:23B6       _BOSS_ITEM_DROPS
+ 1BF4:23C5       _boss_phase_timed_out
+ 1BF4:2472       _st06bk_cdg
+ 1BF4:247D       _st06_bb
+ 1BF4:24C2       _reimu_pattern8_angle
+ 1BF4:24C3       _reimu_bg_pulse_direction
+ 1BF4:24C4       _gengetsu_wave_amp
+ 1BF4:24E6       __atexitcnt
+ 1BF4:24E8       __exitbuf
+ 1BF4:24EC idle  __exitfopen
+ 1BF4:24F0 idle  __exitopen
+ 1BF4:24F4       __streams
+ 1BF4:2684       __nfile
+ 1BF4:2686       __openfd
+ 1BF4:26AE idle  __doserrno
+ 1BF4:26B0 idle  __dosErrorToSV
+ 1BF4:270A       __stklen
+ 1BF4:270C       __ctype
+ 1BF4:2810 idle  ___path_dbcs_vector
+ 1BF4:2814 idle  ___path_dbcs_default
+ 1BF4:2824       __sys_nerr
+ 1BF4:2826       __environ
+ 1BF4:2852 idle  __ScanTodVector
+ 1BF4:2852 idle  __RealCvtVector
+ 1BF4:2862       _DemoBuf
+ 1BF4:2866 idle  trapez_a
+ 1BF4:2866 idle  _trapez_a
+ 1BF4:286E idle  trapez_b
+ 1BF4:286E idle  _trapez_b
+ 1BF4:2876 idle  _file_Pointer
+ 1BF4:2876 idle  file_Pointer
+ 1BF4:287A idle  _file_Buffer
+ 1BF4:287A idle  file_Buffer
+ 1BF4:287E idle  _file_BufferPos
+ 1BF4:287E idle  file_BufferPos
+ 1BF4:2882 idle  _file_BufPtr
+ 1BF4:2882 idle  file_BufPtr
+ 1BF4:2884 idle  _file_InReadBuf
+ 1BF4:2884 idle  file_InReadBuf
+ 1BF4:2886 idle  _file_Eof
+ 1BF4:2886 idle  file_Eof
+ 1BF4:2888 idle  _file_ErrorStat
+ 1BF4:2888 idle  file_ErrorStat
+ 1BF4:288E       js_stat
+ 1BF4:288E idle  _js_stat
+ 1BF4:2892 idle  Palettes
+ 1BF4:2892       _Palettes
+ 1BF4:28C2       _vsync_Count1
+ 1BF4:28C2 idle  vsync_Count1
+ 1BF4:28C4 idle  _vsync_Count2
+ 1BF4:28C4 idle  vsync_Count2
+ 1BF4:28C6 idle  _vsync_OldVect
+ 1BF4:28C6 idle  vsync_OldVect
+ 1BF4:28CA idle  vsync_delay_count
+ 1BF4:28CC idle  mem_OutSeg
+ 1BF4:28CC idle  _mem_OutSeg
+ 1BF4:28CE idle  mem_TopHeap
+ 1BF4:28CE idle  _mem_TopHeap
+ 1BF4:28D0 idle  mem_FirstHole
+ 1BF4:28D0 idle  _mem_FirstHole
+ 1BF4:28D2 idle  mem_EndMark
+ 1BF4:28D2 idle  _mem_EndMark
+ 1BF4:28D4 idle  super_patdata
+ 1BF4:28D4 idle  _super_patdata
+ 1BF4:2CD4 idle  super_patsize
+ 1BF4:2CD4 idle  _super_patsize
+ 1BF4:30D4       _VRAM_PLANE_B
+ 1BF4:30D4 idle  _VRAM_PLANE
+ 1BF4:30D8       _VRAM_PLANE_R
+ 1BF4:30DC       _VRAM_PLANE_G
+ 1BF4:30E0       _VRAM_PLANE_E
+ 1BF4:316A       _hflip_lut
+ 1BF4:326A       _mpn_slots
+ 1BF4:346A       _snd_interrupt_if_midi
+ 1BF4:346C idle  timerorg
+ 1BF4:3470 idle  part
+ 1BF4:3470 idle  _bgm_part
+ 1BF4:34B2 idle  esound
+ 1BF4:34B2 idle  _bgm_esound
+ 1BF4:3774       _snd_load_fn
+ 1BF4:3782       _mem_assign_paras
+ 1BF4:3784       _key_det
+ 1BF4:3786       _shiftkey
+ 1BF4:3788       _cdg_slots
+ 1BF4:3B88       cdg_images_to_load
+ 1BF4:3B8A       _std_enemy_scripts
+ 1BF4:3BCA       _std_ip
+ 1BF4:3BDC idle  _randring
+ 1BF4:3CDC idle  _randring_p
+ 1BF4:3CDE idle  _pointnum_white_p
+ 1BF4:3CDF idle  _pointnum_yellow_p
+ 1BF4:3CE0 idle  _pointnums_alive
+ 1BF4:4002 idle  _pointnum_first_yellow_alive
+ 1BF4:4004       _spark_ring_offset
+ 1BF4:4006       _item_splashes
+ 1BF4:4060       _item_splash_last_id
+ 1BF4:4062       _circles_color
+ 1BF4:406A idle  _midboss3_patterns_done
+ 1BF4:4070       _scroll_line_on_page
+ 1BF4:4074       _tile_invalidate_box
+ 1BF4:4078       _bg_render_not_bombing
+ 1BF4:407A idle  _bg_render_bombing
+ 1BF4:407C       _bg_render_bombing_func
+ 1BF4:4080       _tile_render_all_time
+ 1BF4:4086       _scroll_subpixel_line
+ 1BF4:4087       _scroll_speed
+ 1BF4:4088       _scroll_line
+ 1BF4:408C       _scroll_active
+ 1BF4:408E       _playfield_shake_x
+ 1BF4:4090       _playfield_shake_y
+ 1BF4:4092       _playfield_shake_anim_time
+ 1BF4:409A       _std_update
+ 1BF4:409C       _dialog_p
+ 1BF4:40A0       _dialog_cursor
+ 1BF4:40A4       _dialog_side
+ 1BF4:40A6       _script_param_number_default
+ 1BF4:40A8       _explosions_small
+ 1BF4:40C8       _explosions_big
+ 1BF4:40D8 idle  _shot_laser_time
+ 1BF4:40DA idle  _shot_laser_style
+ 1BF4:40DC idle  _shot_laser_bottomcenter
+ 1BF4:40E8 idle  _thicklaser_template
+ 1BF4:4100       _thicklasers
+ 1BF4:4138       _carpet_light_level
+ 1BF4:413A       _stage_invalidate
+ 1BF4:413C       _stage_render
+ 1BF4:4142 idle  _bits_alive
+ 1BF4:4144       _marisa_phase
+ 1BF4:4146 idle  _bit_fire
+ 1BF4:4148 idle  _bit_center_x
+ 1BF4:4150 idle  _bit_center_y
+ 1BF4:4158       _rank
+ 1BF4:4159       _score
+ 1BF4:4159 idle  _continues_used
+ 1BF4:4161       _hiscore
+ 1BF4:4169       _score_unused
+ 1BF4:416A       _score_delta
+ 1BF4:416E       _score_delta_frame
+ 1BF4:4174 idle  _shot_ptr
+ 1BF4:4176 idle  _shot_last_id
+ 1BF4:4178 idle  _bombing
+ 1BF4:4179 idle  _bomb_frame
+ 1BF4:417A idle  _player_bomb_func
+ 1BF4:417C idle  _playchar_bomb_func
+ 1BF4:417E idle  _bb_playchar_seg
+ 1BF4:4180 idle  _bomb_stars
+ 1BF4:42AE       _shot_hitbox_center
+ 1BF4:42B2       _shot_hitbox_radius
+ 1BF4:42B6 idle  _shots_alive
+ 1BF4:444E idle  _shots_alive_count
+ 1BF4:4452       _homing_target
+ 1BF4:4456       _stage_vm
+ 1BF4:445A idle  _enemy_cur
+ 1BF4:445E       _player_pos
+ 1BF4:4472       _player_invincibility_time
+ 1BF4:4474       _power
+ 1BF4:4475 idle  _shot_level
+ 1BF4:4476 idle  _shot_time
+ 1BF4:4479       _player_is_hit
+ 1BF4:447A idle  _miss_time
+ 1BF4:447B idle  _stage_point_items_collected
+ 1BF4:447C idle  _player_option_pos_cur
+ 1BF4:4480 idle  _player_option_pos_prev
+ 1BF4:4486 idle  _dream_items_collected
+ 1BF4:4489 idle  _miss_explosion_angle
+ 1BF4:448A idle  _miss_explosion_radius
+ 1BF4:4490       _stage_title_len
+ 1BF4:4492       _stage_bgm_title_len
+ 1BF4:4494       _stage_title_id
+ 1BF4:4496       _boss_bgm_title_len
+ 1BF4:4498       _popup_gaiji_len
+ 1BF4:449A       _popup_id_cur
+ 1BF4:449B       _popup_dest_reached
+ 1BF4:449C       _popup_shiftbuf
+ 1BF4:44A6       _popup_cur_tram_left
+ 1BF4:44A8       _popup_dest_tram_left
+ 1BF4:44AA       _bgm_title_id
+ 1BF4:44AB       _overlay_popup_id_new
+ 1BF4:44AC       _overlay1
+ 1BF4:44AE       _overlay2
+ 1BF4:44B0       _titles_frame
+ 1BF4:44B2       _overlay_popup_bonus
+ 1BF4:44BE idle  _mugetsu_phase2_mode
+ 1BF4:44C2       _midboss_active
+ 1BF4:44C4       _midboss_invalidate
+ 1BF4:44C6       _midboss_update
+ 1BF4:44CA       _midboss_render
+ 1BF4:44CC       _midboss_update_func
+ 1BF4:44D0       _midboss_render_func
+ 1BF4:44D6 idle  _yuuka6_sprite_flag
+ 1BF4:44D7 idle  _yuuka6_phase2_fly_path
+ 1BF4:44DA idle  _yuuka6_anim_frame
+ 1BF4:44F4       _elly_phase
+ 1BF4:450C       _page_back
+ 1BF4:450D       _page_front
+ 1BF4:450E       _map_seg
+ 1BF4:4510       _halftiles_dirty
+ 1BF4:4B50       _tile_ring
+ 1BF4:4B50 idle  _halftiles_dirty_end
+ 1BF4:5190       _std_map_section_id
+ 1BF4:5192       _tile_row_in_section
+ 1BF4:5194       _std_scroll_speed
+ 1BF4:5196 idle  _frames_unused
+ 1BF4:519A       _stage_frame
+ 1BF4:519C       _stage_frame_mod2
+ 1BF4:519D       _stage_frame_mod4
+ 1BF4:519E       _stage_frame_mod8
+ 1BF4:519F       _stage_frame_mod16
+ 1BF4:51A0       _slowdown_factor
+ 1BF4:51A2       _quit
+ 1BF4:51A3       _palette_changed
+ 1BF4:51A4       _stage_id
+ 1BF4:51A5       _playperf
+ 1BF4:51A6 idle  _playperf_max
+ 1BF4:51A7 idle  _playperf_min
+ 1BF4:51A8       _playchar
+ 1BF4:51AA       _drawpoint
+ 1BF4:51AE       _Ems
+ 1BF4:51B0       _turbo_mode
+ 1BF4:51B2       _bullet_template
+ 1BF4:51C4 idle  _midboss_pos
+ 1BF4:51C4       _midboss
+ 1BF4:51D0 idle  _midboss_frames_until
+ 1BF4:51D2 idle  _midboss_hp
+ 1BF4:51D4 idle  _midboss_sprite
+ 1BF4:51D5 idle  _midboss_phase
+ 1BF4:51D6 idle  _midboss_phase_frame
+ 1BF4:51D8 idle  _midboss_damage_this_frame
+ 1BF4:51D9 idle  _midboss_angle
+ 1BF4:51DA idle  _boss_pos
+ 1BF4:51DA       _boss
+ 1BF4:51E6 idle  _boss_hp
+ 1BF4:51E8 idle  _boss_sprite
+ 1BF4:51E9 idle  _boss_phase
+ 1BF4:51EA idle  _boss_phase_frame
+ 1BF4:51EC idle  _boss_damage_this_frame
+ 1BF4:51ED idle  _boss_mode
+ 1BF4:51EE idle  _boss_angle
+ 1BF4:51EF idle  _boss_phase_state
+ 1BF4:51F0 idle  _boss_phase_end_hp
+ 1BF4:51F2       _sparks
+ 1BF4:5832 idle  _pellets
+ 1BF4:5832       _bullets
+ 1BF4:7092 idle  _bullets16
+ 1BF4:84E2       _pellets_render
+ 1BF4:88A2 idle  _enemies
+ 1BF4:90A2       _gather_circles
+ 1BF4:9396       _gather_template
+ 1BF4:93A4       _circles
+ 1BF4:9444 idle  _pointnums
+ 1BF4:AD44 idle  _items
+ 1BF4:B014 idle  _custom_entities
+ 1BF4:B36E idle  _shots
+ 1BF4:B896       _resident
+ 1BF4:B89A idle  _tiles_bb_col
+ 1BF4:B89C       _boss_backdrop_colorfill
+ 1BF4:B89E idle  _tiles_bb_seg
+ 1BF4:B8A2 idle  _bg_shapes
+ 1BF4:B9F8 idle  _bg_shape_patnum
+ 1BF4:B9FA idle  _bg_shape_flyout_speed
+ 1BF4:B9FC idle  _bg_shape_clip
+ 1BF4:B9FE       _hi
+ 1BF4:BAC2       _entered_place
+ 1BF4:BAC6       _group_i_spread_angle
+ 1BF4:BAC7       _bullet_special
+ 1BF4:BAC8       _bullet_template_special_angle
+ 1BF4:BAC9       _bullet_zap
+ 1BF4:BACA       _bullet_clear_time
+ 1BF4:BACC       _stage_graze
+ 1BF4:BACE       _graze_score
+ 1BF4:BAD0       _bullets_add_regular
+ 1BF4:BAD2       _bullets_add_special
+ 1BF4:BAD4 idle  _bullet_template_tune
+ 1BF4:BAD6       _pellets_render_count
+ 1BF4:BAD8       _group_i_absolute_angle
+ 1BF4:BADA       _bombing_disabled
+ 1BF4:BADC idle  _dream_score
+ 1BF4:BAE0       _boss_update
+ 1BF4:BAE4       _boss_fg_render
+ 1BF4:BAE6       _boss_bg_render_func
+ 1BF4:BAE8       _boss_update_func
+ 1BF4:BAEC       _boss_fg_render_func
+ 1BF4:BAEE       _boss_statebyte
+ 1BF4:BAFE idle  _bb_boss_seg
+ 1BF4:BB00       _boss_hitbox_radius
+ 1BF4:BB04       _stage5_star_center_y
+ 1BF4:BB0B idle  _orb_patnum_base
+ 1BF4:BB0E idle  _orb_template
+ 1BF4:BB2A       _gengetsu_wave_target_x
+ 1BF4:BB2C       __atexittbl
+
+Program entry point at 0000:0000
+
